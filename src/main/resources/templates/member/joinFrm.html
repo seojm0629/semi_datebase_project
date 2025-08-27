@@ -132,9 +132,11 @@
 		$("#search-addr").on("click", function(){
 			new daum.Postcode({
 		        oncomplete: function(data) {
-		            const addr = $("#address").val(data.roadAddress);
-		            const dAddr = $("#detail-address").focus();
-		           $("#memberAddr").attr("value", addr+dAddr);
+		            let addr = $("#address").val(data.roadAddress);
+		            let dAddr = $("#address").val(data.roadAddress);
+		            console.log(addr);
+		            console.log(dAddr);
+		           $("#memberAddr").attr("value", "뭐가 문제냐고");
 		        }
 		    }).open();
 		});

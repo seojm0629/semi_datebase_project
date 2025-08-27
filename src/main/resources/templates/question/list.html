@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<section>
+			<div class="wrap">
+        <header class="header">
+            <div>
+                <div class="logo">
+                    <a href="/"><img src="img/title.png"></a>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="">DateBase는?</a></li>
+                        <li><a href="">소개팅</a></li>
+                        <li><a href="">파티</a></li>
+                        <li><a href="">후기❤</a></li>
+                        <li><a href="">문의사항</a></li>
+                    </ul>
+                </nav>
+
+                <ul class="user-menu">
+                    
+                        <li><a href="">로그인</a></li>
+                        <li><a href="">회원가입</a></li>
+                    
+                    
+                        <li><a href="" th:text="${session.member.memberName}"></a></li>
+                        <li><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="content-wrap">
+		<form action="/question/list" method="get">
+
+            <div class="content-header">
+                <div class="content-name">문의사항</div>
+                <div class="content-search">
+                    <input type="text" name="search" id="search" placeholder="Search">
+                    <span class="material-icons">search</span>
+                </div>
+            </div>
+            <div class="content-write">
+                <button type="submit">글쓰기</button>
+            </div>
+            
+            <div class="content-list">
+                <table class="list-title">
+                    <tr>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                    </tr>
+                </table>
+                <table class="list-number">
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>소개팅 문의</td>
+                        <td>user1</td>
+                        <td>2025-08-25</td>
+                    </tr>
+                </table>
+
+                <div class="page-check">
+                    <span class="material-icons">keyboard_double_arrow_left</span>
+                    <span class="material-icons">keyboard_arrow_left</span>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span class="material-icons">keyboard_arrow_right</span>
+                    <span class="material-icons">keyboard_double_arrow_right</span>
+                </div>
+            </div>
+            
+		</form>
+
+        </div>
+
+        <footer class="footer">
+        <div>
+            <ul>
+                <li><a href="">개인정보 처리방침</a></li>
+                <li><a href="">사이트 이용약관</a></li>
+                <li><a href=""></a>쿠키정책</li>
+            </ul>
+            <p>대표 : 이윤수</p>
+            <p>오시는 길 : 서울특별시 영등포구 선유도동 이레빌딩</p>
+            <p>사업자 등록번호 : 110-83-00902</p>
+        </div>
+
+
+        </footer>
+    </div>
+			
+			
+			
+		</section>
+	</main>
+</body>
+</html>

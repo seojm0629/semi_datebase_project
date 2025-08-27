@@ -110,7 +110,7 @@ header>div>.user-menu {
 
 .footer {
 	background-color: #faf8f1;
-	position: absolute;
+	position: relative;
 	bottom: 0;
 	left: 0; /* 왼쪽 끝 붙이기 */
 	width: 100%; /* 화면 끝까지 폭 채우기 */

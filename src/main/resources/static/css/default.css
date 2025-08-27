@@ -53,6 +53,35 @@
 a {
   text-decoration: none;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between; /* 좌-우로 배치 */
+  align-items: center;           /* 세로 가운데 정렬 */
+  padding: 10px 20px;
+  background: #f8f8f8; /* 배경색 (테스트용) */
+}
+
+.logo img {
+  height: 50px; /* 로고 크기 조정 */
+}
+
+.nav ul {
+  display: flex;
+  gap: 20px; /* 메뉴 간격 */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-menu {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /*body {
   min-height: 100vh;
   display: flex;
@@ -460,7 +489,7 @@ section.section.bg-section {
   font-size: 30px;
   cursor: pointer;
 }
-*/
+
 .posting-wrap{
 	overflow: hidden;
 	padding: 10px;
@@ -662,3 +691,4 @@ section.section.bg-section {
 .error-wrap{
 	height:600px;
 }
+*/

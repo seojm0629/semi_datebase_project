@@ -19,7 +19,7 @@ public class Member {
 	private String memberPhone;
 	private String memberAddr;
 	private String memberEmail;
-	private String memberBirthDate;
+	private String[] birthDate;
 	private String memberGender;
 	private String memberJob;
 	private String memberMBTI;

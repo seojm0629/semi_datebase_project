@@ -76,7 +76,7 @@ public class QuestionService {
 		// 이전버튼(1페이지로 시작하는게 아닌경우에만 이전 버튼 생성
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/notice/list?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<a class='page-item' href='/question/list?reqPage="+(pageNo-1)+"'>";
 			pageNavi += "<span class='material-icons'> chevron_left </span>";
 			pageNavi += "</a>";
 			pageNavi += "</li>";
@@ -84,9 +84,9 @@ public class QuestionService {
 		for(int i=0; i<pageNaviSize; i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
-				pageNavi += "<a class='page-item active-page' href='/notice/list?reqPage="+pageNo+"'>";
+				pageNavi += "<a class='page-item active-page' href='/question/list?reqPage="+pageNo+"'>";
 			} else {
-				pageNavi += "<a class='page-item' href='/notice/list?reqPage="+pageNo+"'>";				
+				pageNavi += "<a class='page-item' href='/question/list?reqPage="+pageNo+"'>";				
 			}
 			pageNavi += pageNo;
 			pageNavi += "</a>";
@@ -101,7 +101,7 @@ public class QuestionService {
 		// 다음버튼(최종 페이지를 출력하지 않은 경우)
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/notice/list?reqPage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/question/list?reqPage="+pageNo+"'>";
 			pageNavi += "<span class='material-icons'> chevron_right </span>";
 			pageNavi += "</a>";
 			pageNavi += "</li>";

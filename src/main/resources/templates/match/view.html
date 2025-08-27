@@ -3,33 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.content{
+		width : 1200px;
+		height: 900px;
+		margin : 0 auto;
+	}
+	.page-title {
+		margin-top : 20px;
+		height : 150px;
+		text-align: center;
+		background-color : #FAF8F1;
+		display:flex;
+		flex-direction : column;
+		justify-content : center;
+	}
+	.page-title>p{
+		font-family : mainb2;
+	}
+	.content-wrap{
+		margin : 0 auto;
+	}
+	.content-wrap>div:nth-child(2){
+		text-align : center;
+	}
+	
+	.content-wrap>div:nth-child(2)>span{
+		font-weight : 900;
+	}
+	.grade-wrap{
+		margin: 0 auto;
+		margin-top:50px;
+		width:900px;
+		height : 200px;
+		
+	}
+	.grade-select{
+		display : flex;
+		text-align : center;
+		width : 900px;
+		margin : 0 auto;
+		height : 100px;
+		line-height : 100px;
+		border-bottom : 1px solid black;
+	}
+	
+	.grade-select>div{
+		font-size : 19px;
+		margin : 0 auto;
+		font-weight : 700;
+		
+	}
+	.grade{
+		background-color : #FAFAFA;
+		width : 900px;
+		height : 100px;
+		margin : 0 auto;
+		padding-left : 50px;
+		
+	}
+
+	.grade>p{
+		text-align : left;
+		line-height : 100px;
+		font-size : 22px;
+		font-weight : 700;
+	}
+	.intro-box{
+		display:flex;
+		border : 1px solid black;
+		padding : 25px;
+		justify-content : space-around;
+		margin-top : 35px;
+		border-radius : 15px;
+		
+		
+	}
+	.intro-box>.intro{
+		display : flex;
+		border : 1px solid black;
+		width : 30%;
+		height : 250px;
+		text-align : center;
+		flex-direction : column;
+		justify-content : center;
+		border-radius : 10px;
+		
+	}
+	.intro-box>.intro>div:first-child{
+		margin-bottom : 25px;
+		font-weight : 600;
+	}
+	
+	.intro-box>.intro>div:last-child{
+		font-weight : 900;
+		font-size : 24px;
+	}
+	
+	.intro-box>.category-intro{
+		display : flex;
+		flex-direction : column;
+		justify-content : center;
+		text-align : center;
+		border : 1px solid black;
+		border-radius : 10px;
+		width : 60%;
+		height : 250px;
+	}
+	.category{
+		margin-top : 40px;
+		display : flex;
+		justify-content : space-around;
+	}
+	.category>div{
+		padding : 10px 25px;
+		border : 1px solid black;
+		border-radius : 15px;
+	}
+	
+	.category-intro>div:first-child{
+			font-size: 20px;
+			font-weight: 900;
+	}
+	.category-box{
+		font-weight:600;
+	}
+	
+	.item-intro {
+		border : 1px solid black;
+		border-radius : 10px;
+		margin-top : 20px;
+		padding : 15px;
+	}
+</style>
 </head>
+<th:block th:include="common/header"></th:block>
 <body>
 	<main class="content">
 		<div class="content-wrap">
 			<div class="page-title">
 				<h3>DateBase Match</h3>
+				<p>언제나 설레는 만남을 추구하는 DateBase</p>
 			</div>
-			<div>
-				<span>Silver</span>
-				<span>Gold</span>
-				<span>Platinum</span>
+			<div class="grade-select">
+				<div class="silver">Silver</div>
+				<div class="gold">Gold</div>
+				<div class="platinum">Platinum</div>
 			</div>
 			<div class="grade-wrap">
 				<div class="grade">
-					<p>매칭 프로그램[Silver]</p>
+					<p>돈 좀 더 써라[Silver]</p>
+					
 				</div>
 				<div class="intro-box">
 					<div class="intro">
-						<p>DateBase 매칭 상품</p>
-						<p>Silver 상품이란?</p>
+						<div>DateBase 매칭 상품</div>
+						<div>Silver 상품이란?</div>
 					</div>
 					<div class="category-intro">
 						<div>
-							<p>부담없이 경험 할 수 있는 매칭 상품입니다.</p>
+							<div>부담없이 경험 할 수 있는 매칭 상품입니다.</div>
 						</div>
 						<div>
-							<p>합리적인 비용으로 서비스를 이용하고 싶으신 분들에게 추천드립니다.
+							<div>합리적인 비용으로 서비스를 이용하고 싶으신 분들에게 추천드립니다.</div>
 						</div>
 						<div class="category">
 							<div class="category-box">나이</div>
@@ -38,7 +174,8 @@
 							<div class="category-box">취미</div>
 						</div>
 					</div>
-					<div class="item-intro">
+				</div>
+				<div class="item-intro">
 						<div class="item-guide">
 							<h3>카테고리 별 상세 상품</h3>
 							<p>만남 보장 횟수별로 매칭 상품을 선택해보세요.</p>
@@ -74,10 +211,11 @@
 							<p>결제한 횟수별로 제공되는 패스권의 횟수가 다르니 주의해주시기 바랍니다.</p>
 						</div>
 					</div>
-				</div>
 			</div>
 			
 		</div>
 	</main>
+	<th:block th:include="common/footer"></th:block>
 </body>
+
 </html>

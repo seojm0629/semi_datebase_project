@@ -21,6 +21,10 @@
 				<input type="text" name="memberPw" id="memberPw">
 			</div>
 			<div class="joinFrm-input">
+				<span>비밀번호 재입력</span>
+				<input type="text" name="memberPwRe" id="memberPwRe">
+			</div>
+			<div class="joinFrm-input">
 				<span>이름</span>
 				<input type="text" name="memberName" id="memberName">
 			</div>
@@ -106,8 +110,13 @@
 				<input type="file" name="memberImg" id="memberImg" accept="image/*">
 			</div>
 		</div>
+		<div class="btn-submit">
+			<button type="button" class="btn-submit no">취소</button>
+			<button type="submit" class="btn-submit ok">회원가입</button>
+		</div>
 		</form>
 	</div>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		const date = new Date();
 		const year = `${date.getFullYear()}`;
@@ -127,17 +136,23 @@
 			;
 		}
 	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 	<script>
 		$("#search-addr").on("click", function(){
 			new daum.Postcode({
 		        oncomplete: function(data) {
-		            const addr = $("#address").val(data.roadAddress);
-		            const dAddr = $("#detail-address").focus();
+		        	
+		            const roadAddress = data.roadAddress;
+		            const zonecode = data.zonecode;
+		            //console.log($("#memberAddr").val(data.roadAddress));
+		            console.log(roadAddress);
+		            console.log(zonecode);
+		           $("#memberAddr").attr("value", roadAddress);
 		        }
 		    }).open();
 		});
 	</script>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

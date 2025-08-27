@@ -1,5 +1,13 @@
 package kr.co.iei.review.model.service;
 
-public class ReviewService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import kr.co.iei.review.model.dao.ReviewDao;
+
+@Service
+public class ReviewService {
+	
+	@Autowired
+	ReviewDao reviewDao;
 }

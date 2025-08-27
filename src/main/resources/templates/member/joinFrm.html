@@ -134,8 +134,7 @@
 		        oncomplete: function(data) {
 		            const addr = $("#address").val(data.roadAddress);
 		            const dAddr = $("#detail-address").focus();
-		            console.log(addr);
-		            console.log(dAddr);
+		           $("#memberAddr").attr("value", addr+dAddr);
 		        }
 		    }).open();
 		});

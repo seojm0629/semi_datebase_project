@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.content{
+		width : 1200px;
+		height: 900px;
+		margin : 0 auto;
+	}
+	.page-title {
+		height : 150px;
+	}
+</style>
 </head>
+<th:block th:include="common/header"></th:block>
 <body>
 	<main class="content">
 		<div class="content-wrap">
@@ -79,5 +90,7 @@
 			
 		</div>
 	</main>
+	<th:block th:include="common/footer"></th:block>
 </body>
+
 </html>

@@ -48,8 +48,8 @@ public class QuestionService {
 		// 이전버튼(1페이지로 시작하는게 아닌경우에만 이전 버튼 생성
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/question/list?reqPage="+(pageNo-1)+"'>";
-			pageNavi += "<span class='material-icons'> chevron_left </span>";
+			pageNavi += "<a class='page-item ' href='/question/list?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span class='material-icons chevron'> chevron_left </span>";
 			pageNavi += "</a>";
 			pageNavi += "</li>";
 		}
@@ -74,7 +74,7 @@ public class QuestionService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/question/list?reqPage="+pageNo+"'>";
-			pageNavi += "<span class='material-icons'> chevron_right </span>";
+			pageNavi += "<span class='material-icons chevron'> chevron_right </span>";
 			pageNavi += "</a>";
 			pageNavi += "</li>";
 		}

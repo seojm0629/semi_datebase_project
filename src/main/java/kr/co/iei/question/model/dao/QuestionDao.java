@@ -11,6 +11,8 @@ public interface QuestionDao {
 	List selectQuestionList(HashMap<String, Object> param);
 
 	int selectQuestionTotalCount();
+
+	List searchWriter(String search);
 	
 	
 

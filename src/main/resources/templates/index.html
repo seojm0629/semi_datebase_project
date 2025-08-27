@@ -6,8 +6,20 @@
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-		
-	
+
+	<div class="main-container">
+		<!-- 메인 이미지 -->
+		<div class="main-image">
+			<img src="/image/main.png" alt="메인 배너">
+		</div>
+
+		<!-- 버튼 영역 -->
+		<div class="button-group">
+			 <a href="#" class="main-btn">파티</a>
+			 <a href="/match/view"class="main-btn">소개팅</a>
+		</div>
+	</div>
+
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

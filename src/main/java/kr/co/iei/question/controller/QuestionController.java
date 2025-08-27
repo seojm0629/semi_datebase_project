@@ -20,9 +20,41 @@ public class QuestionController {
 	public String questionList(int reqPage, Model model) { // int reqPage로 페이지수와, Model 생성
 		//QuestionListData라는 클래스를 따로 생성하여 List타입의 list와 String타입의 pageNavi의 객체를 생성함
 		QuestionListData qld = questionService.selectQuestionList(reqPage);
+		System.out.println(qld);
 		model.addAttribute("list", qld.getList());
 		model.addAttribute("pageNavi", qld.getPageNavi());
-		
 		return "question/list";
 	}
+	
+	@GetMapping(value="/writeFrm")
+	public String writeFrm() {
+		
+		return "question/writeFrm";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

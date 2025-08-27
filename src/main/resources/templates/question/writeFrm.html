@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+@font-face {
+    font-family: main2;
+    src: url(../CSS/font/PyeongChang-Regular.ttf);
+}
+@font-face {
+    font-family: mainB2;
+    src: url(../CSS/font/PyeongChang-Bold.ttf);
+}
+:root{
+    --color1 : #2B2B2B;/*검은 글씨색*/
+    --color2 : #FAF8F1;/*푸터 배경색*/
+    --color3 : #FAEAB1;/**/
+    --color4 : #E5BA73;/*버튼색, 로고, 페이지 제목*/
+    --color5 : #C58940;/*푸터 두꺼운 글씨, 선 그을때*/
+    --color6 : #EAC88F;/*버튼 호버한 경우 색*/
+    --color7 : #FF6868;/*경고색*/
+    --color8 : #D9D9D9;/*취소버튼*/
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    color: #2B2B2B;
+    font-family: mainB2;
+}
+
+.content-header{
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.content-header>h1{
+    color: var(--color4);
+}
+
+.content-writer{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+.content-writer>.content-question{
+    background-color: var(--color6);
+    border: 1px solid black;
+    height: 30px;
+    line-height: 30px;
+}
+
+.content-writer>.content-title{
+    display: flex;
+}
+
+.content-title>.writer-title{
+    text-align: center;
+    width: 150px;
+    background-color: var(--color6);
+    border: 1px solid black;
+    border-top: none;
+    border-right: none;
+    height: 30px;
+    line-height: 30px;
+}
+.content-title>input{
+    width: 750px;
+    border: 1px solid black;
+    border-bottom: none ;
+    border-top: none;
+}
+
+.content-writer>.content-writer{
+    display: flex;
+}
+
+.content-writer>.writer{
+    width: 150px;
+    text-align: center;
+    background-color: var(--color6);
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid black;
+    border-top: none;
+    border-right: none;
+}
+.content-writer>.file{
+    width: 150px;
+    text-align: center;
+    background-color: var(--color6);
+    border: 1px solid black;
+    height: 30px;
+    line-height: 30px;
+    border-left: none;
+    border-right: none;
+}
+.content-writer>input{
+    width: 300px;
+    border: 1px solid black ;
+    box-sizing: border-box;
+}
+
+.content{
+    border: 1px solid black;
+    border-top: none;
+    width: 878px;
+    height: 500px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+#content{
+    width: 855px;
+    height: 450px;
+}
+
+.content-btn-box{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    height: 90px;
+    line-height: 90px;
+    border: 1px solid black;
+    border-top: none;
+    box-sizing: border-box;
+}
+
+.content-btn-box>button{
+    width: 300px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--color4);
+    font-family: mainB2;
+    font-size: 22px;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main>
+		<div class="content-wrap">
+            <div class="content-header">
+                <h1>문의사항 작성</h1>
+            </div>
+        <form action="/question/update" method = "post" enctype = "multipart/form-data">    
+            <div class="content-writer">
+                <div class="content-question">소개팅 문의</div>
+                <div class="content-title">
+                    <div class="writer-title">제목</div>
+                    <input type="text" name="title" id="title">
+                </div>
+                <div class="content-writer">
+                    <div class="writer">작성자</div>
+                    <input type="text" name="writer" id="writer">
+                    <div class="file">첨부파일</div>
+                    <input type="text" name="file" id="file">
+                </div>
+            </div>
+
+            <div class="content">
+                <textarea name="content" id="content"></textarea>
+            </div>
+
+            <div class="content-btn-box">
+                <button type="submit">공지사항 등록</button>
+            </div>
+		</form>
+        </div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

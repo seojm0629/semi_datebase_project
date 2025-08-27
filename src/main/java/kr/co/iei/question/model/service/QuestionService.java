@@ -92,4 +92,9 @@ public class QuestionService {
 		return qld;
 		
 	}
+
+	public List selectWriter(String search) {
+		List writeList = questionDao.searchWriter(search);
+		return writeList;
+	}
 }

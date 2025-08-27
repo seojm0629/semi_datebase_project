@@ -10,7 +10,46 @@
 		margin : 0 auto;
 	}
 	.page-title {
+		margin-top : 20px;
 		height : 150px;
+		text-align: center;
+		background-color : silver;
+		display:flex;
+		flex-direction : column;
+		justify-content : center;
+	}
+	.page-title>p{
+		font-family : mainb2;
+	}
+	.content-wrap{
+		margin : 0 auto;
+	}
+	.content-wrap>div:nth-child(2){
+		text-align : center;
+	}
+	
+	.content-wrap>div:nth-child(2)>span{
+		font-weight : 900;
+	}
+	.grade-wrap{
+		width:100%;
+		height : 200px;
+		
+	}
+	.grade-select{
+		display : flex;
+		text-align : center;
+		
+	}
+	
+	.grade-select>div{
+		margin : 0 auto;
+		font-weight : 700;
+	}
+	.grade{
+		background-color : #FAFAFA;
+		width : 80%;
+		height : 100px;
 	}
 </style>
 </head>
@@ -20,15 +59,17 @@
 		<div class="content-wrap">
 			<div class="page-title">
 				<h3>DateBase Match</h3>
+				<p>언제나 설레는 만남을 추구하는 DateBase</p>
 			</div>
-			<div>
-				<span>Silver</span>
-				<span>Gold</span>
-				<span>Platinum</span>
+			<div class="grade-select">
+				<div class="silver">Silver</div>
+				<div class="gold">Gold</div>
+				<div class="platinum">Platinum</div>
 			</div>
 			<div class="grade-wrap">
 				<div class="grade">
 					<p>매칭 프로그램[Silver]</p>
+					
 				</div>
 				<div class="intro-box">
 					<div class="intro">

@@ -14,7 +14,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	/*@GetMapping(value = "joinagree")
+	@GetMapping(value = "joinagree")
 	public String joinagree() {
 		return "/member/joincheck";
 	}
@@ -22,6 +22,6 @@ public class MemberController {
 	@GetMapping(value = "/joinFrm")
 	public String joinFrm() {
 		return "member/joinFrm";
-	}*/
+	}
 	
 }

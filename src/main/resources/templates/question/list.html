@@ -159,14 +159,16 @@
 	<th:block th:include="common/header"></th:block>
 	<main>
 		<div class="content-wrap">
-
+		<form action="/question/search" method="get">
             <div class="content-header">
                 <div class="content-name">문의사항</div>
                 <div class="content-search">
                     <input type="text" name="search" id="search" placeholder="Search">
+                    <input type="hidden" name="reqPage" value="1">
                     <span class="material-icons">search</span>
                 </div>
             </div>
+       </form>
             <div class="content-write">
                 <button type="submit">글쓰기</button>
             </div>
@@ -193,7 +195,7 @@
                 <div id="pageNavi" th:utext="${pageNavi}"></div>
             </div>
             
-
+		
         </div>
 	</main>
 	<th:block th:include="common/footer"></th:block>

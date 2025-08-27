@@ -17,5 +17,8 @@
   	select count(*) from question
   </select>
   
+  <select id="searchWriter" resultType="question">
+  	select * from question where question_writer like '%'||#{search}||'%'
+  </select>
   
 </mapper>

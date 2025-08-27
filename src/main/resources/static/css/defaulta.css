@@ -53,14 +53,16 @@
 	text-decoration: none;
 }
 
+.header-wrap {
+	border-bottom: 2px solid #E0B973; /* 전체 화면에 밑줄 */
+	padding-bottom: 10px; /* 밑줄 여백 */
+}
+
 .header {
 	width: 1200px;
 	position: sticky;
 	margin: 0 auto;
-	padding-bottom: 10px; /* 밑줄 여백 */
-	border-bottom: 2px solid #E0B973; /* 밑줄 색상과 두께 */
 }
-
 
 .logo {
 	display: flex;
@@ -87,14 +89,14 @@
 .nav>ul {
 	display: flex;
 	gap: 60px;
-	padding-left: 30px;
+	padding-left: 50px;
 	padding-right: 60px;
 	text-align: center;
 }
 
 .nav>ul>li>a {
 	line-height: 80px;
-	font-size: 15px;
+	font-size: 20px;
 	font-family: mainB2;
 }
 
@@ -105,7 +107,7 @@ header>div>.user-menu {
 }
 
 .user-menu>li {
-	margin-left: 15px;
+	margin-left: 100px;
 }
 
 .footer {
@@ -139,6 +141,46 @@ header>div>.user-menu {
 
 .footer>div>ul>li>a {
 	padding-right: 20px;
+}
+
+.main-container {
+    width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* 메인 이미지 */
+.main-image img {
+    width: 1200px;
+    height: 600px;
+    object-fit: cover; /* 이미지 찌그러짐 방지 */
+    border-radius: 10px;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    
+}
+
+/* 버튼 스타일 */
+.main-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #E5BA73;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.main-btn:hover {
+    background-color: #ff4040;
 }
 
 /*body {

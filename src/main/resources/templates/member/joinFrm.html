@@ -30,8 +30,8 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>주소</span>
-				<input type="text" name="memberAddr" id="memberAddr">
-				<button type="button">주소찾기</button>
+				<input type="text" name="memberAddr" id="memberAddr" readonly>
+				<button type="button" id="search-addr">주소찾기</button>
 			</div>
 			<div class="joinFrm-input">
 				<span>이메일</span>
@@ -43,9 +43,11 @@
 					
 				</select><span>년</span>
 				<select name="month">
-					<option th:each="month" value="">
+					<option th:each="month : ${#numbers.sequence(1,12)}" th:value="${month}" th:text="${month}">
 				</select><span>월</span>
-				<select name="date"></select><span>일</span>
+				<select name="date">
+				<option th:each="date : ${#numbers.sequence(1,31)}" th:value="${date}" th:text="${date}">
+				</select><span>일</span>
 			</div>
 			<div class="joinFrm-input">
 				<span>성별</span>
@@ -124,6 +126,17 @@
 			$("#year").append(option);
 			;
 		}
+	</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		$("#search-addr").on("click", function(){
+			new daum.Postcode({
+		        oncomplete: function(data) {
+		            const addr = $("#address").val(data.roadAddress);
+		            const dAddr = $("#detail-address").focus();
+		        }
+		    }).open();
+		});
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

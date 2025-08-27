@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+.content-header{
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-header>.content-name{
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 36px;
+    color: var(--color4);
+}
+
+.content-header>.content-search>input{
+    border: none;
+    width: 360px;
+    float: left;
+    height: 40px;
+    padding-left: 20px;
+    font-size: 20px;
+    font-family: mainB2;
+}
+
+.content-header>.content-search>span{
+    position: absolute;
+    line-height: 40px;
+    font-size: 34px;
+}
+
+.content-header>.content-search{
+    border: 1px solid black;
+    width: 450px;
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+/* content-header>content-write*/
+.content-wrap>.content-write{
+    width: 900px;
+    margin: 0 auto;
+}
+.content-wrap>.content-write>button{
+    width: 75px;
+    height: 45px;
+    margin-top: 20px;
+    background-color: var(--color4);
+    border: none;
+    border-radius: 6px;
+    font-weight: 900;
+    color: #Ffffff;
+    font-size: 16px;
+}
+
+/* content-header>content-list*/
+.content-wrap>.content-list{
+    width: 900px;
+    margin: 10px auto;
+    
+}
+
+.content-wrap>.content-list>.list-title{
+    width: 900px;
+    background-color: var(--color4);
+
+}
+
+.list-title>tbody>tr>th{
+    color: #ffffff;
+    font-family: mainB2;
+    font-weight: 900;
+    font-size: 19px;
+}
+
+.list-number>tbody>tr>td{
+    border-bottom: 1px solid black;
+}
+
+.content-wrap>.content-list>.list-title>tbody>tr>th:first-child{
+    width: 10%;
+}
+.content-wrap>.content-list>.list-title>tbody>tr>th:nth-child(2){
+    width: 45%;
+}
+.content-wrap>.content-list>.list-title>tbody>tr>th:nth-child(3){
+    width: 20%;
+}
+.content-wrap>.content-list>.list-title>tbody>tr>th:last-child{
+    width: 20%;
+}
+
+/* content-header>.list-number*/
+
+.content-list>.list-number{
+    margin: 0 auto;
+}
+
+.content-wrap>.content-list>.list-number>tbody>tr>td:first-child{
+    width: 30%;
+}
+.content-wrap>.content-list>.list-number>tbody>tr>td:nth-child(2){
+    width: 40%;
+}
+.content-wrap>.content-list>.list-number>tbody>tr>td:nth-child(3){
+    width: 15%;
+}
+.content-wrap>.content-list>.list-number>tbody>tr>td:last-child{
+    width: 15%;
+}
+.content-wrap>.content-list>.list-number>tbody>tr>td{
+    padding: 10px;
+}
+
+.page-check{
+    width: 200px;
+    margin: 22px auto;
+    height: 22px;
+}
+.page-check>span{
+    line-height: 22px;
+}
+
+</style>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main>
+		<div class="content-wrap">
+
+            <div class="content-header">
+                <div class="content-name">문의사항</div>
+                <div class="content-search">
+                    <input type="text" name="search" id="search" placeholder="Search">
+                    <span class="material-icons">search</span>
+                </div>
+            </div>
+            <div class="content-write">
+                <button type="submit">글쓰기</button>
+            </div>
+            
+            <div class="content-list">
+                <table class="list-title">
+                    <tr>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                    </tr>
+                    <tr th:each="question : ${list}">
+						<td th:text="${question.questionNo}"></td>
+						<td>
+							<a th:href="@{/question/view(noticeNo=${notice.noticeNo})}" 	th:text="${notice.noticeTitle}"></a>
+						</td>
+						<td th:text="${question.questionWriter}"></td>
+						<td th:text="${question.regDate}"></td>
+					</tr>
+                </table>
+                
+
+                <div class="page-check">
+                    <span class="material-icons">keyboard_double_arrow_left</span>
+                    <span class="material-icons">keyboard_arrow_left</span>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span class="material-icons">keyboard_arrow_right</span>
+                    <span class="material-icons">keyboard_double_arrow_right</span>
+                </div>
+            </div>
+            
+
+        </div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

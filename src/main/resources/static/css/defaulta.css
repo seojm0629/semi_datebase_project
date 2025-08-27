@@ -51,6 +51,7 @@
 	outline: 0;
 	list-style-type: none;
 	text-decoration: none;
+	
 }
 
 .header-wrap {
@@ -155,6 +156,7 @@ header>div>.user-menu {
     height: 600px;
     object-fit: cover; /* 이미지 찌그러짐 방지 */
     border-radius: 10px;
+    
 }
 
 /* 버튼 그룹 */

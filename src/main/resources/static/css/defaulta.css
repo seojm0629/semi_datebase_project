@@ -1,5 +1,5 @@
 :root {
-  /*main color
+	/*main color
   --main1: #3d3d3d;
   --main2: #6059f7;
   --main3: #6592fe;
@@ -23,63 +23,122 @@
   --line3: #eaeced;
   --line4: #f6f6f6;
   --line5: #f8f9fa;*/
-  
-   	--black : #2B2B2B;/*검은 글씨색*/
-    --footerB : #FAF8F1;/*푸터 배경색*/
-    --color : #FAEAB1;/*얇은 글씨 특) 잘 안보임*/
-    --main : #E5BA73;/*버튼색, 로고, 페이지 제목*/
-    --bold : #C58940;/*푸터 두꺼운 글씨, 선 그을때*/
-    --hover : #EAC88F;/*버튼 호버한 경우 색*/
-    --warning : #FF6868;/*경고색*/
-    --cancel : #D9D9D9;/*취소버튼*/
+	--black: #2B2B2B; /*검은 글씨색*/
+	--footerB: #FAF8F1; /*푸터 배경색*/
+	--color: #FAEAB1; /*얇은 글씨 특) 잘 안보임*/
+	--main: #E5BA73; /*버튼색, 로고, 페이지 제목*/
+	--bold: #C58940; /*푸터 두꺼운 글씨, 선 그을때*/
+	--hover: #EAC88F; /*버튼 호버한 경우 색*/
+	--warning: #FF6868; /*경고색*/
+	--cancel: #D9D9D9; /*취소버튼*/
 }
+
 @font-face {
-  font-family: main2;
-  src: url(/font/PyeongChang-Regular.ttf);
+	font-family: main2;
+	src: url(/font/PyeongChang-Regular.ttf);
 }
+
 @font-face {
-  font-family: mainB2;
-  src: url(/font/PyeongChang-Bold.ttf);
+	font-family: mainB2;
+	src: url(/font/PyeongChang-Bold.ttf);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  font-family: ns-r;
-  list-style-type: none;
-  color : var(--main1);
-}
-a {
-  text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+	color: #2B2B2B;
+	font-family: main2;
+	outline: 0;
+	list-style-type: none;
+	text-decoration: none;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between; /* 좌-우로 배치 */
-  align-items: center;           /* 세로 가운데 정렬 */
-  padding: 10px 20px;
-  background: #f8f8f8; /* 배경색 (테스트용) */
+	width: 1200px;
+	position: sticky;
+	margin: 0 auto;
+	padding-bottom: 10px; /* 밑줄 여백 */
+	border-bottom: 2px solid #E0B973; /* 밑줄 색상과 두께 */
 }
 
-.logo img {
-  height: 50px; /* 로고 크기 조정 */
+
+.logo {
+	display: flex;
+	width: 200px;
 }
 
-.nav ul {
-  display: flex;
-  gap: 20px; /* 메뉴 간격 */
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.logo>a>img {
+	width: 170px;
 }
 
-.user-menu {
-  display: flex;
-  gap: 15px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.header>div {
+	max-width: 1400px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+}
+
+.nav {
+	border-bottom: 1px var(--color4) solid;
+	min-height: 80px;
+	text-align: center;
+}
+
+.nav>ul {
+	display: flex;
+	gap: 60px;
+	padding-left: 30px;
+	padding-right: 60px;
+	text-align: center;
+}
+
+.nav>ul>li>a {
+	line-height: 80px;
+	font-size: 15px;
+	font-family: mainB2;
+}
+
+header>div>.user-menu {
+	display: flex;
+	gap: 30px;
+	justify-content: flex-end;
+}
+
+.user-menu>li {
+	margin-left: 15px;
+}
+
+.footer {
+	background-color: #faf8f1;
+	position: absolute;
+	bottom: 0;
+	left: 0; /* 왼쪽 끝 붙이기 */
+	width: 100%; /* 화면 끝까지 폭 채우기 */
+}
+
+.footer>div {
+	max-width: 1400px;
+	width: 100%; /* div도 부모 폭 채우기 */
+	padding: 20px 10px;
+	margin: 0 auto;
+	box-sizing: border-box; /* padding 포함 전체 폭 계산 */
+}
+
+.footer>div>p {
+	margin: 10px 0px;
+	font-family: mainb2;
+}
+
+.footer>div>ul {
+	overflow: hidden;
+}
+
+.footer>div>ul>li {
+	float: left;
+}
+
+.footer>div>ul>li>a {
+	padding-right: 20px;
 }
 
 /*body {

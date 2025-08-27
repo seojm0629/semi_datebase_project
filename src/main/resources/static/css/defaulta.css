@@ -183,6 +183,28 @@ header>div>.user-menu {
     background-color: #ff4040;
 }
 
+.pagination{
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.page-item{
+	padding: 0px 10px;
+}
+
+.chevron{
+	padding-top: 8px
+}
+
+
+
+.pagination .page-item.active-page{
+	background-color: #E5BA73;
+	border-radius: 60%;
+}
+
+
 /*body {
   min-height: 100vh;
   display: flex;

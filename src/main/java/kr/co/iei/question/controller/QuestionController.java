@@ -14,8 +14,9 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 	
-	@GetMapping(value="/list") 
+	@GetMapping(value="/list")
 	public String list() {
+		
 		return "question/list";
 	}
 }

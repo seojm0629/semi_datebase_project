@@ -34,6 +34,9 @@ rel="stylesheet">
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.impor{
+	color: var(--warning);
+}
 .join-agreetitle{
     width: 600px;
     margin: 0 auto;
@@ -154,7 +157,7 @@ rel="stylesheet">
 	            <div class="join-content">
 	                <div class="join-content1">
 	                    <div class="join-agreetitle">
-	                        <span><b>1. 개인정보 취급 동의</b></span>
+	                        <span><b>1. 개인정보 취급 동의</b><span class="impor">(필수)</span></span>
 	                    </div>
 	                    <div class="join-agreecontent">
 	                        제1장 총칙 제1조(목적) 이 약관은 주식회사 DateBase(이하 "DB")가 운영하는 사이버 몰에서 제공하는 인터넷 관련 서비스를 이용함에 있어 사이버 몰과 "이용자"의 권리․의무 및 책임사항을 규정함을 목적으로 합니다. 제2조(정의) ① "DB"이란 회사가 재화 또는 용역(이하 "재화 등")을 "이용자"에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 설정한 사이버몰을 말합니다. ② "이용자"란 "DB"에 접속하여 이 약관에 따라 "회사"가 제공하는 서비스를 받는 회원 및 비회원을 말합니다. ③ "회원"이라 함은 "DB"에 회원 가입을 한 자로서, 계속적으로 "DB"이 제공하는 서비스를 이용할 수 있는 자를 말합니다. ④ "비회원"이란 회원으로 가입하지 않고 "DB"이 제공하는 서비스를 이용하는 자를 말합니다.
@@ -169,7 +172,7 @@ rel="stylesheet">
 	                </div>
 	                <div class="join-content1">
 	                    <div class="join-agreetitle">
-	                        <span><b>2. 개인정보 수집 및 이용</b></span>
+	                        <span><b>2. 개인정보 수집 및 이용</b><span class="impor">(필수)</span></span>
 	                    </div>
 	                    <div class="join-agreecontent">
 	                        1. 수집목적 - 서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 요금정산 - 민원사무 처리 - 재화 또는 서비스 제공 - 추천인 아이디 활용
@@ -184,7 +187,7 @@ rel="stylesheet">
 	                </div>
 	                <div class="join-content2">
 	                    <div class="join-agreetitle">
-	                        <span><b>3. 사실기재 서약</b></span>
+	                        <span><b>3. 사실기재 서약</b><span class="impor">(필수)</span></span>
 	                    </div>
 	                    <div class="join-agreecontent">
 	                        본인은 "DateBase" 서비스 이용을 위해 회원가입 양식을 제출하며 다음 사항에 동의합니다.
@@ -216,6 +219,22 @@ rel="stylesheet">
 			            box.innerText = "check_box_outline_blank";
 			        }
 			    });
+			});
+			
+			$("#no").on("click", function(){
+				location.href="/";
+			});
+			
+			$("#ok").on("click", function(e){
+				const checkBox = document.querySelectorAll(".box1>.material-icons");
+				checkBox.forEach(function(box){
+					if(box.innerText === "check_box"){
+						location.href="/member/joinFrm";
+					} else if(box.innerText !== "check_box"){
+						alert("약관에 모두 동의해 주십시오.");
+						e.preventDefault();
+					}
+				});
 			});
 		</script>
 	<th:block th:include="common/footer"></th:block>

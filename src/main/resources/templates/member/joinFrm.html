@@ -25,8 +25,11 @@
 				<input type="password" name="memberPw" id="memberPw">
 			</div>
 			<div class="joinFrm-input">
-				<span>비밀번호 재입력</span>
-				<input type="password" name="memberPwRe" id="memberPwRe">
+				<div class="join-input">
+					<span>비밀번호 재입력</span>
+					<input type="password" name="memberPwRe" id="memberPwRe">
+				</div>
+				<p class="pw-input-msg"></p>
 			</div>
 			<div class="joinFrm-input">
 				<span>이름</span>
@@ -61,8 +64,9 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>생년월일</span>
-				<select name="year" id="year">	<!-- 1976 ~ 2005 -->
-					
+				<input type="date" name="birthDate" id="birthDate">
+				<!-- 
+				<select name="year" id="year">	1976 ~ 2005
 				</select><span>년</span>
 				<select name="month">
 					<option th:each="month : ${#numbers.sequence(1,12)}" th:value="${month}" th:text="${month}">
@@ -70,6 +74,7 @@
 				<select name="date">
 				<option th:each="date : ${#numbers.sequence(1,31)}" th:value="${date}" th:text="${date}">
 				</select><span>일</span>
+				 -->
 			</div>
 			<div class="joinFrm-input">
 				<span>성별</span>
@@ -138,20 +143,21 @@
 		const date = new Date();
 		const year = `${date.getFullYear()}`;
 		const fYear = `${date.getFullYear()-20}`;
-		let pYear = `${date.getFullYear()-59}`;
+		const pYear = `${date.getFullYear()-59}`;
 		//console.log(year);
 		//console.log(pYear);
 		//console.log(fYear);
+		$("#birthDate").attr("min", pYear+"-01-01");
+		$("#birthDate").attr("max", fYear+"-12-31");
 		
-		
-		for(let i = 0 ; i < 39 ; i++){
+		/*for(let i = 0 ; i < 39 ; i++){
 			const option = $("<option>");
 			pYear++
 			option.attr("value",pYear);
 			option.text(pYear)
 			$("#year").append(option);
 			;
-		}
+		}*/
 	</script>
 	
 	<script>
@@ -198,6 +204,11 @@
 					}
 				}
 			});
+		});
+		
+		$("#memberPwRe").on("keyup", function(){
+			const inputPw = $("#memberPw").val();
+			const inputPwRe = $("#memberPwRe").val();
 		});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

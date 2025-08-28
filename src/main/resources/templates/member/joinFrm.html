@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thyeleap.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>DateBase join Form</title>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -10,7 +10,7 @@
 		<div class="joinFrm-header">
 			<h1>회원가입</h1>
 		</div>
-		<form action="/member/join" method="post">
+		<form action="/member/join" method="post" enctype="multipart/form-data">
 		<div class="joinFrm-content">
 			<div class="joinFrm-input">
 				<span>아이디</span>
@@ -18,11 +18,11 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>비밀번호</span>
-				<input type="text" name="memberPw" id="memberPw">
+				<input type="password" name="memberPw" id="memberPw">
 			</div>
 			<div class="joinFrm-input">
 				<span>비밀번호 재입력</span>
-				<input type="text" name="memberPwRe" id="memberPwRe">
+				<input type="password" name="memberPwRe" id="memberPwRe">
 			</div>
 			<div class="joinFrm-input">
 				<span>이름</span>
@@ -121,7 +121,7 @@
 		const date = new Date();
 		const year = `${date.getFullYear()}`;
 		const fYear = `${date.getFullYear()-20}`;
-		let pYear = `${date.getFullYear()-49}`;
+		let pYear = `${date.getFullYear()-59}`;
 		console.log(year);
 		console.log(pYear);
 		console.log(fYear);

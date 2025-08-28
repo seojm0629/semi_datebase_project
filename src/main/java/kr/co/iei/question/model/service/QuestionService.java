@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 
 import kr.co.iei.question.model.dao.QuestionDao;
+import kr.co.iei.question.model.vo.Question;
+import kr.co.iei.question.model.vo.QuestionFile;
 import kr.co.iei.question.model.vo.QuestionListData;
 
 @Service
@@ -97,4 +99,36 @@ public class QuestionService {
 		List writeList = questionDao.searchWriter(search);
 		return writeList;
 	}
+
+	public int insertQuestion(Question q, List<QuestionFile> fileList) {
+		int newQuestionNo = questionDao.getQuestionNo();
+		q.setQuestionNo(newQuestionNo);
+		int result = questionDao.insertQuestion(q);
+		
+		for(QuestionFile questionFile : fileList) {
+			questionFile.setQuestionNo(newQuestionNo);
+			result += questionDao.insertQuestionFile(questionFile);
+		}
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

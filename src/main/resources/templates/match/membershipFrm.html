@@ -3,12 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.content{
+	width:1200px;
+	margin : 0 auto;
+	
+	font-family : mainb2;
+}
+.page-title{
+	text-align : center;
+	margin-top : 25px;
+	font-size : 26px;
+	color :  #E5BA73;
+}
+.content-wrap{
+	margin : 0 auto;
+	width:100%;
+	display : flex;
+	justify-content : space-between;
+}
+
+.img-box{
+	width : 40%;
+}
+
+.membership-box{
+	width : 40%;
+}
+
+[class$=silver]{
+	margin-top : 50px;
+	font-family : mainb2;
+	color : #2b2b2b;
+}
+
+[class$=silver]>span:first-child{
+	font-size : 26px;
+	display : block;
+	padding-bottom : 20px;
+	margin-bottom : 20px;
+}
+[class$=silver]>span:last-child{
+	font-size : 17px;
+	color : #E5BA73;
+	font-weight : 600;
+}
+
+[class^=match-]{
+	cursor : pointer;
+	margin : 0 auto;
+	width : 80%;
+
+}
+.input-match-count>div:first-child{
+	margin-top : 5px;
+	font-weight : 600;
+}
+.input-match-count sup{
+	margin-left : 5px;
+}
+
+[class^=match-count]{
+	width:100%;
+	
+	border-bottom : none;
+}
+
+.match-count-header{
+	border : 1px solid black;
+	border-bottom : none;
+	padding : 10px;
+	box-sizing: border-box;
+	margin-top : 5px;
+	overflow:hidden;
+	
+}
+.match-count-header>div{
+	float : right;
+	line-height : 100%;
+}
+
+.match-count-header>h4{
+	float : left;
+}
+.match-count-select{
+	border-top:none;
+	
+}
+.match-count-select>div{
+	padding-left : 10px;
+	box-sizing: border-box;
+}
+
+.match-count-select>div:not(.match-list){
+	width:100%;
+	margin : 0;
+	border: 1px solid black;
+	border-top : none;
+	padding : 10px;
+	display : none;
+}
+.match-list{
+	width:100%;
+	margin : 0;
+	border-bottom : 1px solid black;
+	
+}
+
+	
+</style>
 </head>
 <body>
 <th:block th:include="common/header"></th:block>
 <main class="content">
-	<div class="page-title">회원권 결제</div>
+	<div class="content-wrap">
+		<div class="img-box"></div>
+		<div class="membership-box">
+			<div class="membership-title-silver">
+				<span>실버 매칭 상품</span>
+				<span>0원</span>
+			</div>
+			<hr>
+			<div class="input-match-count">
+				<div>
+					회차<sup>*</sup>
+				</div>
+				<div>
+					<div class="match-count-header">
+						<h4>
+							회차 선택(필수)
+						</h4>
+						<div>
+							<span class="material-icons" id="down-arrow">keyboard_arrow_down</span>
+						</div>
+					</div>
+					<div class="match-count-select">
+						<div class="match-list"></div>
+						<div class="match-3">3회차</div>
+						<div class="match-5">5회차</div>
+						<div class="match-7">7회차</div>
+						
+					</div>
+				</div>
+			</div>	
+			
+		</div>
+	</div>
 </main>
 <th:block th:include="common/footer"></th:block>
 </body>
+<script>
+	$(".match-count-header").on("click" , function(){
+		
+		const list = $(".match-list").nextAll();
+		console.log($(this).hasClass("open"))
+		if(!$(this).hasClass("open")){
+			list.show();
+			$("#down-arrow").text("keyboard_arrow_up");
+			$(this).addClass("open");
+		} else{
+			list.hide();
+			$("#down-arrow").text("keyboard_arrow_down");
+			$(this).removeClass("open");
+		}
+		
+	});
+	
+</script>
 </html>

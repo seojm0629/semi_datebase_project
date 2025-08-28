@@ -5,9 +5,166 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<th:block th:include="common/header"></th:block>
-	
-	<th:block th:include="common/footer"></th:block>
+
+	<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>파티 관리</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: #2B2B2B;
+}
+
+body {
+	background: #fff;
+	margin: 0 auto;
+}
+
+/* 제목 */
+.page-title {
+	text-align: center;
+	font-size: 28px;
+	font-weight: bold;
+	margin: 40px 0 30px;
+	color: #A66E33;
+}
+
+/* 탭 */
+.tab {
+	display: flex;
+	justify-content: center;
+	gap: 300px;
+	margin-bottom: 20px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.tab span {
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 2px solid #b58b39; color : #b58b39;
+	padding-bottom: 5px;
+	cursor: pointer;
+	color: #b58b39;
+}
+
+/* 파티 테이블 */
+.party-box {
+	border: 2px solid #ddd;
+	padding: 20px;
+	margin-bottom: 20px;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 16px;
+}
+
+th, td {
+	border: 1px solid #ccc;
+	padding: 12px;
+}
+
+th {
+	background: #f7f7f7;
+}
+
+td {
+	background: #fff;
+}
+
+/* 버튼 */
+.btn-write {
+	display: block;
+	width: 200px;
+	margin: 30px auto 50px;
+	padding: 12px;
+	text-align: center;
+	background: #e3e3e3;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.btn-write:hover {
+	background: #d3d3d3;
+}
+</style>
+</head>
+<body>
+
+	<!-- 페이지 제목 -->
+	<h1 class="page-title">파티 관리</h1>
+
+	<!-- 탭 -->
+	<div class="tab">
+		<span>와인 파티 🍷</span> <span>비어 파티 🍺</span>
+	</div>
+
+	<!-- 파티 리스트 -->
+	<div class="party-box">
+		<table>
+			<thead>
+				<tr>
+					<th>파티 일자</th>
+					<th>파티 장소</th>
+					<th>인원 현황</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>
+				<tr>
+					<td>2025/08/28(목)</td>
+					<td>우리집 내방안 침대위</td>
+					<td>남 30명 여 30명</td>
+				</tr>												
+			</tbody>
+		</table>
+	</div>
+
+	<!-- 글쓰기 버튼 -->
+	<button class="btn-write">파티 게시글 작성</button>
+</body>
+</html>
+<th:block th:include="common/footer"></th:block>
 </body>
 </html>

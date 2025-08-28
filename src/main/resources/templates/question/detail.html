@@ -30,7 +30,6 @@
     color: #2B2B2B;
     font-family: mainB2;
 }
-
 .content-detail{
     width: 400px;
     margin: 0 auto;
@@ -42,168 +41,79 @@
     margin-top: 30px;
 }
 
-.content-writer{
-    width: 900px;
-    margin: 0 auto;
-    text-align: center;
+.content-title-tbl{
+	width: 905px;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	border-spacing: 0;
 }
 
-.content-writer>.content-question{
-    background-color: var(--color6);
-    border: 1px solid black;
-    height: 30px;
-    line-height: 30px;
+.content-title-tbl>tbody>tr:first-child>th{
+	height: 50px;
+	font-size: 20px;
+	background-color: #E5BA73;
+	color: #ffffff;
+	
 }
 
-.content-title{
-    display: flex;
+
+.content-title-tbl>tbody>tr:nth-child(2){
+	height: 50px;
+	border: 1px solid black;
+}
+.content-title-tbl>tbody>tr:nth-child(2)>th{
+	background-color: #FAF8F1;
+	font-size: 18px;
+	
+}
+.content-title-tbl>tbody>tr:nth-child(3)>th{
+	height: 50px;
+	background-color: #FAF8F1;
+	font-size: 18px;
+}
+.content-title-tbl>tbody>tr:nth-child(4){
+	height: 300px;
 }
 
-.content-title>div{
-    width: 150px;
-    height: 30px;
-    line-height: 30px;
-    background-color: var(--color6);
-    border: 1px solid black;
-    border-top: none;
+.content-title-tbl>tbody>tr:last-child{
+	text-align: center;
+	height: 80px;
 }
-.content-title>input{
-    width: 300px;
-    height: 30px;
-    line-height: 30px;
-    border: none;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+.content-title-tbl>tbody>tr:last-child>td{
+	border-top: 1px solid #ccc;
 }
-.content-title>.file{
-    border-left: none;
+[class^="btn-"] {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: ns-b;
+  text-align:center;
+  box-sizing: border-box;
 }
-
-.content-file{
-    display: flex;
-    box-sizing: border-box;
+.btn-a:hover{
+	background-color:  #C58940;
 }
-.content-file>div{
-    width: 150px;
-    height: 30px;
-    line-height: 30px;
-    background-color: var(--color6);
-    border: 1px solid black;
-    border-top: none;
-    
+.btn-a {
+  border: 1px solid #ccc;
+  background-color: #E5BA73;;
+  color: #ffffff;
+}
+.btn-button {
+  border: 1px solid #ccc;
+  background-color: #D9D9D9;
+  color: #ffffff;
 }
 
-.content-file>input{
-    width: 750px;
-    height: 30px;
-    line-height: 30px;
-    border: none;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+.inputCommentBox{
+	width: 900px;
+	margin: 0 auto;
+	
 }
 
-.content-img-text{
-    width: 900px;
-    margin: 0 auto;
-    border: 1px solid black;
-    border-top: none;
-    box-sizing: border-box;
-}
-.content-img{
-    text-align: center;
-}
 
-.content>textarea{
-    width: 840px;
-    height: 150px;
-}
 
-#content-question{
-    margin-left: 30px;
-}
-
-.content-update-delete{
-    width: 900px;
-    height: 100px;
-    line-height: 100px;
-    border: 1px solid black;
-    box-sizing: border-box;
-    border-top: none;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.update>button{
-    width: 100px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #E5BA73;
-    font-family: main2;
-    font-weight: 900;
-}
-
-.content-comment{
-    border: 1px solid black;
-    border-top: none;
-    box-sizing: border-box;
-    display: flex;
-    width: 900px;
-    height: 130px;
-    line-height: 130px;
-    margin: 0 auto;
-}
-.comment-img>img{
-    width: 124px;
-    padding-right: 10px;
-    padding-left: 30px;
-}
-.comment-comment>input{
-    width: 550px;
-    height: 80px;
-    
-}
-.comment-btn-box>button{
-    width: 100px;
-    height: 50px;
-    margin-left: 20px;
-    border-radius: 10px;
-    background-color: #E5BA73;
-}
-
-.comment-list{
-    width: 900px;
-    border: 1px solid black;
-    margin: 0 auto;
-    margin-top: 30px;
-    display: flex;
-}
-
-.comment-list-img>img{
-    width: 124px;
-    padding-left: 10px;
-}
-
-.comment-content{
-    width: 700px;
-    height: 65px;
-    border: 1px solid black;
-    margin-top: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-}
-
-.comment-update{
-    overflow: hidden;
-    padding-top: 20px;
-    
-}
-#insert-comment{
-    float: left;
-}
-#update-delete{
-    float: right;
-}
 </style>
 <body>
 	<div class="content-question-main">
@@ -211,50 +121,59 @@
                 <h2>문의사항 상세보기</h2>
             </div>
 
-			<table>
+
+			<table class="content-title-tbl">
+				<!-- tr th:text="${q.questionTitle} 들어가야함-->
+				<tr>
+					<th colspan="4">
+						문의사항 제목
+					</th>
+				</tr>
 				<tr>
 					<th style="width:20%;">작성자</th>
-					<!--<td style="width:30%;" th:text="${q.questionWriter"></td> -->
+					<td style="width:30%;"></td><!--<td style="width:30%;" th:text="${q.questionWriter"></td> -->
 					<th style="width:20%;">작성일</th>
-					<!-- <td style="width:30%;" th:text="${q.regDate}"></td> -->
+					<td style="width:30%;"></td><!-- <td style="width:30%;" th:text="${q.regDate}"></td> -->
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td>
+					<td colspan="3">
 						<th:block>
-							<img src="" style="width:16px;">
+							<img src="/image/file.png" style="width:16px;">
 							<a></a>
+							<!-- th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text=${file.filename} -->
 						</th:block>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<div id="questionContent" th:utext=""></div>
+						<div id="questionContent"></div>
+						<!-- th:utext="${n.noticeContentBr}" -->
 					</td>
 				</tr>
-				<tr th:if="${session.member != null && session.member.memberId == q.questionWriter}">
-					<td colspan="4">
-						<a class="" th:href=""></a>
-						<button class="" th:onclick=""></button>
+				<tr> <!-- th:if="${session.member != null && session.member.memberId == q.questionWriter}" -->
+					<td colspan="4">					
+						<a class="btn-a">수정</a> <!-- th:href="@{/notice/updateFrm(questionNo=${q.questionNo})}" -->
+						<button class="btn-button">삭제</button>
 					</td>
 				</tr>
 			</table>
 			
-			<div class="" th:if="${session.member != null}">
+			<div class="inputCommentBox"> <!-- th:if="${session.member != null}" -->
 				<form action="/question/insertComment" method="post">
 					<ul>
 						<li>
 							<span class="material-icons">account_box</span>
 						</li>
 						<li>
-							<input type="hidden" name="questionCommentWriter" th:value="${session.member.memberId}">
-							<input type="hidden" name="questionRef" th:value="${n.noticeNo}">
-							<div class="">
+							<input type="hidden" name="questionCommentWriter"><!--  th:value="${session.member.memberId}" -->
+							<input type="hidden" name="questionRef"> <!-- th:value="${q.questionNo}" -->
+							<div>
 								<textarea name="questionCommentContent"></textarea>
 							</div>
 						</li>
 						<li>
-							<button type="submit" class="">등록</button>
+							<button type="submit">등록</button>
 						</li>
 					</ul>
 				</form>

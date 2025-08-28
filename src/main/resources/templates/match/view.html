@@ -128,17 +128,21 @@
 		font-weight:600;
 	}
 	
-	.item-intro {
+	.item-wrap{
 		border : 1px solid black;
 		border-radius : 10px;
 		margin-top : 20px;
+	}
+	.item-intro {
+		
 		padding : 15px;
 		display : flex;
 		justify-content : space-around;
 		flex-wrap:wrap;
 		
+		
 	}
-	.item-intro>div:not(.pass-guide){
+	.item-intro>div{
 		width : 40%;
 		
 	
@@ -149,11 +153,39 @@
 	}
 	
 	.item-guide{
-		
+		padding-top : 30px;
 	}
 	
 	.item-guide>h3{
 		margin-bottom : 10px;
+	}
+	.membership{
+	}
+	[class*=membership]{
+		display : flex;
+		padding-left : 10px;
+		border-radius : 10px;
+		margin-bottom : 10px;
+		padding-bottom : 10px;
+		padding-top : 10px;
+	}
+	.membership>div:last-child{
+		line-height : 130px;
+	}
+	.membership h4{
+		font-size : 19px;
+		margin : 10px 0;
+	}
+	.icon-box{
+		display : flex;
+		flex-direcion: column;
+		align-items : center;
+	}
+	
+	.pass-guide{
+		width:100%;
+		text-align : center;
+		padding-bottom : 15px;
 	}
 </style>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -197,45 +229,59 @@
 						</div>
 					</div>
 				</div>
+			<div class="item-wrap">
 				<div class="item-intro">
 						<div class="item-guide">
 							<h3>카테고리 별 상세 상품</h3>
 							<p>만남 보장 횟수별로 매칭 상품을 선택해보세요.</p>
 							<p>등급별로 매칭 시 카테고리수가 달라집니다!</p>
 						</div>
-						<div class="silver-3">
-							<h4>Silver 3회권</h4>
-							<ul >
-								<li>만남 3회 보장</li>
-								<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
-								<li>패스 2회 사용가능</li>	
-							</ul>
+						<div class="silver-3 membership">
 							<div>
-								<span class="material-icons-outlined">keyboard_arrow_right</span>
+								<h4>Silver 3회권</h4>
+								<ul>
+									<li>만남 <b>3</b>회 보장</li>
+									<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
+									<li>패스 <b>2</b>회 사용가능</li>	
+								</ul>
+							</div>
+							<div class="icon-box">
+								<span class="material-icons">chevron_right</span>
 							</div>
 						</div>
-						<div class="silver-5">
-							<h4>Silver 5회권</h4>
-							<ul >
-								<li>만남 5회 보장</li>
-								<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
-								<li>패스 6회 사용가능</li>	
-							</ul>
+						<div class="silver-5 membership">
+							<div>
+								<h4>Silver 5회권</h4>
+									<ul>
+										<li>만남 <b>5</b>회 보장</li>
+										<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
+										<li>패스 <b>6</a></b>회 사용가능</li>	
+									</ul>
+							</div>
+							<div class="icon-box">
+								<span class="material-icons">chevron_right</span>
+							</div>
 						</div>
-						<div class="silver-7">
-							<h4>Silver 7회권</h4>
-							<ul>
-								<li>만남 7회 보장</li>
-								<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
-								<li>패스 10회 사용가능</li>	
-							</ul>
+						<div class="silver-7 membership">
+							<div>
+								<h4>Silver 7회권</h4>
+								<ul>
+									<li>만남 <b>7</b>회 보장</li>
+									<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
+									<li>패스 <b>10</b>회 사용가능</li>	
+								</ul>
+							</div>
+							<div class="icon-box">
+								<span class="material-icons">chevron_right</span>
+							</div>
 						</div>
+					</div>
 						<div class="pass-guide">
 							<h4>+패스권이란?</h4>
 							<p>매칭이 성사된 이성이 선호하는 타입과 상이한 경우 그 상대와의 매칭을 패스하는 기능입니다.</p>
 							<p>결제한 횟수별로 제공되는 패스권의 횟수가 다르니 주의해주시기 바랍니다.</p>
 						</div>
-					</div>
+				</div>	
 			</div>
 			
 		</div>

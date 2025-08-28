@@ -10,6 +10,11 @@
 		<div class="joinFrm-header">
 			<h1>회원가입</h1>
 		</div>
+		
+		<form action="/member/checkId" name="checkIdFrm" method="get">
+			<input type="hidden" name="checkId">
+		</form>
+		
 		<form action="/member/join" method="post" enctype="multipart/form-data">
 		<div class="joinFrm-content">
 			<div class="joinFrm-input">
@@ -39,7 +44,21 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>이메일</span>
-				<input type="text" name="memberEmail" id="memberEmail">
+				<input type="text" name="memberEmail-f" id="memberEmail-f">
+				<input class="box" id="domain-txt" type="text" name="domain-txt">
+				<select class="box" id="domain-list" name="domain-list">
+				  <option value="type">직접 입력</option>
+				  <option value="@naver.com">@naver.com</option>
+				  <option value="@google.com">@google.com</option>
+				  <option value="@hanmail.net">@hanmail.net</option>
+				  <option value="@nate.com">@nate.com</option>
+				  <option value="@kakao.com">@kakao.com</option>
+				</select>
+			</div>
+			<div class="mailCheck">
+				<span>이메일 인증</span>
+				<input type="text" name="" id="">
+				<button type="button">인증하기</button>
 			</div>
 			<div class="joinFrm-input">
 				<span>생년월일</span>
@@ -65,7 +84,6 @@
 				<select title="직업" name="memberJob">
 					<option value="금융, 사무직">금융, 사무직</option>
 					<option value="연구원, 엔지니어">연구원, 엔지니어</option>
-					<option value="연구원, 엔지니어">연구원, 엔지니어</option>
 					<option value="건축, 설계사">건축,설계사</option>
 					<option value="간호, 의료 관련">간호, 의료관련</option>
 					<option value="디자이너">디자이너</option>
@@ -81,7 +99,7 @@
 					<option value="대학 교수">대학교수</option>
 					<option value="서비스, 영업직">서비스, 영업직</option>
 					<option value="학생, 대학원생">학생, 대학원생</option>
-					<option value="무직">무직</option>
+					<option value="기타">기타</option>
 				</select>
 			</div>
 			<div class="joinFrm-input">
@@ -122,12 +140,12 @@
 		const year = `${date.getFullYear()}`;
 		const fYear = `${date.getFullYear()-20}`;
 		let pYear = `${date.getFullYear()-59}`;
-		console.log(year);
-		console.log(pYear);
-		console.log(fYear);
+		//console.log(year);
+		//console.log(pYear);
+		//console.log(fYear);
 		
 		
-		for(let i = 0 ; i < 29 ; i++){
+		for(let i = 0 ; i < 39 ; i++){
 			const option = $("<option>");
 			pYear++
 			option.attr("value",pYear);
@@ -145,11 +163,23 @@
 		            const roadAddress = data.roadAddress;
 		            const zonecode = data.zonecode;
 		            //console.log($("#memberAddr").val(data.roadAddress));
-		            console.log(roadAddress);
-		            console.log(zonecode);
+		            //console.log(roadAddress);
+		            //console.log(zonecode);
 		           $("#memberAddr").attr("value", roadAddress);
 		        }
 		    }).open();
+		});
+		
+		$("#domain-list").on("change", function(){
+			const list =  $("#domain-list").val();
+			console.log(list);
+			if(list !== "type"){
+				$("#domain-txt").attr("value", list);
+				$("#domain-txt").attr("readonly", true);
+			}else{
+				$("#domain-txt").attr("value", "@");
+				$("#domain-txt").attr("readonly", false);
+			}
 		});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

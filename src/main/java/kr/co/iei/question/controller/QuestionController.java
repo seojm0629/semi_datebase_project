@@ -46,6 +46,7 @@ public class QuestionController {
 	}
 	
 	@PostMapping(value="/write")
+	/*
 	public String questionWrite(Question q, MultipartFile[] upfile, Model model) {
 		
 		List<QuestionFile> fileList = new ArrayList<QuestionFile>();
@@ -64,9 +65,14 @@ public class QuestionController {
 			}
 		}
 		int result = questionService.insertQuestion(q, fileList);
+		model.addAttribute("title", "문의사항 작성 완료!!");
+		model.addAttribute("text", "문의사항이 등록되었습니다. ");
+		model.addAttribute("icon", "success");
+		model.addAttribute("loc", "/question/list?reqPage=1" ); //reqPage 반드시 줘야 함.
 		
+		return "common/msg";
 	}
-	
+	*/
 	@GetMapping(value="/search")
 	public String searchWriter(String search, Model model) {
 		List writeList = questionService.selectWriter(search);

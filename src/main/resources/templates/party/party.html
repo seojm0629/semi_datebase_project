@@ -1,46 +1,133 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>파티 소개</title>
 <style>
-/* CSS 스타일은 공통 파일 또는 인라인으로 관리 */
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Noto Sans KR", sans-serif;
+	color: #2B2B2B;
+}
+
+body {
+	
+	height: 100%;
+	background: #fff;
+
+}
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+	padding: 40px 0;
+	height: 610px;
+}
+
+/* 제목 */
+.title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #b58b39;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+/* 탭 메뉴 */
+.tabs {
+	display: flex;
+	justify-content: center;
+	gap: 200px;
+	margin-bottom: 20px;
+}
+
+.tabs div {
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+
+.tabs div.active {
+	border-bottom: 2px solid #b58b39;
+	color: #b58b39;
+}
+
+/* 이미지 영역 */
+.party-img {
+	width: 400px;
+	height: 300px;
+	margin: 30px auto;
+	border: 1px solid #ccc;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+
+.party-img .arrow {
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 0 20px;
+	user-select: none;
+}
+
+/* 파티 정보 */
+.info {
+	margin-top: 20px;
+	font-size: 18px;
+	text-align: left;
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.info-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.info-row span:first-child {
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
-	<th:block th:include="common/header"></th:block>
+<th:block th:include="common/header"></th:block>
+	<div class="container">
+		<!-- 제목 -->
+		<div class="title">파티 소개</div>
 
-	<main class="main-content">
-		<h1 style="color: #ff6347;">파티 소개</h1>
-		<div class="party-type-nav">
-			<div class="party-type active">
-				<span class="icon">🍷</span> 와인 파티
+		<!-- 탭 -->
+		<div class="tabs">
+			<div class="active">와인 파티 🍷</div>
+			<div>비어 파티 🍺</div>
+		</div>
+
+		<!-- 이미지 영역 -->
+		<div class="party-img">
+			<div class="arrow">&lt;</div>
+			<div>이미지 영역</div>
+			<div class="arrow">&gt;</div>
+		</div>
+
+		<!-- 파티 정보 -->
+		<div class="info">
+			<div class="info-row">
+				<span>일시</span><span>2025/08/28 17:00</span>
 			</div>
-			<div class="party-type">
-				<span class="icon">🍻</span> 비어 파티
+			<div class="info-row">
+				<span>장소</span><span>우리집</span>
+			</div>
+			<div class="info-row">
+				<span>가격</span><span>50,000원</span>
 			</div>
 		</div>
-		<div class="party-details">
-			<div class="image-carousel">
-				<div class="carousel-arrow left">&lt;</div>
-				<div class="carousel-content">이미지 슬라이드 공간</div>
-				<div class="carousel-arrow right">&gt;</div>
-			</div>
-			<div class="info-row">
-				<div class="label">일시</div>
-				<div class="value">2025/08/28 17:00</div>
-			</div>
-			<div class="info-row">
-				<div class="label">장소</div>
-				<div class="value">당산 아레나빌딩 19F A강의장</div>
-			</div>
-			<div class="info-row">
-				<div class="label">가격</div>
-				<div class="value">50,000원</div>
-			</div>
-		</div>
-	</main>
-
+	</div>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>파티 소개</title>
+<style>
+/* CSS 스타일은 공통 파일 또는 인라인으로 관리 */
+</style>
 </head>
 <body>
+	<th:block th:include="common/header"></th:block>
 
+	<main class="main-content">
+		<h1 style="color: #ff6347;">파티 소개</h1>
+		<div class="party-type-nav">
+			<div class="party-type active">
+				<span class="icon">🍷</span> 와인 파티
+			</div>
+			<div class="party-type">
+				<span class="icon">🍻</span> 비어 파티
+			</div>
+		</div>
+		<div class="party-details">
+			<div class="image-carousel">
+				<div class="carousel-arrow left">&lt;</div>
+				<div class="carousel-content">이미지 슬라이드 공간</div>
+				<div class="carousel-arrow right">&gt;</div>
+			</div>
+			<div class="info-row">
+				<div class="label">일시</div>
+				<div class="value">2025/08/28 17:00</div>
+			</div>
+			<div class="info-row">
+				<div class="label">장소</div>
+				<div class="value">당산 아레나빌딩 19F A강의장</div>
+			</div>
+			<div class="info-row">
+				<div class="label">가격</div>
+				<div class="value">50,000원</div>
+			</div>
+		</div>
+	</main>
+
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

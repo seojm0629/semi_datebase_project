@@ -3,6 +3,6 @@
 <mapper namespace="kr.co.iei.model.member.dao.MemberDao">
 	<select id="insertMember">
 		insert into member
-		
+		values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memberPhone},#{memberAddr},#{memberEmail},#{birthDate},#{memberGender},#{memberJob},#{memberMBTI},3,#{memberImgPath},0,0,null)
 	</select>
 </mapper>

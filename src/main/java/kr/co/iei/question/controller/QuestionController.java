@@ -36,8 +36,12 @@ public class QuestionController {
 	public String searchWriter(String search, Model model) {
 		List writeList = questionService.selectWriter(search);
 		model.addAttribute("list", writeList);
-		
 		return  "question/list";
+	}
+	
+	@GetMapping(value="/detail")
+	public String detail() {
+		return "question/detail";
 	}
 	
 	

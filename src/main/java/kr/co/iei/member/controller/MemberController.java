@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
+//import kr.co.iei.util.FileUtil;
+import kr.co.iei.util.FileUtil;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -17,6 +19,9 @@ public class MemberController {
 	
 	@Value(value = "${file.root}")
 	private String root;
+	
+	@Autowired
+	private FileUtil fileUtil;
 	
 	@Autowired
 	private MemberService memberService;
@@ -32,9 +37,12 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "/join")
-	public String join(MultipartFile memberImg,Member m, String year, String month, String date) {
+	public String join(MultipartFile memberImg, Member m, String year, String month, String date) {
 		m.setBirthDate(year+"-"+month+"-"+date);
 		String savepath = root+"/selfPhoto/";
+		String filepath = fileUtil.upload(savepath, memberImg);
+		
+		m.setMemberImgPath(filepath);
 		int result = memberService.insertMember(m);
 		return "redirect:/";
 	}

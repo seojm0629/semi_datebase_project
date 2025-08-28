@@ -169,7 +169,7 @@
 		padding-bottom : 10px;
 		padding-top : 10px;
 	}
-	.membership>div:last-child{
+	.membership div:last-child{
 		line-height : 130px;
 	}
 	.membership h4{
@@ -182,11 +182,22 @@
 		align-items : center;
 	}
 	
+	.icon-box>span{
+		border: 1px solid white;
+		border-radius : 50px;
+		background-color : blue;
+		color : white;
+		margin-right : 15px;
+		margin-left : 10px;
+	}
+	
 	.pass-guide{
 		width:100%;
 		text-align : center;
 		padding-bottom : 15px;
 	}
+	
+	
 </style>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -237,32 +248,39 @@
 							<p>등급별로 매칭 시 카테고리수가 달라집니다!</p>
 						</div>
 						<div class="silver-3 membership">
-							<div>
-								<h4>Silver 3회권</h4>
-								<ul>
-									<li>만남 <b>3</b>회 보장</li>
-									<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
-									<li>패스 <b>2</b>회 사용가능</li>	
-								</ul>
-							</div>
-							<div class="icon-box">
-								<span class="material-icons">chevron_right</span>
-							</div>
+							<a href="/match/membershipFrm" class="membership-link">
+								<div>
+									<h4>Silver 3회권</h4>
+									<ul>
+										<li>만남 <b>3</b>회 보장
+										</li>
+										<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
+										<li>패스 <b>2</b>회 사용가능
+										</li>
+									</ul>
+								</div>
+								<div class="icon-box">
+									<span class="material-icons">chevron_right</span>
+								</div>
+							</a>	
 						</div>
 						<div class="silver-5 membership">
+							<a href="/match/membershipFrm" class="membership-link">
 							<div>
 								<h4>Silver 5회권</h4>
 									<ul>
 										<li>만남 <b>5</b>회 보장</li>
 										<li>위에 소개드린 카테고리로 원하는 조건을 선택하실 수 있습니다.</li>
-										<li>패스 <b>6</a></b>회 사용가능</li>	
+										<li>패스 <b>6</b>회 사용가능</li>	
 									</ul>
 							</div>
 							<div class="icon-box">
 								<span class="material-icons">chevron_right</span>
 							</div>
+							</a>
 						</div>
 						<div class="silver-7 membership">
+							<a href="/match/membershipFrm" class="membership-link">
 							<div>
 								<h4>Silver 7회권</h4>
 								<ul>
@@ -274,6 +292,7 @@
 							<div class="icon-box">
 								<span class="material-icons">chevron_right</span>
 							</div>
+						</a>
 						</div>
 					</div>
 						<div class="pass-guide">

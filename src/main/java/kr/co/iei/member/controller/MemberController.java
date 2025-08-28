@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.iei.model.member.service.MemberService;
@@ -45,5 +46,17 @@ public class MemberController {
 		m.setMemberImgPath(filepath);
 		int result = memberService.insertMember(m);
 		return "redirect:/";
+	}
+	
+	@GetMapping(value = "/idCheck")
+	@ResponseBody
+	public int idCheck(String memberId) {
+		Member m = memberService.selectOneMember(memberId);
+		System.out.println(m);
+		if(m != null) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 }

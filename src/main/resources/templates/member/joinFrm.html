@@ -10,7 +10,7 @@
 		<div class="joinFrm-header">
 			<h1>회원가입</h1>
 		</div>
-		<form action="/member/join" method="post">
+		<form action="/member/join" method="post" enctype="multipart/form-data">
 		<div class="joinFrm-content">
 			<div class="joinFrm-input">
 				<span>아이디</span>
@@ -85,8 +85,8 @@
 				</select>
 			</div>
 			<div class="joinFrm-input">
-				<span>직업</span>
-				<select title="직업" name="memberJob">
+				<span>MBTI</span>
+				<select title="MBTI" name="memberMBTI">
 					<option value="ISTP">ISTP</option>
 					<option value="ISFJ">ISFJ</option>
 					<option value="INFJ">INFJ</option>

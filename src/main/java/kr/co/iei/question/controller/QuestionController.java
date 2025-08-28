@@ -1,5 +1,6 @@
 package kr.co.iei.question.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.iei.question.model.service.QuestionService;
 import kr.co.iei.question.model.vo.Question;
+import kr.co.iei.question.model.vo.QuestionFile;
 import kr.co.iei.question.model.vo.QuestionListData;
 import kr.co.iei.util.FileUtil;
 
@@ -43,7 +45,27 @@ public class QuestionController {
 		return "question/writeFrm";
 	}
 	
-	
+	@PostMapping(value="/write")
+	public String questionWrite(Question q, MultipartFile[] upfile, Model model) {
+		
+		List<QuestionFile> fileList = new ArrayList<QuestionFile>();
+		
+		if(!upfile[0].isEmpty()) {
+			String savepath = root+"/question/";
+			
+			for(MultipartFile file : upfile) {
+				String filename = file.getOriginalFilename();
+				String filepath = fileUtil.upload(savepath, file);
+				QuestionFile questionFile = new QuestionFile();
+				questionFile.setFilename(filename);
+				questionFile.setFilepath(filepath);
+				fileList.add(questionFile);
+				
+			}
+		}
+		int result = questionService.insertQuestion(q, fileList);
+		
+	}
 	
 	@GetMapping(value="/search")
 	public String searchWriter(String search, Model model) {

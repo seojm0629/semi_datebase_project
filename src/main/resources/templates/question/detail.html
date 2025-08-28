@@ -97,7 +97,7 @@
 }
 .btn-a {
   border: 1px solid #ccc;
-  background-color: #E5BA73;;
+  background-color: #E5BA73;
   color: #ffffff;
 }
 .btn-button {
@@ -108,14 +108,55 @@
 
 .inputCommentBox{
 	width: 900px;
-	margin: 0 auto;
+	margin: 30px auto;
+	height: 100px;
 	
 }
+.inputCommentBox>form>ul>li{
+	list-style-type: none;
+}
+.inputCommentBox>form>ul{
+	display: flex;
+}
+.inputCommentBox>form>ul>li:first-child{
+	width: 200px;
+	text-align: center;
+}
+.inputCommentBox>form>ul>li:first-child>span{
+	font-size: 100px;	
+}
 
+.inputCommentBox>form>ul>li:nth-child(2){
+	width: 500px;
+	text-align: center;	
+}
+.inputCommentBox>form>ul>li:nth-child(2)>div>textarea{
+	width: 100%;
+	line-height: 40px;
+	resize: none;
+	margin-top: 10px;
+}
+.inputCommentBox>form>ul>li:nth-child(3){
+	width: 200px;
+	text-align: center;	
+}
+.inputCommentBox>form>ul>li:nth-child(3)>button{
+	width: 100px;
+	height: 80px;
+	border-radius: 15px;
+	border: none;
+	background-color: #E5BA73;
+	color: #ffffff;
+	font-size: 25px;
+	font-famliy: main2;
+	font-weight: 900;
+	margin-top: 10px;
+}
 
 
 </style>
 <body>
+	<th:block th:include="common/header"></th:block>
 	<div class="content-question-main">
             <div class="content-detail">
                 <h2>문의사항 상세보기</h2>
@@ -179,6 +220,94 @@
 				</form>
 			</div>
 			
+			<th:block> <!--  th:each="qc : ${q.commentList}" th:if="${qc.questionCommentRef==0}" -->
+				<!-- 댓글 출력 : 8/11 -->
+				<ul class="posting-comment">
+					<li>
+						<span class="material-icons">account_box</span>
+					</li>
+					<li>
+						<p class="comment-info">
+							<span th:text="${nc.noticeCommentWriter}"></span>
+							<span th:text="${nc.noticeCommentDate}"></span>
+							<span class="like-box">
+								<span th:if="${session.member != null && nc.isLike == 1}" class="material-icons" th:onclick="likepush([[${nc.noticeCommentNo}]], this)">thumb_up</span>
+								<span th:if="${session.member != null && nc.isLike == 0}" class="material-icons" th:onclick="likepush([[${nc.noticeCommentNo}]], this)">thumb_up_off_alt</span>
+								<span th:if="${session.member == null}" class="material-icons" onclick="loginMsg()">thumb_up_off_alt</span>
+								<span th:text="${nc.likeCount}"></span>
+							</span>
+						</p>
+						<p class="comment-content" th:text="${nc.noticeCommentContent}"></p>
+						<div class="input-item" style="display: none;" th:if="${session.member != null && session.member.memberId == nc.noticeCommentWriter}">
+							<textarea name="noticeCommentContent"></textarea>
+						</div>
+						<p class="comment-link">
+							<!-- 하위 구문은 로그인한 회원이랑 댓글 작성자랑 같은지 -->
+							<!-- 로그인 여부체크 -->
+							<th:block th:if="${session.member != null}">
+								<!-- 로그인 한 회원이 댓글 작성자와 동일한지 체크 -->
+								<th:block th:if="${session.member.memberId == nc.noticeCommentWriter}">
+									<a th:onclick="modifyComment(this, [[${n.noticeNo}]], [[${nc.noticeCommentNo}]]);">수정</a>
+									<a th:onclick="deleteComment([[${n.noticeNo}]], [[${nc.noticeCommentNo}]]);">삭제</a>
+								</th:block>
+								<a class="recShow">답글달기</a>
+							</th:block>
+						</p>
+					</li>
+				</ul>
+				<!-- 대댓글 출력 -->
+				<ul class="posting-comment reply" th:each="ncc : ${n.commentList}" th:if="${ncc.noticeCommentRef == nc.noticeCommentNo}">
+					<li>
+						<span class="material-icons">subdirectory_arrow_right</span>
+						<span class="material-icons">account_box</span>
+					</li>
+					<li>
+						<p class="comment-info">
+							<span th:text="${ncc.noticeCommentWriter}"></span>
+							<span th:text="${ncc.noticeCommentDate}"></span>
+						</p>
+						<p class="comment-content" th:text="${ncc.noticeCommentContent}"></p>
+						<div class="input-item" style="display: none;" th:if="${session.member != null && session.member.memberId == ncc.noticeCommentWriter}">
+							<textarea name="noticeCommentContent"></textarea>
+						</div>
+						<p class="comment-link">
+							<th:block th:if="${session.member != null && session.member.memberId == ncc.noticeCommentWriter}">
+								<a th:onclick="modifyComment(this, [[${n.noticeNo}]], [[${ncc.noticeCommentNo}]]);">수정</a>
+									<a th:onclick="deleteComment([[${n.noticeNo}]], [[${ncc.noticeCommentNo}]]);">삭제</a>
+							</th:block>
+						</p>
+					</li>
+				</ul>
+				
+				
+				<!-- 
+				대댓글 작성 양식
+				<div class="inputCommentBox inputRecommentBox" th:if="${session.member != null}">
+					<form action="/notice/insertComment" method="post">
+						<ul>
+							<li>
+								<span class="material-icons">subdirectory_arrow_right</span>
+							</li>	
+							<li>
+								<input type="hidden" name="noticeCommentWriter" th:value="${session.member.memberId}">
+								<input type="hidden" name="noticeRef" th:value="${n.noticeNo}">
+								<!-- 대댓글 사용이기 때문에 위쪽 댓글 출력 중 each문의 nc를 가져와 사용
+								<input type="hidden" name="noticeCommentRef" th:value="${nc.noticeCommentNo}">
+								<div class="input-item">
+									<textarea name="noticeCommentContent"></textarea>
+								</div>
+							</li>
+							<li>
+								<button type="submit" class="btn-primary">등록</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</th:block>
+			 -->
+				
+			
+			
             <!-- 
             <div class="content-writer">
                 <div class="content-question">소개팅 문의</div>
@@ -239,5 +368,6 @@
             </div>
              -->
         </div>
+        <th:block th:include="common/footer"></th:block>
 </body>
 </html>

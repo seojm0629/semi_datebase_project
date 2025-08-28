@@ -13,4 +13,8 @@ public class MatchController {
 		return "/match/view";
 	}
 	
+	@GetMapping(value="/membershipFrm")
+	public String membershipFrm(){
+		return "/match/membershipFrm";
+	}
 }

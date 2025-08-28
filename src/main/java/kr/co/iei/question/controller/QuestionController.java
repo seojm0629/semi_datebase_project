@@ -46,6 +46,7 @@ public class QuestionController {
 	}
 	
 	@PostMapping(value="/write")
+	/*
 	public String questionWrite(Question q, MultipartFile[] upfile, Model model) {
 		
 		List<QuestionFile> fileList = new ArrayList<QuestionFile>();
@@ -66,7 +67,7 @@ public class QuestionController {
 		int result = questionService.insertQuestion(q, fileList);
 		
 	}
-	
+	*/
 	@GetMapping(value="/search")
 	public String searchWriter(String search, Model model) {
 		List writeList = questionService.selectWriter(search);

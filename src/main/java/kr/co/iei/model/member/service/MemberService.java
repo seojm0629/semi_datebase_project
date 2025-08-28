@@ -18,4 +18,11 @@ public class MemberService {
 		int result = memberDao.insertMember(m);
 		return result;
 	}
+
+	
+	public Member selectOneMember(String memberId) {
+		Member m = null;
+		m = memberDao.selectOneMember(memberId);
+		return m;
+	}
 }

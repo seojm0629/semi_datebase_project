@@ -11,15 +11,14 @@
 			<h1>회원가입</h1>
 		</div>
 		
-		<form action="/member/checkId" name="checkIdFrm" method="get">
-			<input type="hidden" name="checkId">
-		</form>
-		
 		<form action="/member/join" method="post" enctype="multipart/form-data">
 		<div class="joinFrm-content">
 			<div class="joinFrm-input">
-				<span>아이디</span>
-				<input type="text" name="memberId" id="memberId">
+				<div class="join-input">
+					<span>아이디</span>
+					<input type="text" name="memberId" id="memberId">
+				</div>
+				<p class="input-msg"></p>
 			</div>
 			<div class="joinFrm-input">
 				<span>비밀번호</span>
@@ -180,6 +179,25 @@
 				$("#domain-txt").attr("value", "@");
 				$("#domain-txt").attr("readonly", false);
 			}
+		});
+		
+		$("#memberId").on("change", function(){
+			const memberId = $("#memberId").val();
+			$.ajax({
+				url : "/member/idCheck",
+				type : "get",
+				data : {memberId : memberId},
+				success : function(result){
+					console.log(result);
+					if(result === 0){
+						$(".input-msg").text("사용가능한 아이디입니다.");
+						
+					} else if(result === 1){
+						$(".input-msg").text("이미 사용중인 아이디입니다.");
+						$(".input-msg").css("color", "var(--warning)");
+					}
+				}
+			});
 		});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.iei.question.model.vo.Question;
+import kr.co.iei.question.model.vo.QuestionFile;
+
 @Mapper
 public interface QuestionDao {
 
@@ -13,6 +16,12 @@ public interface QuestionDao {
 	int selectQuestionTotalCount();
 
 	List searchWriter(String search);
+
+	int getQuestionNo();
+
+	int insertQuestion(Question q);
+
+	int insertQuestionFile(QuestionFile questionFile);
 	
 	
 

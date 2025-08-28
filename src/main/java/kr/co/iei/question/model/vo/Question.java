@@ -1,5 +1,7 @@
 package kr.co.iei.question.model.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -17,5 +19,7 @@ public class Question {
 	private String questionContent;
 	private String regDate;
 	private String questionYn;
+	private List<QuestionFile> fileList;
+	private List<QuestionComment> questionList;
 	
 }

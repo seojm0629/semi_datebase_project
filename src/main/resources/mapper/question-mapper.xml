@@ -21,4 +21,56 @@
   	select * from question where question_writer like '%'||#{search}||'%'
   </select>
   
+  <select id="getQuestionNo" resultType="int">
+  	select question_seq.nextval from dual
+  </select>
+  
+  <insert id="insertQuestion">
+  	insert into question values(#{questionNo}, #{title}, #{writer}, #{content}, to_char(sysdate, 'yyyy-mm-dd'))
+  </insert>
+  
+  <insert id="insertQuestionFile">
+  	insert into question_file values(file_seq.nextval, #{questionNo}, #{filename}, #{filepath})
+  </insert>
+  
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

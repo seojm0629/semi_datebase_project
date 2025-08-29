@@ -19,7 +19,7 @@
 			</div>
 			<nav class="nav">
 				<ul>
-					<li><a href="#">소개글</a></li>
+					<li><a href="/notice">소개글</a></li>
 					<li><a href="/party">파티</a></li>
 					<li><a href="/match/view">소개팅</a></li>
 					<li><a href="/review/list">후기♥</a></li>
@@ -28,13 +28,19 @@
 			</nav>
 
 			<ul class="user-menu">
-				<li><a href="/member/loginFrm">로그인</a></li>
-				<li><a href="/member/join-agree">회원가입</a></li>
+				<th:block th:if="${session.member == null}">
+					<li><a href="">로그인</a></li>
+					<li><a href="/member/join-agree">회원가입</a></li>
+				</th:block>
 
-				<!--
-				<li><a href="">마이페이지</a></li>
-				<li><a href="">로그아웃</a></li>
-				  -->
+				<th:block th:if="${session.member != null}">
+					<li><a href="/member/mypage2"
+						th:text="${session.member.memberName}"></a></li>
+					<li><a href="">로그아웃</a></li>
+					<li><a href="">마이페이지</a></li>
+				</th:block>
+
+			</ul>
 		</div>
 
 	</header>

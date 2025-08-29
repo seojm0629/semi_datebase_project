@@ -185,7 +185,7 @@
 					<th>첨부파일</th>
 					<td colspan="3">
 						<th:block th:each="file : ${q.fileList}">
-							<img src="/image/file.png" style="width:16px;">
+							<img src="/image/default.png" style="width:16px;">
 							<a th:href="@{/question/filedown(questionFileNo=${file.questionFileNo})}" th:text=${file.filename}></a>
 							
 						</th:block>

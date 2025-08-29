@@ -148,6 +148,9 @@ button[type=submit]{
 	margin : 0 auto;
 }
 
+.pay{
+	cursor : pointer;
+}
 
 </style>
 </head>
@@ -157,8 +160,9 @@ button[type=submit]{
 	<div class="content-wrap">
 		<div class="img-box"></div>
 		<div class="membership-box">
-		<form action="/match/pay">
+		
 			<div class="membership-title-silver">
+				<input type="hidden" name="memberGrade" value="silver">
 				<span>실버 회원권 결제</span>
 				<span>0원</span>
 			</div>
@@ -180,15 +184,15 @@ button[type=submit]{
 						<div class="match-list"></div>
 						<div class="match-3">3회차
 							<span class="material-icons" id="hide-arrow">keyboard_arrow_down</span>
-							<input type="hidden" name="myMatchingCount" value="3" disabled>
+							<input type="hidden"  value="3" disabled>
 						</div>
 						<div class="match-5">5회차
 							<span class="material-icons" id="hide-arrow">keyboard_arrow_down</span>
-							<input type="hidden" name="myMatchingCount" value="5" disabled>
+							<input type="hidden" value="5" disabled>
 						</div>
 						<div class="match-7">7회차
 							<span class="material-icons" id="hide-arrow">keyboard_arrow_down</span>
-							<input type="hidden" name="myMatchingCount" value="7" disabled>
+							<input type="hidden"  value="7" disabled>
 						</div>
 						
 					</div>
@@ -207,7 +211,6 @@ button[type=submit]{
 			<div class="btn-box">
 				<button type="submit" class="pay">결제하기</button>
 			</div>
-		</form>
 		</div>
 	</div>
 </main>
@@ -223,10 +226,10 @@ button[type=submit]{
 	
 	const today = `${year}-${month}-${day}`;
 	
-	const memberAge = year - memberYear + 1;
+	const userAge = year - memberYear + 1;
 	
-	$(".view-box").text(memberAge+"세");
-	$(".age-view").children("input").val(memberAge);
+	$(".view-box").text(userAge+"세");
+	$(".age-view").children("input").val(userAge);
 	
 	$(".match-count-header").on("click" , function(){
 		
@@ -251,33 +254,51 @@ button[type=submit]{
 	
 	$(".match-list").nextAll().on("click", function(){
 		const list = $(this).siblings();
+		list.find("input[name='matchCount']").removeAttr("name");
 		if(!$(this).hasClass("open")){
-		$(this).show();
-		$(this).find("#hide-arrow").show();
-		list.hide();
-		$(".match-count-header").hide();
-		$(this).css("border-top-color", "#2b2b2b" );
-		$(this).addClass("open");
-		$(this).addClass("selected");
-		$(this).children("input").attr("disabled", false);
+			$(this).show();
+			$(this).find("#hide-arrow").show();
+			list.hide();
+			$(".match-count-header").hide();
+			$(this).css("border-top-color", "#2b2b2b" );
+			$(this).addClass("open");
+			$(this).addClass("selected");
+			$(this).children("input").attr("disabled", false);
+			$(this).children("input").attr("name" , "matchCount");
+			
 		} else{
 			list.hide();
 			$(".match-count-header").show();
 			$("#down-arrow").text("keyboard_arrow_down");
 			$(this).find("#hide-arrow").hide();
 			$(this).siblings().children("input").attr("disabled" , true);
+			list.children("input").removeAttr("name");
 			$(this).removeClass("open");
 			$(this).removeClass("selected");
 			list.slideDown();
 		}
 	});
-	
+		
 	$(".pay").on("click",function(e){
-		const list = $(".match-list").nextAll();
-		if(!list.hasClass(".open")){
-			e.preventDefault();
-			
-		}
+		
+		const matchCount = $("[name=matchCount]").val();
+		
+		const memberAge = $("[name=memberAge]").val();
+		const memberGrade = $("[name=memberGrade]").val();
+		
+		$.ajax({
+			url : "/match/calcPrice",
+			type : "post",
+			data : { memberGrade : memberGrade, memberAge : memberAge, matchCount : matchCount },
+			dataType : "json",
+			success : function(price){
+				
+			},
+			error : function(){
+				console.log("실패");
+			}
+		});
+		
 	});
 	
 	

@@ -22,4 +22,7 @@ public class Question {
 	private List<QuestionFile> fileList;
 	private List<QuestionComment> questionList;
 	
+	public String getQuestionContentBr() {
+		return questionContent.replace("\n", "<br>");
+	}
 }

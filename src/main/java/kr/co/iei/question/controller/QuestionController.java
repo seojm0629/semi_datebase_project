@@ -10,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletResponse;
+import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.question.model.service.QuestionService;
 import kr.co.iei.question.model.vo.Question;
 import kr.co.iei.question.model.vo.QuestionFile;
@@ -80,8 +83,26 @@ public class QuestionController {
 	}
 	
 	@GetMapping(value="/detail")
-	public String questionView() {
-		return "question/detail";
+	public String questionDetail(int questionNo, @SessionAttribute(required = false) Member member, Model model) {
+		int memberNo = member==null ? 0 : member.getMemberNo();
+		Question q = questionService.selectOneQuestion(questionNo, memberNo);
+		if(q == null) {
+			model.addAttribute("title", "문의사항 조회 실패");
+			model.addAttribute("text", "이미 삭제된 게시글입니다.");
+			model.addAttribute("icon", "info");
+			model.addAttribute("loc", "/ question/list?reqPage=1" );
+			return "common/msg";
+		} else {
+			model.addAttribute("q", q);
+			return "question/detail";
+		}
+	}
+	
+	@GetMapping(value="/filedown")
+	public void filedown(int questionFileNo, HttpServletResponse response) {
+		QuestionFile questionFile = questionService.selectOneQuestionFile(questionFileNo);
+		String savepath = root+"/question/";
+		fileUtil.questionFile(savepath, questionFile.getFilepath(), questionFile.getFilename(), response);
 	}
 	
 }

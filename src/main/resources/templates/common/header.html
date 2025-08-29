@@ -32,11 +32,9 @@
 					<li><a href="/member/loginFrm">로그인</a></li>
 					<li><a href="/member/join-agree">회원가입</a></li>
 				</th:block>
-
 				<th:block th:if="${session.member != null}">
-					<li><a href="/member/mypage2"
-						th:text="${session.member.memberName}"></a></li>
 					<li><a href="">로그아웃</a></li>
+					<li><a href="/member/logout">로그아웃</a></li>
 					<li><a href="">마이페이지</a></li>
 				</th:block>
 

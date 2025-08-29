@@ -1,0 +1,166 @@
+:root {
+	/*main color
+  --main1: #3d3d3d;
+  --main2: #6059f7;
+  --main3: #6592fe;
+  --main4: #36c3fe;
+  --main5: #8c61ff;
+  box-bg
+  --box-bg: #f0f1f1;
+  gray
+  --gray1: #222222;
+  --gray2: #555555;
+  --gray3: #717171;
+  --gray4: #8f8f8f;
+  --gray5: #b7b7b7;
+  --gray6: #d6d6d6;
+  --gray7: #efefef;
+  --gray8: #ffffff;
+
+  line-color
+  --line1: #222222;
+  --line2: #d6d6d6;
+  --line3: #eaeced;
+  --line4: #f6f6f6;
+  --line5: #f8f9fa;*/
+	--black: #2B2B2B; /*검은 글씨색*/
+	--footerB: #FAF8F1; /*푸터 배경색*/
+	--color: #FAEAB1; /*얇은 글씨 특) 잘 안보임*/
+	--main: #E5BA73; /*버튼색, 로고, 페이지 제목*/
+	--bold: #C58940; /*푸터 두꺼운 글씨, 선 그을때*/
+	--hover: #EAC88F; /*버튼 호버한 경우 색*/
+	--warning: #FF6868; /*경고색*/
+	--cancel: #D9D9D9; /*취소버튼*/
+}
+
+@font-face {
+	font-family: main2;
+	src: url(/font/PyeongChang-Regular.ttf);
+}
+
+@font-face {
+	font-family: mainB2;
+	src: url(/font/PyeongChang-Bold.ttf);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Noto Sans KR", sans-serif;
+	color: #2B2B2B;
+}
+
+body {
+	height: 100%;
+	background: #fff;
+}
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+	padding: 40px 0;
+}
+
+/* 제목 */
+.title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #b58b39;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+/* 탭 메뉴 */
+.tabs {
+	display: flex;
+	justify-content: center;
+	gap: 200px;
+	margin-bottom: 20px;
+}
+
+.tabs div {
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+
+.tabs div.active {
+	border-bottom: 2px solid #b58b39;
+	color: #b58b39;
+}
+
+/* 이미지 영역 */
+.party-img {
+	width: 400px;
+	height: 300px;
+	margin: 30px auto;
+	border: 1px solid #ccc;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	overflow: hidden;
+}
+
+.party-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: none;
+}
+
+.party-img img.active {
+	display: block;
+}
+
+.party-img .arrow {
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 0 20px;
+	user-select: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #b58b39;
+	z-index: 10;
+}
+
+.party-img .arrow.left {
+	left: 0;
+}
+
+.party-img .arrow.right {
+	right: 0;
+}
+
+/* 파티 정보 */
+.info {
+	margin-top: 20px;
+	font-size: 18px;
+	text-align: left;
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.info-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.info-row span:first-child {
+	font-weight: bold;
+}
+
+/* 탭별 콘텐츠 숨기기 */
+.party-tab {
+	display: none;
+}
+
+.party-tab.active {
+	display: block;
+}

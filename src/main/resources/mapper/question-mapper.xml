@@ -7,7 +7,7 @@
     		(select rownum as rnum, q.* from 
         		(select 
             		question_no, question_title, question_writer, reg_date 
-       			 from question order by question_no asc
+       			 from question order by question_no desc
        			 )q
        		)
   	where rnum between #{start} and #{end}
@@ -26,7 +26,7 @@
   </select>
   
   <insert id="insertQuestion">
-  	insert into question values(#{questionNo}, #{title}, #{writer}, #{content}, to_char(sysdate, 'yyyy-mm-dd'))
+  	insert into question values(question_seq.nextval, #{questionTitle}, #{questionWriter}, #{questionContent}, to_char(sysdate, 'yyyy-mm-dd'))
   </insert>
   
   <insert id="insertQuestionFile">

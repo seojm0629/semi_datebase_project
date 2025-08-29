@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.iei.question.model.dao.QuestionDao;
 import kr.co.iei.question.model.vo.Question;
+import kr.co.iei.question.model.vo.QuestionComment;
 import kr.co.iei.question.model.vo.QuestionFile;
 import kr.co.iei.question.model.vo.QuestionListData;
 
@@ -111,6 +112,37 @@ public class QuestionService {
 		}
 		
 		return result;
+	}
+
+	public Question selectOneQuestion(int questionNo, int memberNo) {
+		Question q = questionDao.selectOneQuestion(questionNo);
+		if(q != null) {
+			//해당 게시글의 첨부파일 조회
+			List fileList = questionDao.selectQuestionFile(questionNo);
+			q.setFileList(fileList);
+			
+			//해당 게시글의 댓글 조회(해당 questionNo)에 달려있는 댓글 전부 가져오는 작업
+			List<QuestionComment> commentList = questionDao.selectQuestionCommentList(questionNo);
+			for(QuestionComment qc : commentList) {
+				//댓글 좋아요 수
+				int questionCommentLikeCount = questionDao.selectQuestionCommentLikeCount(qc.getQuestionCommentNo());
+				qc.setLikeCount(questionCommentLikeCount);
+				HashMap<String, Object> param = new HashMap<String, Object>();
+				param.put("questionCommentNo", qc.getQuestionCommentNo());
+				param.put("memberNo", memberNo);	
+				
+			}
+			q.setQuestionList(commentList);
+			
+			
+		}
+		
+		return q;
+	}
+
+	public QuestionFile selectOneQuestionFile(int questionFileNo) {
+		QuestionFile questionFile = questionDao.selectOneQuestionFile(questionFileNo);
+		return questionFile;
 	}
 }
 

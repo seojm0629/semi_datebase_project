@@ -2,7 +2,89 @@
 <html xmlns:th="http://www.thyeleap.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>DateBase login</title>
+<style>
+/*-------------------------loginFrm----------------------------*/
+.loginFrm-all-wrap{
+    width: 1200px;
+    margin: 0 auto;
+}
+.loginFrm-wrap{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+/*-----------------------------header---------------------------------*/
+.loginFrm-header{
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+.loginFrm-header>h1{
+    font-family: mainB2;
+    font-size: 36px;
+}
+/*--------------------------------content--------------------------------------*/
+.loginFrm-content{
+    width: 600px;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-box-wrap{
+    width: 300px;
+    display: inline-block;
+}
+#login-box{
+    width: 300px;
+}
+.login-box-wrap>div:first-child{
+    margin-left: 9px;
+}
+#login-box>span{
+    font-size: 20px;
+    color: #E5BA73;
+}
+#login-box>input{
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #2b2b2b;
+}
+#login-box>input:focus{
+    outline: none;
+    border-bottom: 2px solid #C58940;
+}
+.login-btn{
+    width: 40px;
+    float: right;
+}
+#login-btn{
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    background-color: #E5BA73;
+    color: #fff;
+}
+#login-btn:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}
+.a{
+    width: 250px;
+    margin: 0 auto;
+    text-align: left;
+}
+.a a{
+    
+    text-decoration: none;
+}
+
+.a>a:hover{
+    text-decoration: underline;
+}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -20,7 +102,7 @@
 	                        </div>
 	                        <div id="login-box">
 	                            <span>비밀번호</span>
-	                            <input type="password" name="memberpw" id="memberpw">
+	                            <input type="password" name="memberPw" id="memberPw">
 	                        </div>
 	                    </div>
 	                    <div class="login-btn">
@@ -29,7 +111,7 @@
 	                </form>
 	            </div>
 	            <div class="a">
-	                <a href="#">아이디/</a><a href="#">비밀번호 찾기</a>
+	                <a href="#">아이디</a><span>/</span><a href="#">비밀번호 찾기</a>
 	            </div>
 	        </div>
 	    </div>

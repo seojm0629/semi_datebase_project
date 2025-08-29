@@ -47,14 +47,15 @@
 			<div class="joinFrm-input">
 				<span>이메일</span>
 				<input type="text" name="memberEmailF" id="memberEmailF">
+				<span class="mail">@</span>
 				<input class="box" id="domainTxt" type="text" name="domainTxt">
 				<select class="box" id="domain-list" name="domain-list">
 				  <option value="type">직접 입력</option>
-				  <option value="@naver.com">@naver.com</option>
-				  <option value="@google.com">@google.com</option>
-				  <option value="@hanmail.net">@hanmail.net</option>
-				  <option value="@nate.com">@nate.com</option>
-				  <option value="@kakao.com">@kakao.com</option>
+				  <option value="naver.com">naver.com</option>
+				  <option value="google.com">google.com</option>
+				  <option value="hanmail.net">hanmail.net</option>
+				  <option value="nate.com">nate.com</option>
+				  <option value="kakao.com">kakao.com</option>
 				</select>
 			</div>
 			<div class="mailCheck">
@@ -179,11 +180,11 @@
 			const list =  $("#domain-list").val();
 			console.log(list);
 			if(list !== "type"){
-				$("#domain-txt").attr("value", list);
-				$("#domain-txt").attr("readonly", true);
+				$("#domainTxt").attr("value", list);
+				$("#domainTxt").attr("readonly", true);
 			}else{
-				$("#domain-txt").attr("value", "@");
-				$("#domain-txt").attr("readonly", false);
+				$("#domainTxt").attr("value", "@");
+				$("#domainTxt").attr("readonly", false);
 			}
 		});
 		

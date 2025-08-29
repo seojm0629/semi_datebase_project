@@ -86,6 +86,7 @@ public class QuestionController {
 	public String questionDetail(int questionNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member==null ? 0 : member.getMemberNo();
 		Question q = questionService.selectOneQuestion(questionNo, memberNo);
+		System.out.println(q);
 		if(q == null) {
 			model.addAttribute("title", "문의사항 조회 실패");
 			model.addAttribute("text", "이미 삭제된 게시글입니다.");

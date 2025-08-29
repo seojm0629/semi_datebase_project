@@ -42,7 +42,7 @@
 }
 
 .content-question{
-	width:909px;
+	width:900px;
 	height: 50px;
 	line-height: 50px;
 	margin: 0 auto;
@@ -148,14 +148,14 @@
 	                <tr>
 	                    <th>제목</th>
 	                    <td colspan="3">
-	                    	<input type="text" name="title" id="title">
+	                    	<input type="text" name="questionTitle" id="title">
 	                    </td>
 	                </tr>
 	                <tr>
 	                	<th>작성자</th>
-	                	<td>
-	                		<!--<span th:text="${session.member.memberId}></span> -->
-	                		<input type="text" name="questionWriter"><!-- th:value="${session.member.memberId} -->
+	                	<td style="width:30%;">
+	                		<span th:text="${session.member.memberId}"></span>
+	                		<input type="hidden" name="questionWriter" th:value="${session.member.memberId}">
 	                	</td>
 	                	<th>첨부파일</th>
 	                	<td>
@@ -165,7 +165,7 @@
 					<tr>
 			            <td class="content">
 			            	<div>
-			                	<textarea name="content" id="content"></textarea>
+			                	<textarea name="questionContent" id="content"></textarea>
 			                </div>
 			            </td>
 					</tr>

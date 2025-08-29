@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.question.model.dao.QuestionDao;
 import kr.co.iei.question.model.vo.Question;
@@ -101,6 +101,7 @@ public class QuestionService {
 		return writeList;
 	}
 
+	@Transactional
 	public int insertQuestion(Question q, List<QuestionFile> fileList) {
 		int newQuestionNo = questionDao.getQuestionNo();
 		q.setQuestionNo(newQuestionNo);

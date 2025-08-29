@@ -185,7 +185,7 @@
 					<th>첨부파일</th>
 					<td colspan="3">
 						<th:block th:each="file : ${q.fileList}">
-							<img src="/image/file.png" style="width:16px;">
+							<img src="/image/default.png" style="width:16px;">
 							<a th:href="@{/question/filedown(questionFileNo=${file.questionFileNo})}" th:text=${file.filename}></a>
 							
 						</th:block>
@@ -224,6 +224,24 @@
 					</ul>
 				</form>
 			</div>
+			
+			<th:block th:each="qc : ${q.questionList}" th:if="${qc.questionCommentRef == 0}">
+				<ul>
+					<li>
+						<span class="material-icons">account_box</span>
+					</li>
+					<li>
+						<p>
+							<span th:text="${qc.questionCommentWriter}"></span>
+							<span th:text="${qc.questionCommentDate}"></span>
+						</p>
+						<p th:text="${qc.questionCommentContent}"></p>
+						<div th:if="${session.member != null && session.member.memberId == qc.questionCommentWriter}">
+							<textarea name="noticeCommentContent"></textarea>
+						</div>
+					</li>
+				</ul>
+			</th:block>
 			
 		</div>
         <th:block th:include="common/footer"></th:block>

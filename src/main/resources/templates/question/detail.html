@@ -225,6 +225,24 @@
 				</form>
 			</div>
 			
+			<th:block th:each="qc : ${q.questionList}" th:if="${qc.questionCommentRef == 0}">
+				<ul>
+					<li>
+						<span class="material-icons">account_box</span>
+					</li>
+					<li>
+						<p>
+							<span th:text="${qc.questionCommentWriter}"></span>
+							<span th:text="${qc.questionCommentDate}"></span>
+						</p>
+						<p th:text="${qc.questionCommentContent}"></p>
+						<div th:if="${session.member != null && session.member.memberId == qc.questionCommentWriter}">
+							<textarea name="noticeCommentContent"></textarea>
+						</div>
+					</li>
+				</ul>
+			</th:block>
+			
 		</div>
         <th:block th:include="common/footer"></th:block>
 </body>

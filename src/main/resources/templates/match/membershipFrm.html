@@ -41,7 +41,7 @@
 	font-size : 26px;
 	display : block;
 	padding-bottom : 20px;
-	margin-bottom : 20px;
+	margin-bottom : 10px;
 }
 [class$=silver]>span:last-child{
 	font-size : 17px;
@@ -130,6 +130,25 @@
 .view-box {
 	padding-left : 10px;
 }
+
+button[type=submit]{
+	margin-top : 30px;
+	font-size : 17px;
+	color : white;
+	font-family : mainB2;
+	border : none;
+	width:60%;
+	background-color: #e5BA73;
+	border-radius : 10px;
+	padding : 12px;
+}
+
+.btn-box{
+	text-align : center;
+	margin : 0 auto;
+}
+
+
 </style>
 </head>
 <body>
@@ -185,7 +204,9 @@
 					<div class="view-box"></div>
 				</div>
 			</div>
-			<button type="submit">결제하기</button>
+			<div class="btn-box">
+				<button type="submit" class="pay">결제하기</button>
+			</div>
 		</form>
 		</div>
 	</div>
@@ -203,7 +224,6 @@
 	const today = `${year}-${month}-${day}`;
 	
 	const memberAge = year - memberYear + 1;
-	console.log(memberAge);
 	
 	$(".view-box").text(memberAge+"세");
 	$(".age-view").children("input").val(memberAge);
@@ -251,6 +271,15 @@
 			list.slideDown();
 		}
 	});
+	
+	$(".pay").on("click",function(e){
+		const list = $(".match-list").nextAll();
+		if(!list.hasClass(".open")){
+			e.preventDefault();
+			
+		}
+	});
+	
 	
 </script>
 </html>

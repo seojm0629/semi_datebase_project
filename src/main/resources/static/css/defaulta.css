@@ -113,19 +113,19 @@ header>div>.user-menu {
 
 .footer {
 	background-color: #faf8f1;
-	position: relative;
+	position: absolute;
 	bottom: 0;
-	left: 0; /* 왼쪽 끝 붙이기 */
-	width: 100%; /* 화면 끝까지 폭 채우기 */
+	left: 0; 
+	width: 100%; 
 	margin-top: auto;
 }
 
 .footer>div {
 	max-width: 1400px;
-	width: 100%; /* div도 부모 폭 채우기 */
+	width: 100%; 
 	padding: 20px 10px;
 	margin: 0 auto;
-	box-sizing: border-box; /* padding 포함 전체 폭 계산 */
+	box-sizing: border-box; 
 }
 
 .footer>div>p {

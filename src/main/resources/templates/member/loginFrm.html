@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleap.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+		<div class="loginFrm-all-wrap">
+	        <div class="loginFrm-wrap">
+	            <div class="loginFrm-header">
+	                <h1>로그인</h1>
+	            </div>
+	            <div class="loginFrm-content">
+	                <form action="/member/login" method="post">
+	                    <div class="login-box-wrap">
+	                        <div id="login-box">
+	                            <span>아이디</span>
+	                            <input type="text" name="memberId" id="memberId">
+	                        </div>
+	                        <div id="login-box">
+	                            <span>비밀번호</span>
+	                            <input type="password" name="memberpw" id="memberpw">
+	                        </div>
+	                    </div>
+	                    <div class="login-btn">
+	                        <button type="submit" id="login-btn">login</button>
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="a">
+	                <a href="#">아이디/</a><a href="#">비밀번호 찾기</a>
+	            </div>
+	        </div>
+	    </div>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

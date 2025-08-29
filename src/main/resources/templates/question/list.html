@@ -192,7 +192,7 @@
                     <tr th:each="question : ${list}">
 						<td th:text="${question.questionNo}"></td>
 						<td>
-							<a th:href="@{/question/view(questionNo=${question.questionNo})}" 	th:text="${question.questionTitle}"></a>
+							<a th:href="@{/question/detail(questionNo=${question.questionNo})}" 	th:text="${question.questionTitle}"></a>
 						</td>
 						<td th:text="${question.questionWriter}"></td>
 						<td th:text="${question.regDate}"></td>

@@ -3,12 +3,14 @@ package kr.co.iei.member.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
 //import kr.co.iei.util.FileUtil;
@@ -59,4 +61,23 @@ public class MemberController {
 			return 0;
 		}
 	}
-}
+	
+	@GetMapping(value = "/loginFrm")
+	public String loginFrm() {
+		return "/member/loginFrm";
+	}
+	
+	@PostMapping(value = "/login")
+	public String login(Member m, HttpSession session, Model model) {
+		Member member = memberService.login(m);
+		if(member != null) {
+			session.setAttribute("member", member);
+			return "redirect:/";
+		}else {
+			model.addAttribute("title", "실패 메세지");
+			model.addAttribute("text", "아이디 또는 비밀번호를 확인해주세요.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+	}
+}//controller

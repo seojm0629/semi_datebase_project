@@ -62,7 +62,7 @@ public class FileUtil {
 		return filepath;
 	}
 	
-	public void noticeFile(String savepath, String filepath, String filename, HttpServletResponse response) {
+	public void questionFile(String savepath, String filepath, String filename, HttpServletResponse response) {
 		//다운로드할 파일
 		String downFile = savepath+filepath;
 		

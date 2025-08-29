@@ -177,43 +177,43 @@
 				</tr>
 				<tr>
 					<th style="width:20%;">작성자</th>
-					<td style="width:30%;"></td><!--<td style="width:30%;" th:text="${q.questionWriter"></td> -->
+					<td style="width:30%;" th:text="${q.questionWriter}"></td>
 					<th style="width:20%;">작성일</th>
-					<td style="width:30%;"></td><!-- <td style="width:30%;" th:text="${q.regDate}"></td> -->
+					<td style="width:30%;" th:text="${q.regDate}"></td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
 					<td colspan="3">
 						<th:block>
 							<img src="/image/file.png" style="width:16px;">
-							<a></a>
-							<!-- th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text=${file.filename} -->
+							<a th:href="@{/question/filedown(questionFileNo=${file.questionFileNo})}" th:text=${file.filename}></a>
+							
 						</th:block>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<div id="questionContent"></div>
-						<!-- th:utext="${n.noticeContentBr}" -->
+						<div id="questionContent" th:utext="${q.questionContentBr}"></div>
 					</td>
 				</tr>
-				<tr> <!-- th:if="${session.member != null && session.member.memberId == q.questionWriter}" -->
+				<tr th:if="${session.member != null && session.member.memberId == q.questionWriter}">
 					<td colspan="4">					
-						<a class="btn-a">수정</a> <!-- th:href="@{/notice/updateFrm(questionNo=${q.questionNo})}" -->
+						<a class="btn-a">수정</a>
+						<!--  th:href="@{/question/updateFrm(questionNo=${q.questionNo})}" -->
 						<button class="btn-button">삭제</button>
 					</td>
 				</tr>
 			</table>
 			
-			<div class="inputCommentBox"> <!-- th:if="${session.member != null}" -->
+			<div class="inputCommentBox" th:if="${session.member != null}"> 
 				<form action="/question/insertComment" method="post">
 					<ul>
 						<li>
 							<span class="material-icons">account_box</span>
 						</li>
 						<li>
-							<input type="hidden" name="questionCommentWriter"><!--  th:value="${session.member.memberId}" -->
-							<input type="hidden" name="questionRef"> <!-- th:value="${q.questionNo}" -->
+							<input type="hidden" name="questionCommentWriter" th:value="${session.member.memberId}" >
+							<input type="hidden" name="questionRef" th:value="${q.questionNo}">
 							<div>
 								<textarea name="questionCommentContent"></textarea>
 							</div>

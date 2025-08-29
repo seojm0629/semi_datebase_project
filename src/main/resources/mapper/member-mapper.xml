@@ -8,5 +8,8 @@
 	
 	<select id="selectOneMember" resultType="member">
 		select * from member where member_id = #{memberId}
+		<if test="memberPw != null">
+			and member_pw = #{memberPw}
+		</if>
 	</select>
 </mapper>

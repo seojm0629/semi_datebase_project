@@ -21,8 +21,15 @@ public class MemberService {
 
 	
 	public Member selectOneMember(String memberId) {
-		Member m = null;
-		m = memberDao.selectOneMember(memberId);
+		Member m = new Member();
+		m.setMemberId(memberId);
+		m = memberDao.selectOneMember(m);
 		return m;
+	}
+
+
+	public Member login(Member m) {
+		Member member = memberDao.selectOneMember(m);
+		return member;
 	}
 }

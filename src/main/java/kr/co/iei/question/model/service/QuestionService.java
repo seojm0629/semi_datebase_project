@@ -146,6 +146,12 @@ public class QuestionService {
 		QuestionFile questionFile = questionDao.selectOneQuestionFile(questionFileNo);
 		return questionFile;
 	}
+	
+	@Transactional
+	public int insertQuestionComment(QuestionComment qc) {
+		int result = questionDao.insertQuestionComment(qc);
+		return result;
+	}
 }
 
 

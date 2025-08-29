@@ -47,6 +47,10 @@
 	border: 1px solid #ccc;
 	border-spacing: 0;
 }
+
+.content-title-tbl>tbody>tr:nth-child(2)>td{
+	text-align: center;
+}
 .content-title-tbl>tbody>tr{
 	border-bottom: 1px solid #ccc;
 }
@@ -55,7 +59,7 @@
 	height: 50px;
 	font-size: 20px;
 	background-color: #E5BA73;
-	color: #ffffff;
+	color: black;
 	
 }
 
@@ -67,12 +71,20 @@
 .content-title-tbl>tbody>tr:nth-child(2)>th{
 	background-color: #FAF8F1;
 	font-size: 18px;
-	
+	border-bottom: 1px solid #ccc;
 }
+.content-title-tbl>tbody>tr:nth-child(2)>td{
+	border-bottom: 1px solid #ccc;
+}
+
 .content-title-tbl>tbody>tr:nth-child(3)>th{
 	height: 50px;
 	background-color: #FAF8F1;
 	font-size: 18px;
+	border-bottom: 1px solid #ccc;
+}
+.content-title-tbl>tbody>tr:nth-child(3)>td{
+	border-bottom: 1px solid #ccc;
 }
 .content-title-tbl>tbody>tr:nth-child(4){
 	height: 300px;
@@ -158,15 +170,19 @@
 	font-weight: 900;
 	margin-top: 10px;
 }
-.comment-content{
-	width: 900px;
-	border: 1px solid black;
-	background-color: #ccc;
+.content-comment{
+  width: 900px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 10px;
+  border: 1px solid #ccc;
 }
+
+	
 </style>
 <body>
 	<th:block th:include="common/header"></th:block>
-	<div class="content-question-main">
+	<section class="content-question-main">
             <div class="content-detail">
                 <h2>문의사항 상세보기</h2>
             </div>
@@ -175,9 +191,7 @@
 			<table class="content-title-tbl">
 				<!-- tr th:text="${q.questionTitle} 들어가야함-->
 				<tr>
-					<th colspan="4">
-						문의사항 제목
-					</th>
+					<th colspan="4" th:text="${q.questionTitle}"></th>
 				</tr>
 				<tr>
 					<th style="width:20%;">작성자</th>
@@ -189,7 +203,7 @@
 					<th>첨부파일</th>
 					<td colspan="3">
 						<th:block th:each="file : ${q.fileList}">
-							<img src="/image/default.png" style="width:16px;">
+							<img src="/image/file.png" style="width:16px;">
 							<a th:href="@{/question/filedown(questionFileNo=${file.questionFileNo})}" th:text=${file.filename}></a>
 							
 						</th:block>
@@ -229,25 +243,60 @@
 				</form>
 			</div>
 			
-			<th:block th:each="qc : ${q.questionList}" th:if="${qc.questionCommentRef == 0}">
-				<ul class="comment-content">
+			<th:blocK th:each="qc : ${q.questionList}" th:if="${qc.questionCommentRef == 0}">
+				<ul class="content-comment">
 					<li>
 						<span class="material-icons">account_box</span>
 					</li>
-					<li>
-						<p>
-							<span th:text="${qc.questionCommentWriter}"></span>
-							<span th:text="${qc.questionCommentDate}"></span>
-						</p>
-						<p th:text="${qc.questionCommentContent}"></p>
-						<div th:if="${session.member != null && session.member.memberId == qc.questionCommentWriter}">
-							<textarea name="noticeCommentContent"></textarea>
-						</div>
-					</li>
 				</ul>
-			</th:block>
-			
-		</div>
+			</th:blocK>
+				
+		</section>
         <th:block th:include="common/footer"></th:block>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

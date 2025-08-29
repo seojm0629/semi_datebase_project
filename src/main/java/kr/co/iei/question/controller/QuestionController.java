@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.question.model.service.QuestionService;
 import kr.co.iei.question.model.vo.Question;
+import kr.co.iei.question.model.vo.QuestionComment;
 import kr.co.iei.question.model.vo.QuestionFile;
 import kr.co.iei.question.model.vo.QuestionListData;
 import kr.co.iei.util.FileUtil;
@@ -106,6 +107,14 @@ public class QuestionController {
 		fileUtil.questionFile(savepath, questionFile.getFilepath(), questionFile.getFilename(), response);
 	}
 	
+	
+	@PostMapping(value="/insertComment")
+	public String insertComment(QuestionComment qc) {
+		System.out.println(qc);
+		int result = questionService.insertQuestionComment(qc);
+		
+		return "redirect:/question/detail?questionNo=" + qc.getQuestionCommentRef();
+	}
 }
 
 

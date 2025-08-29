@@ -62,6 +62,11 @@ public class MemberController {
 		}
 	}
 	
+	@GetMapping(value = "/loginFrm")
+	public String loginFrm() {
+		return "/member/loginFrm";
+	}
+	
 	@PostMapping(value = "/login")
 	public String login(Member m, HttpSession session, Model model) {
 		Member member = memberService.login(m);

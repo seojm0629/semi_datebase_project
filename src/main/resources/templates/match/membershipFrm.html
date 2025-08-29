@@ -55,7 +55,7 @@
 	width : 80%;
 
 }
-.input-match-count>div:first-child{
+[class^=input-match]>div{
 	margin-top : 5px;
 	font-weight : 600;
 }
@@ -70,7 +70,7 @@
 }
 
 .match-count-header{
-	border : 1px solid black;
+	border : 1px solid #d9d9d9;
 	border-bottom : none;
 	padding : 10px;
 	box-sizing: border-box;
@@ -98,7 +98,7 @@
 .match-count-select>div:not(.match-list){
 	width:100%;
 	margin : 0;
-	border: 1px solid black;
+	border: 1px solid #d9d9d9;
 	border-top : none;
 	padding : 10px;
 	display : none;
@@ -106,10 +106,27 @@
 .match-list{
 	width:100%;
 	margin : 0;
-	border-bottom : 1px solid black;
+	border-bottom : 1px solid #d9d9d9;
 	
 }
 
+.match-count-select>div:hover{
+	background-color : #faeab1;
+}
+
+.open{
+	border-width : 1px;
+	border-color : black;
+}
+
+.selected{
+	border-top : 1px solid #2b2b2b;
+}
+
+#hide-arrow{
+	display : none;
+	float : right;
+}
 	
 </style>
 </head>
@@ -119,6 +136,7 @@
 	<div class="content-wrap">
 		<div class="img-box"></div>
 		<div class="membership-box">
+		<form action="/match/pay">
 			<div class="membership-title-silver">
 				<span>실버 매칭 상품</span>
 				<span>0원</span>
@@ -139,14 +157,32 @@
 					</div>
 					<div class="match-count-select">
 						<div class="match-list"></div>
-						<div class="match-3">3회차</div>
-						<div class="match-5">5회차</div>
-						<div class="match-7">7회차</div>
+						<div class="match-3">3회차
+							<span class="material-icons" id="hide-arrow">keyboard_arrow_down</span>
+							<input type="hidden" name="myMatchingCount" value="3" disabled>
+						</div>
+						<div class="match-5">5회차
+							<span class="material-icons" id="hide-arrow">keyboard_arrow_down</span>
+							<input type="hidden" name="myMatchingCount" value="5" disabled>
+						</div>
+						<div class="match-7">7회차
+							<span class="material-icons" id="hide-arrow">keyboard_arrow_down</span>
+							<input type="hidden" name="myMatchingCount" value="7" disabled>
+						</div>
 						
 					</div>
 				</div>
+				
 			</div>	
-			
+			<div class="input-match-age">
+				<div>
+					나이<sup>*</sup>
+				</div>
+				<div>
+					<div th:value="@{session.member.birth_date}"></div>
+				</div>
+			</div>
+		</form>
 		</div>
 	</div>
 </main>
@@ -156,17 +192,45 @@
 	$(".match-count-header").on("click" , function(){
 		
 		const list = $(".match-list").nextAll();
-		console.log($(this).hasClass("open"))
 		if(!$(this).hasClass("open")){
-			list.show();
+			list.slideDown(300);
 			$("#down-arrow").text("keyboard_arrow_up");
 			$(this).addClass("open");
+			list.css("border-color" , "#2b2b2b");
+			list.css("border-width" , "2px");
+			list.css("border-top-color" , "#d9d9d9");
+			list.css("border-top-width" , "1px");
+			
+			
 		} else{
 			list.hide();
 			$("#down-arrow").text("keyboard_arrow_down");
 			$(this).removeClass("open");
 		}
 		
+	});
+	
+	$(".match-list").nextAll().on("click", function(){
+		const list = $(this).siblings();
+		if(!$(this).hasClass("open")){
+		$(this).show();
+		$(this).find("#hide-arrow").show();
+		list.hide();
+		$(".match-count-header").hide();
+		$(this).css("border-top-color", "#2b2b2b" );
+		$(this).addClass("open");
+		$(this).addClass("selected");
+		$(this).children("input").attr("disabled", false);
+		} else{
+			list.hide();
+			$(".match-count-header").show();
+			$("#down-arrow").text("keyboard_arrow_down");
+			$(this).find("#hide-arrow").hide();
+			$(this).siblings().children("input").attr("disabled" , true);
+			$(this).removeClass("open");
+			$(this).removeClass("selected");
+			list.slideDown();
+		}
 	});
 	
 </script>

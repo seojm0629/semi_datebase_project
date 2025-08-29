@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -12,17 +11,14 @@
 }
 
 body {
-	
 	height: 100%;
 	background: #fff;
-
 }
 
 .container {
 	width: 1200px;
 	margin: 0 auto;
 	padding: 40px 0;
-	height: 610px;
 }
 
 /* 제목 */
@@ -65,6 +61,18 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
+	overflow: hidden;
+}
+
+.party-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: none;
+}
+
+.party-img img.active {
+	display: block;
 }
 
 .party-img .arrow {
@@ -73,6 +81,19 @@ body {
 	cursor: pointer;
 	padding: 0 20px;
 	user-select: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #b58b39;
+	z-index: 10;
+}
+
+.party-img .arrow.left {
+	left: 0;
+}
+
+.party-img .arrow.right {
+	right: 0;
 }
 
 /* 파티 정보 */
@@ -94,12 +115,20 @@ body {
 .info-row span:first-child {
 	font-weight: bold;
 }
+
+/* 탭별 콘텐츠 숨기기 */
+.party-tab {
+	display: none;
+}
+
+.party-tab.active {
+	display: block;
+}
 </style>
 </head>
 <body>
-<th:block th:include="common/header"></th:block>
+	<th:block th:include="common/header"></th:block>
 	<div class="container">
-		<!-- 제목 -->
 		<div class="title">파티 소개</div>
 
 		<!-- 탭 -->
@@ -108,26 +137,112 @@ body {
 			<div>비어 파티 🍺</div>
 		</div>
 
-		<!-- 이미지 영역 -->
-		<div class="party-img">
-			<div class="arrow">&lt;</div>
-			<div>이미지 영역</div>
-			<div class="arrow">&gt;</div>
-		</div>
+		<!-- 탭별 콘텐츠 -->
+		<div class="tab-content">
+			<!-- 와인 파티 -->
+			<div class="party-tab active" data-party="wine">
+				<div class="party-img">
+					<div class="arrow left">&lt;</div>
+					<img src="/image/wine1.png" class="active" alt="와인 파티 이미지1">
+					 <img src="/image/wine2.png" alt="와인 파티 이미지2"> 
+					<div class="arrow right">&gt;</div>
+				</div>
+				<div class="info">
+					<div class="info-row">
+						<span>일시</span><span>2025/08/28 17:00</span>
+					</div>
+					<div class="info-row">
+						<span>장소</span><span>우리집</span>
+					</div>
+					<div class="info-row">
+						<span>가격</span><span>50,000원</span>
+					</div>
+				</div>
+			</div>
 
-		<!-- 파티 정보 -->
-		<div class="info">
-			<div class="info-row">
-				<span>일시</span><span>2025/08/28 17:00</span>
-			</div>
-			<div class="info-row">
-				<span>장소</span><span>우리집</span>
-			</div>
-			<div class="info-row">
-				<span>가격</span><span>50,000원</span>
+			<!-- 비어 파티 -->
+			<div class="party-tab" data-party="beer">
+				<div class="party-img">
+					<div class="arrow left">&lt;</div>
+					<img src="/image/beer1.png" class="active" alt="비어 파티 이미지1">
+					 <img src="/image/beer2.png" alt="비어 파티 이미지2">
+					<div class="arrow right">&gt;</div>
+				</div>
+				<div class="info">
+					<div class="info-row">
+						<span>일시</span><span>2025/08/29 18:00</span>
+					</div>
+					<div class="info-row">
+						<span>장소</span><span>우리집</span>
+					</div>
+					<div class="info-row">
+						<span>가격</span><span>40,000원</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<th:block th:include="common/footer"></th:block>
+
+	<script>
+		var tabs = document.querySelectorAll(".tabs div");
+		var partyTabs = document.querySelectorAll(".party-tab");
+
+		for (var i = 0; i < tabs.length; i++) {
+			(function(index) {
+				tabs[index].addEventListener("click", function() {
+					for (var j = 0; j < tabs.length; j++) {
+						tabs[j].classList.remove("active");
+						partyTabs[j].classList.remove("active");
+					}
+					tabs[index].classList.add("active");
+					partyTabs[index].classList.add("active");
+				});
+			})(i);
+		}
+
+		for (var i = 0; i < partyTabs.length; i++) {
+			(function(tab) {
+				var imgs = tab.querySelectorAll("img");
+				var left = tab.querySelector(".arrow.left");
+				var right = tab.querySelector(".arrow.right");
+				var infoRows = tab
+						.querySelectorAll(".info-row span:last-child");
+				var cur = 0;
+
+				function showImg(index) {
+					for (var j = 0; j < imgs.length; j++) {
+						imgs[j].classList.remove("active");
+					}
+					imgs[index].classList.add("active");
+
+					var dates = [ "2025/08/28 17:00", "2025/08/29 18:00",
+							"2025/08/30 19:00" ];
+					var places = [ "우리집", "카페", "레스토랑" ];
+					var prices = [ "50,000원", "55,000원", "60,000원" ];
+
+					infoRows[0].textContent = dates[index];
+					infoRows[1].textContent = places[index];
+					infoRows[2].textContent = prices[index];
+				}
+
+				left.addEventListener("click", function() {
+					cur--;
+					if (cur < 0)
+						cur = imgs.length - 1;
+					showImg(cur);
+				});
+
+				right.addEventListener("click", function() {
+					cur++;
+					if (cur >= imgs.length)
+						cur = 0;
+					showImg(cur);
+				});
+
+				showImg(cur);
+			})(partyTabs[i]);
+		}
+	</script>
 </body>
 </html>

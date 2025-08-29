@@ -30,16 +30,21 @@
     font-family: mainB2;
 }
 
-
-
 .review-content{
     width: 900px;
     margin: 0 auto;    
 }
 .review-title{
-    margin: 0 auto;
+    margin: 25px auto;
     text-align: center;
     margin-bottom: 80px;
+}
+
+.review-title>h2{
+	color: #E5BA73;
+	font-family: mainB2;
+	font-weight: 800;
+	font-size: 28px;
 }
 
 .party-blind{
@@ -69,22 +74,45 @@
     padding-right: 20px;
 }
 
-.review-photo-list{
-    width: 900px;
+.party-blind>div{
+	font-weight: 800;
+	
+}
+
+.party-tab-review{
+	width: 900px;
     height: 600px;
     line-height: 600px;
     background-color: #ffffff;
     border: 1px solid black;
 }
 
-.review-photo-list>div{
+.party-tab-review{
     text-align: center;
 }
+
+.party-blind>.active-tab{
+	background-color: #C58940;
+	color: #ffffff;
+	font-weight: 900;
+}
+.party-tab-review>div{
+	display:none;
+	
+}
+.party-tab-review>.active-content{
+	display:block;
+	width: 900px;
+    height: 600px;
+    line-height: 600px;
+    background-color: #ffffff;
+    border: 1px solid black;
+}
+
 </style>
 </head>
 <body>
-	<th:block th:includ="common/header"></th:block>
-	<div class="review-header">기본 헤더</div>
+	<th:block th:include="common/header"></th:block>
 
         <div class="review-content">
             <div class="review-title">
@@ -101,16 +129,42 @@
                 <div>게시판 수</div>
             </div>
 
-            <div class="review-photo-list">
-                <div>
-                    사진 들어갈 곳
-                    파티 후기 클릭 시, 파티 후기에 관한 후기 정렬
-                    소개팅 후기 클릭 시, 소개팅 후기에 관한 후기 정렬
-                </div>
-            </div>
+			<div class="party-tab-review">
+				<div>party</div>
+				<div>blind</div>
+			</div>
+            
 
         </div>
 	
-	<th:block th:includ="common/footer"></th:block>
+	<th:block th:include="common/footer"></th:block>
+	<script>
+		const tabMenu = $(".party-blind>div");
+		const tabContent = $(".party-tab-review>div");
+	
+		tabMenu.on("click", function(){
+			tabMenu.removeClass("active-tab");
+			tabContent.hide();
+			$(this).addClass("active-tab");
+			const i = tabMenu.index(this);
+			tabContent.eq(i).show();
+		});
+		tabMenu.eq(0).click();
+	
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

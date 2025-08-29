@@ -179,7 +179,7 @@
 					나이<sup>*</sup>
 				</div>
 				<div>
-					<div th:value="@{session.member.birth_date}"></div>
+					<div th:value="${session.member.birthDate}"></div>
 				</div>
 			</div>
 		</form>
@@ -189,6 +189,7 @@
 <th:block th:include="common/footer"></th:block>
 </body>
 <script>
+	const sysdate = new Date();
 	$(".match-count-header").on("click" , function(){
 		
 		const list = $(".match-list").nextAll();

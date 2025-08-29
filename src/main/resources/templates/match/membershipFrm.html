@@ -127,7 +127,9 @@
 	display : none;
 	float : right;
 }
-	
+.view-box {
+	padding-left : 10px;
+}
 </style>
 </head>
 <body>
@@ -138,7 +140,7 @@
 		<div class="membership-box">
 		<form action="/match/pay">
 			<div class="membership-title-silver">
-				<span>실버 매칭 상품</span>
+				<span>실버 회원권 결제 상품</span>
 				<span>0원</span>
 			</div>
 			<hr>
@@ -179,10 +181,11 @@
 					나이<sup>*</sup>
 				</div>
 				<div class="age-view">
-					<input type="hidden" th:value="${session.member.birthDate}">
+					<input type="hidden" name="memberAge" th:value="${session.member.birthDate}" >
 					<div class="view-box"></div>
 				</div>
 			</div>
+			<button type="submit">결제하기</button>
 		</form>
 		</div>
 	</div>
@@ -199,10 +202,11 @@
 	
 	const today = `${year}-${month}-${day}`;
 	
-	const memberAge = year - memberYear;
+	const memberAge = year - memberYear + 1;
 	console.log(memberAge);
 	
 	$(".view-box").text(memberAge+"세");
+	$(".age-view").children("input").val(memberAge);
 	
 	$(".match-count-header").on("click" , function(){
 		

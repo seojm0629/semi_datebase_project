@@ -103,6 +103,7 @@ public class QuestionService {
 
 	public int insertQuestion(Question q, List<QuestionFile> fileList) {
 		int newQuestionNo = questionDao.getQuestionNo();
+		System.out.println(newQuestionNo);
 		q.setQuestionNo(newQuestionNo);
 		int result = questionDao.insertQuestion(q);
 		

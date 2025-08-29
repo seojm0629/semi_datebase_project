@@ -197,6 +197,7 @@
 					console.log(result);
 					if(result === 0){
 						$(".input-msg").text("사용가능한 아이디입니다.");
+						$(".input-msg").css("color", "#25bd53");
 						
 					} else if(result === 1){
 						$(".input-msg").text("이미 사용중인 아이디입니다.");
@@ -209,6 +210,13 @@
 		$("#memberPwRe").on("keyup", function(){
 			const inputPw = $("#memberPw").val();
 			const inputPwRe = $("#memberPwRe").val();
+			if(inputPw === inputPwRe){
+				$(".pw-input-msg").text("비밀번호가 같습니다.");
+				$(".pw-input-msg").css("color", "#25bd53");
+			}else{
+				$(".pw-input-msg").text("비밀번호를 확인해주세요.");
+				$(".pw-input-msg").css("color", "var(--warning)");
+			}
 		});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

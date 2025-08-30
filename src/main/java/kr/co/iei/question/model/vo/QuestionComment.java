@@ -18,6 +18,9 @@ public class QuestionComment {
 	private String questionCommentDate;
 	private String questionWriter;
 	private int questionCommentRef;
+	
+	
+	
 	private int likeCount;
 	private int isLike;
 

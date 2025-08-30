@@ -1,7 +1,5 @@
 package kr.co.iei.party.model.vo;
 
-import java.util.Date;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +18,7 @@ public class Party {
 	private String partyContent;
 	private String partyPlace;
 	private String partyThumb;
-	private Date partyDate;
+	private String partyDate;
 	private int partyMale;
 	private int partyFemale;
 	private int partyPrice;

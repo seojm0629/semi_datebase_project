@@ -20,6 +20,7 @@ public class PartyController {
 		List<Party> parties = partyService.getAllParties();
 		model.addAttribute("parties", parties);
 		return "party/party"; // party.html
+		
 	}
 
 	@GetMapping(value = "/party/partyadmin")
@@ -30,5 +31,10 @@ public class PartyController {
 	@GetMapping(value = "/party/partyuser")
 	public String partyuser() {
 		return "party/partyuser";
+	}
+	
+	@GetMapping(value = "/party/intro")
+	public String intro() {
+		return "party/intro";
 	}
 }

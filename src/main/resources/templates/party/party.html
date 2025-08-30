@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -21,19 +22,27 @@
 			<div class="party-tab active" data-party="wine">
 				<div class="party-img">
 					<div class="arrow left">&lt;</div>
-					<img src="/image/wine1.png" class="active" alt="와인 파티 이미지1">
-					 <img src="/image/wine2.png" alt="와인 파티 이미지2"> 
+					<th:block th:each="party,iterStat : ${parties}"
+						th:if="${party.partyType.toLowerCase() == 'wine'}">
+						<img th:src="@{/image/{thumb}(thumb=${party.partyThumb})}"
+							th:data-date="${party.partyDate}"
+							th:data-place="${party.partyPlace}"
+							th:data-price="${party.partyPrice}"
+							th:classappend="${iterStat.index == 0} ? 'active' : ''"
+							th:alt="${party.partyTitle}">
+					</th:block>
 					<div class="arrow right">&gt;</div>
 				</div>
+				<!-- info는 하나만 두고 JS로 바꿔줌 -->
 				<div class="info">
 					<div class="info-row">
-						<span>일시</span><span>2025/08/28 17:00</span>
+						<span>일시</span> <span id="wine-date"></span>
 					</div>
 					<div class="info-row">
-						<span>장소</span><span>우리집</span>
+						<span>장소</span> <span id="wine-place"></span>
 					</div>
 					<div class="info-row">
-						<span>가격</span><span>50,000원</span>
+						<span>가격</span> <span id="wine-price"></span>
 					</div>
 				</div>
 			</div>
@@ -42,85 +51,82 @@
 			<div class="party-tab" data-party="beer">
 				<div class="party-img">
 					<div class="arrow left">&lt;</div>
-					<img src="/image/beer1.png" class="active" alt="비어 파티 이미지1">
-					 <img src="/image/beer2.png" alt="비어 파티 이미지2">
+					<th:block th:each="party,iterStat : ${parties}"
+						th:if="${party.partyType.toLowerCase() == 'beer'}">
+						<img th:src="@{/image/{thumb}(thumb=${party.partyThumb})}"
+							th:data-date="${party.partyDate}"
+							th:data-place="${party.partyPlace}"
+							th:data-price="${party.partyPrice}"
+							th:classappend="${iterStat.index == 0} ? 'active' : ''"
+							th:alt="${party.partyTitle}">
+					</th:block>
 					<div class="arrow right">&gt;</div>
 				</div>
 				<div class="info">
 					<div class="info-row">
-						<span>일시</span><span>2025/08/29 18:00</span>
+						<span>일시</span> <span id="beer-date"></span>
 					</div>
 					<div class="info-row">
-						<span>장소</span><span>우리집</span>
+						<span>장소</span> <span id="beer-place"></span>
 					</div>
 					<div class="info-row">
-						<span>가격</span><span>40,000원</span>
+						<span>가격</span> <span id="beer-price"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<th:block th:include="common/footer"></th:block>
 
 	<script>
-		var tabs = document.querySelectorAll(".tabs div");
-		var partyTabs = document.querySelectorAll(".party-tab");
+		// 탭 전환
+		const tabs = document.querySelectorAll(".tabs div");
+		const partyTabs = document.querySelectorAll(".party-tab");
 
-		for (var i = 0; i < tabs.length; i++) {
-			(function(index) {
-				tabs[index].addEventListener("click", function() {
-					for (var j = 0; j < tabs.length; j++) {
-						tabs[j].classList.remove("active");
-						partyTabs[j].classList.remove("active");
-					}
-					tabs[index].classList.add("active");
-					partyTabs[index].classList.add("active");
-				});
-			})(i);
-		}
+		tabs.forEach((tab, i) => {
+			tab.addEventListener("click", () => {
+				tabs.forEach(t => t.classList.remove("active"));
+				partyTabs.forEach(pt => pt.classList.remove("active"));
+				tab.classList.add("active");
+				partyTabs[i].classList.add("active");
+			});
+		});
 
-		for (var i = 0; i < partyTabs.length; i++) {
-			(function(tab) {
-				var imgs = tab.querySelectorAll("img");
-				var left = tab.querySelector(".arrow.left");
-				var right = tab.querySelector(".arrow.right");
-				var infoRows = tab
-						.querySelectorAll(".info-row span:last-child");
-				var cur = 0;
+		// 이미지 + 정보 연동 슬라이드
+		partyTabs.forEach(tab => {
+			const imgs = tab.querySelectorAll("img");
+			const left = tab.querySelector(".arrow.left");
+			const right = tab.querySelector(".arrow.right");
+			let cur = 0;
 
-				function showImg(index) {
-					for (var j = 0; j < imgs.length; j++) {
-						imgs[j].classList.remove("active");
-					}
+			function showImg(index) {
+				imgs.forEach(img => img.classList.remove("active"));
+				if (imgs[index]) {
 					imgs[index].classList.add("active");
-
-					var dates = [ "2025/08/28 17:00", "2025/08/29 18:00",
-							"2025/08/30 19:00" ];
-					var places = [ "우리집", "카페", "레스토랑" ];
-					var prices = [ "50,000원", "55,000원", "60,000원" ];
-
-					infoRows[0].textContent = dates[index];
-					infoRows[1].textContent = places[index];
-					infoRows[2].textContent = prices[index];
+					// info 갱신
+					const type = tab.dataset.party;
+					tab.querySelector(`#${type}-date`).textContent = imgs[index].dataset.date;
+					tab.querySelector(`#${type}-place`).textContent = imgs[index].dataset.place;
+					tab.querySelector(`#${type}-price`).textContent = imgs[index].dataset.price + "원";
 				}
+			}
 
-				left.addEventListener("click", function() {
-					cur--;
-					if (cur < 0)
-						cur = imgs.length - 1;
+			if(left && right) {
+				left.addEventListener("click", () => {
+					cur = (cur - 1 + imgs.length) % imgs.length;
 					showImg(cur);
 				});
 
-				right.addEventListener("click", function() {
-					cur++;
-					if (cur >= imgs.length)
-						cur = 0;
+				right.addEventListener("click", () => {
+					cur = (cur + 1) % imgs.length;
 					showImg(cur);
 				});
+			}
 
-				showImg(cur);
-			})(partyTabs[i]);
-		}
+			// 초기 세팅
+			showImg(cur);
+		});
 	</script>
 </body>
 </html>

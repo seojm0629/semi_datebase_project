@@ -33,8 +33,52 @@ public class PartyController {
 		return "party/partyuser";
 	}
 	
+
 	@GetMapping(value = "/party/intro")
 	public String intro() {
 		return "party/intro";
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

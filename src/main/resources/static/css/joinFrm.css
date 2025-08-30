@@ -1,0 +1,257 @@
+/*------------------------main----------------------------------*/
+.join-frm-all-wrap{
+    width: 1200px;
+    margin: 0 auto;
+}
+.joinFrm-all-wrap{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+.joinFrm-content{
+    width: 600px;
+    margin: 0 auto;
+}
+/*-------------------------header---------------------------*/
+.joinFrm-header{
+    margin: 30px;
+}
+.joinFrm-header>h1{
+    color: #E5BA73;
+}
+/*----------------------------content--------------------------------*/
+.joinFrm-input{
+    width: 600px;
+    margin: 15px auto;
+    font-size: 20px;
+    overflow: hidden;
+    text-align: left;
+}
+.mailCheck{
+    width: 600px;
+    margin: 15px auto;
+    font-size: 20px;
+    text-align: left;
+}
+
+/*--------------------photo-----------------------------*/
+.mPhoto{
+    overflow: hidden;
+}
+.mPhoto>#memberImg{
+    width: 256px;
+}
+.mPhoto>#memberImg{
+    display: none;
+}
+.mPhoto>label{
+    display: block;
+    float: right;
+    width: 100px;
+    height: 30px;
+    background-color: #E5BA73;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 50px;
+}
+.mPhoto>label:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}
+.mPhoto>#fakeInput{
+    width: 200px;
+}
+/*----------------------input(none id, pwre)--------------------------------*/
+.joinFrm-input>input{
+    width: 200px;
+}
+/*-----------------------input(id, pwre)-------------------------------*/
+.join-input>input{
+    width: 200px;
+}
+.join-input>#memberPwRe{
+    width: 200px;
+}
+/*--------------------------gender---------------------------------*/
+input[name=memberGender]{
+    display: none;
+}
+/*input[name=memberGender]+label{
+    display: block;
+    width: 120px;
+    height: 30px;
+    float: right;
+    border: 1px solid #E5BA73;
+    text-align: center;
+    line-height: 30px;
+    color: #E5BA73;
+}*/
+.joinFrm-input input[name=memberGender]+label{
+    display: block;
+    width: 120px;
+    height: 30px;
+    float: right;
+    border: 1px solid #E5BA73;
+    text-align: center;
+    line-height: 30px;
+    color: #E5BA73;
+}
+#m+label{
+    margin-right: 80px;
+}
+#f+label{
+    margin-right: 20px;
+}
+input[name=memberGender]:checked+label{
+    background-color: #E5BA73;
+    color: #fff;
+}
+/*------------------------mailcheck----------------------------------*/
+.mailCheck>button{
+    border: none;
+    width: 80px;
+    height: 30px;
+    background-color: #E5BA73;
+    color: #fff;
+    border-radius: 5px;
+}
+.mailCheck>#codeCheck{
+    width: 180px;
+}
+.mailCheck>button:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}
+.mailCheck>.timeCheck{
+    width: 480px;
+}
+/*----------------------------mail----------------------------------*/
+.joinFrm-input>.mail{
+    width: 16px;
+}
+/*-----------------------addr----------------------------------*/
+#memberAddr{
+    width: 180px;
+}
+#search-addr{
+    border: none;
+    width: 80px;
+    height: 30px;
+    background-color: #E5BA73;
+    color: #fff;
+    border-radius: 5px;
+
+}
+/*-----------------------content-margin------------------------*/
+.joinFrm-input>span{
+    display: inline-block;
+    width: 240px;
+    text-align: right;
+}
+.join-input>span{
+    display: inline-block;
+    width: 240px;
+    text-align: right;
+}
+.mailCheck>span{
+    display: inline-block;
+    width: 240px;
+    text-align: right;
+}
+.joinFrm-input>.pwRule{
+    width: 450px;
+    text-align: right;
+}
+/*------------------------------------------------*/
+.mailCheck>input{
+    border: none;
+    border-bottom: 1px solid #2b2b2b;
+}
+.mailCheck>input:focus{
+    outline: none;
+    border-bottom: 2px solid #C58940;
+}
+.joinFrm-input>:nth-child(3){
+    color: #2b2b2b;
+}
+.joinFrm-input>.join-input>span{
+    color: #E5BA73;
+}/*id, PwRe*/
+.joinFrm-input>span{
+    color: #E5BA73;
+}
+.mailCheck>span{
+    color: #E5BA73;
+}
+.joinFrm-input>input{
+    border: none;
+    border-bottom: 1px solid #2b2b2b;
+}
+.joinFrm-input>.join-input>input{
+    border: none;
+    border-bottom: 1px solid #2b2b2b;
+}
+/*--------------------pwRule------------------------*/
+.joinFrm-input>.pwRule{
+    font-size: 10px;
+    color: #505050;
+
+}
+/*----------------domain----------------------*/
+#domain-list{
+    width: 120px;
+    text-align: left;
+    float: right;
+    margin-right: 90px;
+}
+#domainTxt{
+    width: 120px;
+}
+#memberEmailF{
+    width: 120px;
+}
+/*------------------focus-----------------------------*/
+.joinFrm-input>input:focus{
+    outline: none;
+    border-bottom: 2px solid #C58940;
+}
+.joinFrm-input>.join-input>input:focus{
+    outline: none;
+    border-bottom: 2px solid #C58940;
+}
+/*----------------------------pTag-----------------------------------------*/
+.joinFrm-input>p{
+    text-align: center;
+}
+/*------------------------------button----------------------------------*/
+.Btn-submit{
+    margin-left: 60px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.btn-submit{
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #fff;
+}
+.no{
+    background-color: #D9D9D9;
+    margin-right: 5px;
+}
+.ok{
+    background-color: #E5BA73;
+    margin-left: 5px;
+}
+.btn-submit:hover{
+    cursor: pointer;
+}
+.ok:hover{
+    background-color: #EAC88F;
+}

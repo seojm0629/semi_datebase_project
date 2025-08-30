@@ -41,7 +41,7 @@ public class MemberController {
 	
 	@PostMapping(value = "/join")
 	public String join(MultipartFile memberImg, Member m,String memberEmailF, String domainTxt) {
-		m.setMemberEmail(memberEmailF+domainTxt);
+		m.setMemberEmail(memberEmailF+"@"+domainTxt);
 		String savepath = root+"/selfPhoto/";
 		String filepath = fileUtil.upload(savepath, memberImg);
 		

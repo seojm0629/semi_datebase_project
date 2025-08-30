@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>DateBase join Form</title>
+<link rel="stylesheet" href="../css/joinFrm.css">
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -23,10 +24,11 @@
 			<div class="joinFrm-input">
 				<span>비밀번호</span>
 				<input type="password" name="memberPw" id="memberPw">
+				<p class="pwRule">알파벳 8글자 이상 20글자 이하, 특수문자 포함(!,@,#,$,%)</p>
 			</div>
 			<div class="joinFrm-input">
 				<div class="join-input">
-					<span>비밀번호 재입력</span>
+					<span>비밀번호 확인</span>
 					<input type="password" name="memberPwRe" id="memberPwRe">
 				</div>
 				<p class="pw-input-msg"></p>
@@ -47,21 +49,24 @@
 			<div class="joinFrm-input">
 				<span>이메일</span>
 				<input type="text" name="memberEmailF" id="memberEmailF">
+				<span class="mail">@</span>
 				<input class="box" id="domainTxt" type="text" name="domainTxt">
 				<select class="box" id="domain-list" name="domain-list">
 				  <option value="type">직접 입력</option>
-				  <option value="@naver.com">@naver.com</option>
-				  <option value="@google.com">@google.com</option>
-				  <option value="@hanmail.net">@hanmail.net</option>
-				  <option value="@nate.com">@nate.com</option>
-				  <option value="@kakao.com">@kakao.com</option>
+				  <option value="naver.com">naver.com</option>
+				  <option value="gmail.com">gmail.com</option>
+				  <option value="hanmail.net">hanmail.net</option>
+				  <option value="nate.com">nate.com</option>
+				  <option value="kakao.com">kakao.com</option>
 				</select>
 			</div>
 			<div class="mailCheck">
-				<span>이메일 인증</span>
-				<input type="text" name="" id="">
-				<button type="button">코드받기</button>
-			</div>
+                    <span>인증코드</span>
+                    <input type="text" name="codeCheck" id="codeCheck">
+                    <button type="button" id="sendcode">코드받기</button>
+                    <button type="button" id="checkBtn">인증하기</button>
+                    <span class="timeCheck"></span>
+            </div>
 			<div class="joinFrm-input">
 				<span>생년월일</span>
 				<input type="date" name="birthDate" id="birthDate">
@@ -127,12 +132,14 @@
 					<option value="ENTJ">ENTJ</option>
 				</select>
 			</div>
-			<div class="joinFrm-input">
-				<span>사진</span>
-				<input type="file" name="memberImg" id="memberImg" accept="image/*">
-			</div>
+			<div class="joinFrm-input mPhoto">
+                    <span>사진</span>
+                    <input type="file" name="memberImg" id="memberImg" accept="image/*">
+                    <input type="text" id="fakeInput" value="파일을 선택하세요." disabled>
+                    <label for="memberImg" id="selectImg">파일선택</label>
+              </div>
 		</div>
-		<div class="btn-submit">
+		<div class="Btn-submit">
 			<button type="button" class="btn-submit no">취소</button>
 			<button type="submit" class="btn-submit ok">회원가입</button>
 		</div>
@@ -140,16 +147,20 @@
 	</div>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		$("#checkBtn").hide();
+	
 		const date = new Date();
 		const year = `${date.getFullYear()}`;
 		const fYear = `${date.getFullYear()-20}`;
 		const pYear = `${date.getFullYear()-59}`;
+		
 		//console.log(year);
 		//console.log(pYear);
 		//console.log(fYear);
 		$("#birthDate").attr("min", pYear+"-01-01");
 		$("#birthDate").attr("max", fYear+"-12-31");
-		
+		const dateFormat = $("#birthDate").val();
+		console.log(typeof dateFormat);
 		/*for(let i = 0 ; i < 39 ; i++){
 			const option = $("<option>");
 			pYear++
@@ -179,15 +190,16 @@
 			const list =  $("#domain-list").val();
 			console.log(list);
 			if(list !== "type"){
-				$("#domain-txt").attr("value", list);
-				$("#domain-txt").attr("readonly", true);
+				$("#domainTxt").attr("value", list);
+				$("#domainTxt").attr("readonly", true);
 			}else{
-				$("#domain-txt").attr("value", "@");
-				$("#domain-txt").attr("readonly", false);
+				$("#domainTxt").attr("value", "@");
+				$("#domainTxt").attr("readonly", false);
 			}
 		});
 		
 		$("#memberId").on("change", function(){
+			
 			const memberId = $("#memberId").val();
 			$.ajax({
 				url : "/member/idCheck",
@@ -218,6 +230,60 @@
 				$(".pw-input-msg").css("color", "var(--warning)");
 			}
 		});
+		
+		$("#memberImg").on("change", function(){
+		    const imgPath = $("#memberImg").val();
+		    $("#fakeInput").val(imgPath);
+		});
+		
+		let mailCode = null;
+		$("#sendcode").on("click", function(){
+			const emailFront = $("#memberEmailF").val();
+			const emailBack = $("#domainTxt").val();
+			const emailFull = emailFront+"@"+emailBack;
+			$.ajax({
+				url : "/api/sendCode",
+				data : {emailFull : emailFull},
+				success : function(data){
+					mailCode = data;
+					$("#checkBtn").show();
+					$(".timeCheck").show();
+					$("#sendcode").hide();
+					timeCheck();
+				}
+			});
+		});
+		
+		
+		
+		function timeCheck(){
+			$(".timeCheck").html("<span id='min' style='color : #E5BA73'>3</span> : <span id='sec' style='color : #E5BA73'>00</span>");
+			window.setInterval(function(){
+				const min = $("#min").text();
+				const sec = $("#sec").text();
+				if(sec === "00"){
+					//현재 초가 00초면 분을 내리고 초를 59로 만듬
+					if(min === "00"){
+						window.clearInterval(intervalId);
+						mailCode = null;
+						$("#authMsg").text("인증시간이 만료되었습니다.");
+						$("#authMsg").css("color","red");
+					}else{
+						const newMin = Number(min) - 1;
+						$("#min").text(newMin);
+						$("#sec").text(59);
+					}
+				}else{
+					//현재 초가 00초가 아니면 초만 1 내림
+					const newSec = Number(sec) - 1;
+					if(newSec < 10){
+						$("#sec").text("0"+newSec);
+					}else{
+						$("#sec").text(newSec);
+					}
+				}
+			},1000);
+		};
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<th:block th:include="common/footer"></th:block>

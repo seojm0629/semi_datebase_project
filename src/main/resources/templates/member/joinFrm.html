@@ -3,69 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>DateBase join Form</title>
-<style>
-/*------------------------main----------------------------------*/
-.join-frm-all-wrap{
-    width: 1200px;
-    margin: 0 auto;
-}
-.joinFrm-all-wrap{
-    width: 900px;
-    margin: 0 auto;
-    text-align: center;
-}
-/*-------------------------header---------------------------*/
-.joinFrm-header{
-    margin: 30px;
-}
-.joinFrm-header>h1{
-    color: #E5BA73;
-}
-/*----------------------------content--------------------------------*/
-.joinFrm-input{
-    margin: 10px;
-}
-.joinFrm-input>:nth-child(3){
-    color: #2b2b2b;
-}
-.joinFrm-input>.join-input>span{
-    color: #E5BA73;
-}/*id, PwRe*/
-.joinFrm-input>span{
-    color: #E5BA73;
-}
-.mailCheck>span{
-    color: #E5BA73;
-}
-
-/*------------------------------button----------------------------------*/
-.Btn-submit{
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-.btn-submit{
-    width: 200px;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    color: #fff;
-}
-.no{
-    background-color: #D9D9D9;
-    margin-right: 5px;
-}
-.ok{
-    background-color: #E5BA73;
-    margin-left: 5px;
-}
-.btn-submit:hover{
-    cursor: pointer;
-}
-.ok:hover{
-    background-color: #EAC88F;
-}
-</style>
+<link rel="stylesheet" href="../css/joinFrm.css">
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -86,10 +24,11 @@
 			<div class="joinFrm-input">
 				<span>비밀번호</span>
 				<input type="password" name="memberPw" id="memberPw">
+				<p class="pwRule">알파벳 8글자 이상 20글자 이하, 특수문자 포함(!,@,#,$,%)</p>
 			</div>
 			<div class="joinFrm-input">
 				<div class="join-input">
-					<span>비밀번호 재입력</span>
+					<span>비밀번호 확인</span>
 					<input type="password" name="memberPwRe" id="memberPwRe">
 				</div>
 				<p class="pw-input-msg"></p>
@@ -122,10 +61,10 @@
 				</select>
 			</div>
 			<div class="mailCheck">
-				<span>이메일 인증</span>
-				<input type="text" name="" id="">
-				<button type="button">코드받기</button>
-			</div>
+                    <span>인증코드</span>
+                    <input type="text" name="codeCheck" id="codeCheck">
+                    <button type="button">코드받기</button>
+            </div>
 			<div class="joinFrm-input">
 				<span>생년월일</span>
 				<input type="date" name="birthDate" id="birthDate">
@@ -191,10 +130,12 @@
 					<option value="ENTJ">ENTJ</option>
 				</select>
 			</div>
-			<div class="joinFrm-input">
-				<span>사진</span>
-				<input type="file" name="memberImg" id="memberImg" accept="image/*">
-			</div>
+			<div class="joinFrm-input mPhoto">
+                    <span>사진</span>
+                    <input type="file" name="memberImg" id="memberImg" accept="image/*">
+                    <input type="text" id="fakeInput" value="파일을 선택하세요." disabled>
+                    <label for="memberImg" id="selectImg">파일선택</label>
+              </div>
 		</div>
 		<div class="Btn-submit">
 			<button type="button" class="btn-submit no">취소</button>
@@ -281,6 +222,11 @@
 				$(".pw-input-msg").text("비밀번호를 확인해주세요.");
 				$(".pw-input-msg").css("color", "var(--warning)");
 			}
+		});
+		
+		$("#memberImg").on("change", function(){
+		    const imgPath = $("#memberImg").val();
+		    $("#fakeInput").val(imgPath);
 		});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

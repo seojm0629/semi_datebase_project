@@ -126,6 +126,12 @@ input[name=memberGender]:checked+label{
     cursor: pointer;
     background-color: #EAC88F;
 }
+.mailCheck>#checkBtn{
+    display: none;
+}
+.mailCheck>.timeCheck{
+    width: 480px;
+}
 /*----------------------------mail----------------------------------*/
 .joinFrm-input>.mail{
     width: 16px;
@@ -220,7 +226,10 @@ input[name=memberGender]:checked+label{
     outline: none;
     border-bottom: 2px solid #C58940;
 }
-
+/*----------------------------pTag-----------------------------------------*/
+.joinFrm-input>p{
+    text-align: center;
+}
 /*------------------------------button----------------------------------*/
 .Btn-submit{
     margin-left: 60px;

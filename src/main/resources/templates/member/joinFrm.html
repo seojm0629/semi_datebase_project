@@ -54,7 +54,7 @@
 				<select class="box" id="domain-list" name="domain-list">
 				  <option value="type">직접 입력</option>
 				  <option value="naver.com">naver.com</option>
-				  <option value="google.com">google.com</option>
+				  <option value="gmail.com">gmail.com</option>
 				  <option value="hanmail.net">hanmail.net</option>
 				  <option value="nate.com">nate.com</option>
 				  <option value="kakao.com">kakao.com</option>
@@ -63,7 +63,9 @@
 			<div class="mailCheck">
                     <span>인증코드</span>
                     <input type="text" name="codeCheck" id="codeCheck">
-                    <button type="button">코드받기</button>
+                    <button type="button" id="sendcode">코드받기</button>
+                    <button type="button" id="checkBtn">인증하기</button>
+                    <span class="timeCheck"></span>
             </div>
 			<div class="joinFrm-input">
 				<span>생년월일</span>
@@ -231,6 +233,55 @@
 		    const imgPath = $("#memberImg").val();
 		    $("#fakeInput").val(imgPath);
 		});
+		
+		let mailCode = null;
+		$("#sendcode").on("click", function(){
+			const emailFront = $("#memberEmailF").val();
+			const emailBack = $("#domainTxt").val();
+			const emailFull = emailFront+"@"+emailBack;
+			$.ajax({
+				url : "/api/sendCode",
+				data : {emailFull : emailFull},
+				success : function(data){
+					mailCode = data;
+					$("#checkBtn").show();
+					$(".timeCheck").show();
+					$("#sendcode").hide();
+					timeCheck();
+				}
+			});
+		});
+		
+		
+		
+		function timeCheck(){
+			$("#time-zone").html("<span id='min'>3</span> : <span id='sec'>00</span>");
+			window.setInterval(function(){
+				const min = $("#min").text();
+				const sec = $("#sec").text();
+				if(sec === "00"){
+					//현재 초가 00초면 분을 내리고 초를 59로 만듬
+					if(min === "00"){
+						window.clearInterval(intervalId);
+						mailCode = null;
+						$("#authMsg").text("인증시간이 만료되었습니다.");
+						$("#authMsg").css("color","red");
+					}else{
+						const newMin = Number(min) - 1;
+						$("#min").text(newMin);
+						$("#sec").text(59);
+					}
+				}else{
+					//현재 초가 00초가 아니면 초만 1 내림
+					const newSec = Number(sec) - 1;
+					if(newSec < 10){
+						$("#sec").text("0"+newSec);
+					}else{
+						$("#sec").text(newSec);
+					}
+				}
+			},1000);
+		};
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<th:block th:include="common/footer"></th:block>

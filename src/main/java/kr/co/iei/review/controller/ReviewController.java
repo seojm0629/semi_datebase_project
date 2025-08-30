@@ -54,7 +54,6 @@ public class ReviewController {
 	@ResponseBody
 	public List more(int start, int amount) {
 		List photoList = reviewService.selectPhotoList(start, amount);
-		System.out.println(photoList);
 		return photoList;
 	}
 }

@@ -104,6 +104,7 @@ public class QuestionService {
 	@Transactional
 	public int insertQuestion(Question q, List<QuestionFile> fileList) {
 		int newQuestionNo = questionDao.getQuestionNo();
+		System.out.println(newQuestionNo);
 		q.setQuestionNo(newQuestionNo);
 		int result = questionDao.insertQuestion(q);
 		
@@ -144,6 +145,12 @@ public class QuestionService {
 	public QuestionFile selectOneQuestionFile(int questionFileNo) {
 		QuestionFile questionFile = questionDao.selectOneQuestionFile(questionFileNo);
 		return questionFile;
+	}
+	
+	@Transactional
+	public int insertQuestionComment(QuestionComment qc) {
+		int result = questionDao.insertQuestionComment(qc);
+		return result;
 	}
 }
 

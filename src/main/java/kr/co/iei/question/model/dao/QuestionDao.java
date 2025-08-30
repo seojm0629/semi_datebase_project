@@ -34,6 +34,8 @@ public interface QuestionDao {
 
 	QuestionFile selectOneQuestionFile(int questionFileNo);
 
+	int insertQuestionComment(QuestionComment qc);
+
 	
 	
 	

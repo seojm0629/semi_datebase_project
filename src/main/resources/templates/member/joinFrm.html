@@ -149,12 +149,14 @@
 		const year = `${date.getFullYear()}`;
 		const fYear = `${date.getFullYear()-20}`;
 		const pYear = `${date.getFullYear()-59}`;
+		
 		//console.log(year);
 		//console.log(pYear);
 		//console.log(fYear);
 		$("#birthDate").attr("min", pYear+"-01-01");
 		$("#birthDate").attr("max", fYear+"-12-31");
-		
+		const dateFormat = $("#birthDate").val();
+		console.log(typeof dateFormat);
 		/*for(let i = 0 ; i < 39 ; i++){
 			const option = $("<option>");
 			pYear++
@@ -193,6 +195,7 @@
 		});
 		
 		$("#memberId").on("change", function(){
+			
 			const memberId = $("#memberId").val();
 			$.ajax({
 				url : "/member/idCheck",

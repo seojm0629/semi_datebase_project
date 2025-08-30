@@ -53,6 +53,22 @@
   	select * from question_file where question_file_no = #{questionFileNo}
   </select>
   
+  <insert id="insertQuestionComment">
+  	insert into question_comment values(
+  			qustion_comment_seq.nextval,
+  			#{questionCommentWriter},
+  			#{questionCommentContent},
+  			to_char(sysdate, 'yyyy-mm-dd'),
+  			#{questionRef},
+  			<if test="questionCommentRef == 0">
+  				null
+  			</if>
+  			<if test="questionCommentRef != 0">
+  				#{questionCommentRef}
+  			</if>
+  	)
+  </insert>
+  
   
 </mapper>
 

@@ -147,6 +147,8 @@
 	</div>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		$("#checkBtn").hide();
+	
 		const date = new Date();
 		const year = `${date.getFullYear()}`;
 		const fYear = `${date.getFullYear()-20}`;
@@ -255,7 +257,7 @@
 		
 		
 		function timeCheck(){
-			$("#time-zone").html("<span id='min'>3</span> : <span id='sec'>00</span>");
+			$(".timeCheck").html("<span id='min' style='color : #E5BA73'>3</span> : <span id='sec' style='color : #E5BA73'>00</span>");
 			window.setInterval(function(){
 				const min = $("#min").text();
 				const sec = $("#sec").text();

@@ -126,9 +126,6 @@ input[name=memberGender]:checked+label{
     cursor: pointer;
     background-color: #EAC88F;
 }
-.mailCheck>#checkBtn{
-    display: none;
-}
 .mailCheck>.timeCheck{
     width: 480px;
 }

@@ -11,4 +11,6 @@ public interface PartyDao {
 
 	List<Party> getAllParties();
 
+	int insertParty(Party party);
+
 }

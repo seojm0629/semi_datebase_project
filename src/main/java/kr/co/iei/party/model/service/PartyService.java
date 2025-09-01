@@ -18,4 +18,8 @@ public class PartyService {
 	public List<Party> getAllParties() {
 		return partyDao.getAllParties();
 	}
+
+	public int insertParty(Party party) {
+		return partyDao.insertParty(party);
+	}
 }

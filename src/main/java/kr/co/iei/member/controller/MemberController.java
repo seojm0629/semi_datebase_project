@@ -116,5 +116,12 @@ public class MemberController {
 			model.addAttribute("loc", "/member/masterPage");
 			return "common/msg";
 		}
+	}//joinManager
+	
+	@ResponseBody
+	@GetMapping(value = "/searchMember")
+	public Member searchMember(String memberId) {
+		Member m = memberService.selectOneMember(memberId);
+		return m;
 	}
 }//controller

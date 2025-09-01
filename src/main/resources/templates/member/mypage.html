@@ -66,14 +66,14 @@
                         </div>
                         <div class="profile-plus-content1">
                             <ul>
-                                <li th:text="'학력 : '+${session.member.memberId}"></li>
-                                <li th:text="'근무형태 : '+${session.member.memberId}"></li>
+                                <li th:text="'학력 : '+${memberMoreInfo.memberEdu}"></li>
+                                <li th:text="'근무형태 : '+${memberMoreInfo.memberWorkType}"></li>
                             </ul>
                         </div>
                         <div class="profile-plus-content2">
                             <ul>
-                                <li th:text="'취미 : '+${session.member.memberId}"></li>
-                                <li th:text="'연봉 : '+${session.member.memberId}"></li>
+                                <li th:text="'취미 : '+${memberMoreInfo.memberHobby}"></li>
+                                <li th:text="'연봉 : '+${memberMoreInfo.memberSalary}"></li>
                             </ul>
                         </div>
                     </div>

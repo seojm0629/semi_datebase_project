@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.pay.model.vo.pay;
+import kr.co.iei.model.member.vo.MemberMoreInfo;
 
 @Mapper
 public interface MemberDao {
@@ -18,5 +19,6 @@ public interface MemberDao {
 
 	int deleteMember(String memberId);
 
+	MemberMoreInfo searchMemberMoreINfo(int memberNo);
 
 }

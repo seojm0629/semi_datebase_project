@@ -177,6 +177,19 @@
   padding: 10px;
   border: 1px solid #ccc;
 }
+.first-textarea{
+	padding-left: 15px;
+	padding-top: 10px;
+}
+.first-textarea>textarea{
+	padding-left: 10px;
+	padding-top: 10px;
+	resize: none;
+	width: 650px;
+	height: 150px;
+	font-size: 20px;
+	font-family: main2;
+}
 
 .posting-comment{
 	width: 900px;
@@ -184,6 +197,9 @@
 	display: flex;
   	border-top: 2px solid #ccc;
   	list-style-type: none;
+}
+.posting-comment.reply > li:first-child {
+  width: 20%;
 }
 .posting-comment > li:first-child {
   width: 15%;
@@ -203,6 +219,9 @@
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
   box-sizing: border-box;
+}
+.posting-comment>li:first-chlid{
+	border-bottom: none;
 }
 .posting-comment.reply > li:last-child {
   display: flex;
@@ -236,6 +255,15 @@
 }
 .posting-comment > li:last-child > .comment-link > a:hover {
   text-decoration: underline;
+}
+.posting-comment.reply > li:first-child .material-icons:first-child {
+  font-size: 40px;
+  color: #ccc;
+}
+.posting-comment.reply > li:last-child {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 </style>
 <body>
@@ -275,8 +303,7 @@
 				<tr th:if="${session.member != null && session.member.memberId == q.questionWriter}">
 					<td colspan="4">					
 						<a class="btn-a" th:href="@{/question/updateFrm(questionNo=${q.questionNo})}">수정</a>
-						<!--  th:href="@{/question/updateFrm(questionNo=${q.questionNo})}" -->
-						<button class="btn-button">삭제</button>
+						<button class="btn-button" th:onclick="deleteQuestion([[${q.questionNo}]]);">삭제</button>
 					</td>
 				</tr>
 			</table>
@@ -314,7 +341,7 @@
 							<span th:text="${qc.questionCommentDate}"></span>
 						</p>
 						<p class="comment-content" th:text="${qc.questionCommentContent}"></p>
-						<div class="input-item" style="display:none;" th:if="${session.member != null && session.member.memberId == qc.questionCommentWriter}">
+						<div class="input-item first-textarea" style="display:none;" th:if="${session.member != null && session.member.memberId == qc.questionCommentWriter}">
 							<textarea name="questionCommentContent"></textarea>
 						</div>
 						<p class="comment-link">
@@ -337,13 +364,13 @@
 							<span th:text="${qcc.questionCommentDate}"></span>
 						</p>
 						<p class="comment-content" th:text="${qcc.questionCommentContent}"></p>
-						<div class="input-item" style="display: none;" th:if="${session.member != null && session.member.memberId = qcc.questionCommentWriter}">
+						<div class="input-item" style="display: none;" th:if="${session.member != null && session.member.memberId == qcc.questionCommentWriter}">
 							<textarea name="questionCommentContent"></textarea>
 						</div>
 						<p class="comment-link">
 							<th:block th:if="${session.member != null && session.member.memberId == qcc.questionCommentWriter}">
-								<a th:onclick="#">수정</a>
-								<a th:onclick="#">삭제</a>													
+								<a th:onclick="modifyComment(this, [[${q.questionNo}]], [[${qcc.questionCommentNo}]]);">수정</a>
+								<a th:onclick="deleteComment([[${q.questionNo}]], [[${qcc.questionCommentNo}]]);">삭제</a>													
 							</th:block>
 						</p>
 					</li>	
@@ -376,6 +403,45 @@
 		</section>
         <th:block th:include="common/footer"></th:block>
         <script>
+        	function deleteQuestion(questionNo){
+        		swal({
+        			title : "문의사항 삭제",
+        			text : "문의사항을 삭제하시겠습니까?",
+        			icon : "warning",
+        			buttons: {
+        				cancel : {
+        					text: "취소",
+        					value: false,
+        					visible: true,
+        					className: "btn-button",
+        					closeModal: true
+        				},
+        				confirm: {
+        					text: "삭제",
+        					value: true,
+        					visible: true,
+        					className: "btn-a",
+        					closeModal: true  					
+        				}
+        			}
+        		}).then(function(isConfirm){
+        			if(isConfirm){
+        				location.href="/question/delete?questionNo="+questionNo;
+        			}
+        		})
+        	}
+        	
+        	$(".recShow").on("click", function(){
+    			const index = $(".recShow").index(this);
+    			if($(this).text === "답글달기"){
+    				$(this).text("취소");
+    			} else {
+    				$(this).text("답글달기");
+    			}
+    			
+    			$(".inputRecommentBox").eq(index).toggle();
+    		});
+        	
         	function modifyComment(obj, questionNo, questionCommentNo){
         		const questionCommentContent = $(obj).parent().prev().prev().text();
     			//화면에 숨겨둔 textarea에 현재 댓글내용 입력
@@ -431,6 +497,14 @@
         		//화면에 숨겨놨던 댓글을 출력하는 p태그를 보여줌
         		$(obj).parent().prev().prev().show();
         		
+        		//수정완료 -> 수정
+    			$(obj).prev().text("수정");
+    			$(obj).prev().attr("onclick", "modifyComment(this,"+noticeNo+", "+noticeCommentNo+");");
+    			//수정취소 -> 삭제
+    			$(obj).text("삭제");
+    			$(obj).attr("onclick", "deleteComment("+noticeNo+","+noticeCommentNo+")");
+    			//답글달기
+    			$(obj).next().show();
         	}
         	
         	function deleteComment(questionNo, questionCommentNo){

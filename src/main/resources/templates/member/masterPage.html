@@ -17,19 +17,19 @@
                     <h2>내 정보</h2>
                     <div class="master-profile-content">
                         <div class="master-profile-content-header">
-                            <span>범고래</span>
+                            <span id="profileName" th:text="${session.member.memberName}"></span>
                             <button type="button" id="master-update">정보수정</button>
                         </div>
                         <div class="master-profile-content-in1">
                             <ul>
-                                <li>아이디 : </li>
-                                <li>email : </li>
+                                <li id="profileId" th:text="'아이디 : '+${session.member.memberId}"></li>
+                                <li id="profileEmail" th:text="'email : '+${session.member.memberEmail}"></li>
                             </ul>
                         </div>
                         <div class="master-profile-content-in2">
                             <ul>
-                                <li>비밀번호 : </li>
-                                <li>전화번호 : </li>
+                                <li id="profilePw" th:text="'비밀번호 : '+${session.member.memberPw}"></li>
+                                <li id="profilePhone" th:text="'전화번호 : '+${session.member.memberPhone}"></li>
                             </ul>
                         </div>
                     </div>
@@ -93,17 +93,19 @@
     	
     	$("#firedMember").on("click", function(){
     		const memberId = $("#memberId").val();
+    		console.log(memberId);
     		$.ajax({
     			url : "/member/deleteMember",
     			type : "get",
     			data : {memberId : memberId},
     			success : function(data){
+    				console.log(data);
     				if(data == 1){
     					$("#memberNameRe").empty();
     					$("#memberIdRe").empty();
     					$("#memberPhoneRe").empty();
     					$("#memberEmailRe").empty();
-    					$("#memberId").empty();
+    					$("#memberId").val("");
     				}
     			}
     		});

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleap.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/masterPage.css">
+</head>
+<body>
+<th:block th:include="common/header"></th:block>
+    <div class="masterPage-all-wrap">
+        <div class="masterPage-wrap">
+            <div class="masterPage-header">
+                <h1>마이 페이지</h1>
+            </div>
+            <div class="masterPage-content">
+                <div class="master-profile">
+                    <h2>내 정보</h2>
+                    <div class="master-profile-content">
+                        <div class="master-profile-content-header">
+                            <span>범고래</span>
+                            <button type="button" id="master-update">정보수정</button>
+                        </div>
+                        <div class="master-profile-content-in1">
+                            <ul>
+                                <li>아이디 : </li>
+                                <li>email : </li>
+                            </ul>
+                        </div>
+                        <div class="master-profile-content-in2">
+                            <ul>
+                                <li>비밀번호 : </li>
+                                <li>전화번호 : </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-seach">
+                    <h2>회원 검색</h2>
+                    <div class="member-seach-input">
+                        <form action="/member/selectOneMember" method="get">
+                            <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요..">
+                            <button type="submit" id="search-member-btn">검색</button>
+                        </form>
+                    </div>
+                    <div class="member-seach-output">
+                        <div class="search-result">
+                            <span id="memberIdRe"></span>
+                            <span id="memberPwRe"></span>
+                            <span id="memberPhoneRe"></span>
+                            <span id="memberEmailRe"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-zone">
+                <button class="Management Management-btn">직원관리</button>
+                <button class="Management Management-qna">문의관리</button>
+                <button class="Management Management-party">파티관리</button>
+                <button class="Management Management-matching">매칭관리</button>
+            </div>
+        </div>
+    </div>
+<th:block th:include="common/footer"></th:block>
+</body>
+</html>

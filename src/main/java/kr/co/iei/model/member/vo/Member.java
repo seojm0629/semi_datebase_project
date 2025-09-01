@@ -28,4 +28,5 @@ public class Member {
 	private int myPassCount;
 	private int myMatchingCount;
 	private String memberGrade;
+	private MemberMoreInfo memberMoreInfo;
 }

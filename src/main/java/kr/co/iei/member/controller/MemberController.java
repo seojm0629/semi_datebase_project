@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
@@ -130,5 +131,23 @@ public class MemberController {
 	public int deleteMember(String memberId) {
 		int result = memberService.deleteMember(memberId);
 		return result;
+	}
+	
+	@GetMapping(value = "/memberExit")
+	public String memberExit(@SessionAttribute Member member, Model model) {
+		String memberId = member.getMemberId();
+		System.out.println(memberId);
+		int result = memberService.deleteMember(memberId);
+		if(result == 1) {
+			model.addAttribute("title", "회원탈퇴 완료");
+			model.addAttribute("text", "탈퇴가 왼료되었습니다.");
+			model.addAttribute("loc", "/member/logout");
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "회원탈퇴 실패");
+			model.addAttribute("text", "잠시후에 다시 시도해주십시오.");
+			model.addAttribute("loc", "/member/mypage");
+			return "common/msg";
+		}
 	}
 }//controller

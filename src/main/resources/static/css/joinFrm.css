@@ -152,15 +152,24 @@ input[name=memberGender]:checked+label{
     width: 240px;
     text-align: right;
 }
+.joinFrm-input>span>sup{
+	color: var(--warning);
+}
 .join-input>span{
     display: inline-block;
     width: 240px;
     text-align: right;
 }
+.join-input>span>sup{
+	color: var(--warning);
+}
 .mailCheck>span{
     display: inline-block;
     width: 240px;
     text-align: right;
+}
+.mailCheck>span>sup{
+	color: var(--warning);
 }
 .joinFrm-input>.pwRule{
     width: 450px;

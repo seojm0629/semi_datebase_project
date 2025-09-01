@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.model.member.dao.MemberDao;
 import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.pay.model.vo.pay;
 
 @Service
 public class MemberService {
@@ -31,5 +32,11 @@ public class MemberService {
 	public Member login(Member m) {
 		Member member = memberDao.selectOneMember(m);
 		return member;
+	}
+
+
+	public int updateMemberPayment(pay p) {
+		int update = memberDao.updateMemberPayment(p);
+		return 0;
 	}
 }

@@ -210,6 +210,8 @@ button[type=submit]{
 			</div>
 			<div class="btn-box">
 				<input type="hidden" name="memberGender" th:value="${session.member.memberGender}">
+				<input type="hidden" name="memberName" th:value="${session.member.memberName}">
+				<input type="hidden" name="memberId" th:value="${session.member.memberId}">
 				<button type="submit" class="pay">결제하기</button>
 			</div>
 		</div>
@@ -217,6 +219,7 @@ button[type=submit]{
 </main>
 <th:block th:include="common/footer"></th:block>
 </body>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
 	const age = $(".age-view").children("input").val();
 	const currDate = new Date();
@@ -283,19 +286,110 @@ button[type=submit]{
 	$(".pay").on("click",function(){
 		
 		const matchCount = $("[name=matchCount]").val();
-		
+		const memberId = $("[name=memberId]").val();
 		const memberAge = $("[name=memberAge]").val();
 		const memberGrade = $("[name=memberGrade]").val();
 		const memberGender = $("[name=memberGender]").val();
-		console.log(matchCount, memberAge, memberGrade, memberGender);
 		
 		$.ajax({
 			url : "/match/calcPrice",
-			type : "get",
-			data : { memberGrade : memberGrade, memberAge : memberAge, matchCount : matchCount , memberGender : memberGender },
+			type : "post",
+			data : { memberGrade : memberGrade, memberAge : memberAge, matchCount : matchCount , memberGender : memberGender, memberId : memberId },
 			dataType : "json",
-			success : function(grade){
-				console.log(grade);
+			success : function(g){
+				const date = new Date();
+				const dateString = `${date.getFullYear()}${date.getMonth()+1}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+				let gradeName = "";
+				const price = 1;
+				
+				switch(g.memberGrade){
+				case 'silver' :
+					gradeName = "실버";
+					break;
+				case 'gold' :
+					gradeName = "골드";
+					break;
+				case 'platinum' :
+					gradeName = "플래티넘";
+					break;
+				}
+				const m = g.memberList;
+				
+				IMP.init("imp01372877");
+				IMP.request_pay(
+						  {
+							  
+							customer_uid : "store-b7434f12-6184-47c2-ab78-5779cb27861e",
+						    channelKey: "channel-key-cd790bcc-53eb-4fa9-9f90-e92ea7984b23",
+						    pay_method: "card",
+						    merchant_uid: "orderNo0001"+dateString,
+						    name: gradeName+"회원권"+"-"+g.matchCount ,
+						    amount: g.gradePrice,
+						    buyer_email: m.memberEmail,
+						    buyer_name: m.memberName,
+						    buyer_tel: m.memberPhone,
+						    buyer_addr: m.memberAddr,
+						    custom_data : {
+						    	memberId : m.memberId, 
+						    	
+						    },
+						    notice_url : "http://192.168.10.23/pay/paysuccess"
+						    
+						  },
+						  function (rsp) {
+							  
+								
+								
+							 	const form = document.createElement("form");
+							 	form.setAttribute("method", "post");
+							 	form.setAttribute("action", "/api/pay");
+							 	
+							 	
+							 	
+							 	const input1 = document.createElement("input");
+							 	input1.setAttribute("type", "hidden");
+							 	input1.setAttribute("name", "memberId");
+							 	input1.setAttribute("value", rsp.custom_data.memberId );
+							 	
+							 	const input2 = document.createElement("input");
+							 	input2.setAttribute("type", "hidden");
+							 	input2.setAttribute("name", "payName");
+							 	input2.setAttribute("value", rsp.name );
+							 	
+							 	const input3 = document.createElement("input");
+							 	input3.setAttribute("type", "hidden");
+							 	input3.setAttribute("name", "payPrice");
+							 	input3.setAttribute("value", rsp.paid_amount );
+							 	form.appendChild(input1);
+							 	form.appendChild(input2);
+							 	form.appendChild(input3);
+							 	
+							 	const input4 = document.createElement("input");
+							 	input4.setAttribute("type", "hidden");
+							 	input4.setAttribute("name", "payState");
+							 	if(rsp.suceess){
+							 		input4.setAttribute("value", "성공");
+							 	}
+							 	
+							 	const input5 = document.createElement("input");
+							 	input5.setAttribute("type", "hidden");
+							 	input5.setAttribute("name", "myMatchingCount");
+							 	input5.setAttribute("value", g.matchCount );
+							 	
+							 	const input6 = document.createElement("input");
+							 	input6.setAttribute("type", "hidden");
+							 	input6.setAttribute("name", "myPassCount");
+							 	input6.setAttribute("value", g.passCount );
+							 	
+							 	form.appendChild(input4);
+							 	form.appendChild(input5);
+							 	form.appendChild(input6);
+							 	document.body.appendChild(form);
+							 	form.submit();
+							 	
+							 	
+						  }
+						);
 			},
 			error : function(){
 				console.log("실패");

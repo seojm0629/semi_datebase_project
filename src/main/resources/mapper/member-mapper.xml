@@ -12,4 +12,8 @@
 			and member_pw = #{memberPw}
 		</if>
 	</select>
+	
+	<update id="updateMemberPayment">
+		update member set  pass_count = #{myPassCount} , match_count = #{myMatchingCount}
+	</update>
 </mapper>

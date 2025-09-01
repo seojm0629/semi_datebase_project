@@ -26,7 +26,7 @@
                     <h3 th:text="'남은 만남권 : '+${session.member.myMatchingCount}+'회'"></h3>
                     <h3 th:text="'남은 패스권 : '+${session.member.myPassCount}+'회'"></h3>
                     <div class="user-button">
-                        <button type="button" id="buy-membership">회원권구매</button>
+                        <button type="button" id="buy-membership">매칭신청</button>
                         <button type="button" id="buy-list">결재내역</button>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <div class="profile-plus-content2">
                             <ul>
                                 <li th:text="'취미 : '+${memberMoreInfo.memberHobby}"></li>
-                                <li th:text="'연봉 : '+${memberMoreInfo.memberSalary}"></li>
+                                <li th:text="'연봉 : '+${memberMoreInfo.memberSalary}+'만원'"></li>
                             </ul>
                         </div>
                     </div>

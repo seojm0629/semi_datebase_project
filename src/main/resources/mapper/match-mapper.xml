@@ -3,6 +3,6 @@
 <mapper namespace="kr.co.iei.match.model.dao.MatchDao">
 	<select id="calcPrice" resultType="grade">
 		select grade_price, pass_count from grade 
-			where match_count = #{matchCount} and #{memberGender} and #{memberGrade} and member_age like substr(#{memberAge}, 1,1} 
+			where match_count = #{matchCount} and member_gender = #{memberGender} and member_grade = #{memberGrade} and member_age like SUBSTR(#{memberAge}, 1,1}||'%' 
 	</select>
 </mapper>

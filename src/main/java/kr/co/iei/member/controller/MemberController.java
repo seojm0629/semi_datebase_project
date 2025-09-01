@@ -97,5 +97,8 @@ public class MemberController {
 		return "/member/masterPage";
 	}
 	
-	
+	@GetMapping(value = "/creatManager")
+	public String creatManager() {
+		return "/member/creatManager";
+	}
 }//controller

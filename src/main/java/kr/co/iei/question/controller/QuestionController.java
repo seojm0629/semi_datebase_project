@@ -1,6 +1,8 @@
 package kr.co.iei.question.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,17 +89,62 @@ public class QuestionController {
 	public String questionDetail(int questionNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member==null ? 0 : member.getMemberNo();
 		Question q = questionService.selectOneQuestion(questionNo, memberNo);
-		System.out.println(q);
 		if(q == null) {
 			model.addAttribute("title", "문의사항 조회 실패");
 			model.addAttribute("text", "이미 삭제된 게시글입니다.");
 			model.addAttribute("icon", "info");
-			model.addAttribute("loc", "/ question/list?reqPage=1" );
+			model.addAttribute("loc", "/question/list?reqPage=1");
 			return "common/msg";
 		} else {
 			model.addAttribute("q", q);
 			return "question/detail";
 		}
+	}
+	
+	@GetMapping(value="/updateFrm")
+	public String updateFrm(int questionNo, Model model) {
+		Question q = questionService.selectOneQuestion(questionNo, 0);
+		model.addAttribute("q", q);
+		return "question/updateFrm";
+	}
+	@PostMapping(value="/update")
+	public String update(Question q, MultipartFile[] upfile, int[] delFileNo) {
+		//새로 추가할 파일 업로드
+		List<QuestionFile> fileList = new ArrayList<QuestionFile>();
+		String savepath = root + "/question";
+		if(!upfile[0].isEmpty()) {
+			for(MultipartFile file: upfile) {
+				String filename = file.getOriginalFilename();
+				String filepath = fileUtil.upload(savepath, file);
+				QuestionFile qf = new QuestionFile();
+				qf.setFilename(filename);
+				qf.setFilepath(filepath);
+				fileList.add(qf);
+			}
+		}
+		//수정요청시 데이터를 3개 전달(q: question테이블 수정 / fileList: 새첨부파일 추가용 / delfileNo: 삭제파일용)
+		//-> DB작업이 완료되면 실제 업로드된 파일을 지우기 위해서 삭제한 파일의 filepath가 필요하기 때문에
+		List<QuestionFile> delFileList = questionService.updateQuestion(q, fileList, delFileNo);
+		for(QuestionFile questionFile : delFileList) {
+			File delFile = new File(savepath, questionFile.getFilepath());
+			delFile.delete();
+		}
+		return "redirect:/question/detail?questionNo="+q.getQuestionNo();
+	}
+	
+	@GetMapping(value="/delete")
+	public String delete(int questionNo, Model model) {
+		List<QuestionFile> list = questionService.deleteQuestion(questionNo);
+		String savepath = root + "/question/";
+		for(QuestionFile questionFile : list) {
+			File delFile = new File(savepath+questionFile.getFilepath());
+			delFile.delete();
+		}
+		model.addAttribute("title", "문의사항 삭제 완료");
+		model.addAttribute("text", "문의사항이 삭제 되었습니다.");
+		model.addAttribute("icon", "success");
+		model.addAttribute("loc", "/question/list?reqPage=1");
+		return "common/msg";
 	}
 	
 	@GetMapping(value="/filedown")
@@ -110,10 +157,21 @@ public class QuestionController {
 	
 	@PostMapping(value="/insertComment")
 	public String insertComment(QuestionComment qc) {
-		System.out.println(qc);
 		int result = questionService.insertQuestionComment(qc);
 		System.out.println(result);
-		return "redirect:/question/detail?questionNo=" + qc.getQuestionCommentRef();
+		return "redirect:/question/detail?questionNo=" + qc.getQuestionRef();
+	}
+	
+	@PostMapping(value="/updateComment")
+	public String update(QuestionComment qc) {
+		int result = questionService.updateQuestionComment(qc);
+		return "redirect:/question/detail?questionNo=" + qc.getQuestionRef();
+	}
+	
+	@GetMapping(value="/deleteComment")
+	public String delete(QuestionComment qc) {
+		int result = questionService.deleteQuestionComment(qc.getQuestionCommentNo());
+		return "redirect:/question/detail?questionNo="+qc.getQuestionRef();
 	}
 }
 

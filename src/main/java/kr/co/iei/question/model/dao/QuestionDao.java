@@ -36,6 +36,23 @@ public interface QuestionDao {
 
 	int insertQuestionComment(QuestionComment qc);
 
+	int updateQuestionComment(QuestionComment qc);
+
+	int deleteQuestionComment(int questionCommentNo);
+
+
+	List selectQuestionFileList(int[] delFileNo);
+
+	int deleteQuestionFile(int questionFileNo);
+
+	int updateQuestion(Question q);
+
+	int deleteQuestion(int questionNo);
+
+	
+
+	
+
 	
 	
 	

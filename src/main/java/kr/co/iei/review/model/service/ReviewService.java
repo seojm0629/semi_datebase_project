@@ -13,8 +13,12 @@ import kr.co.iei.review.model.vo.Review;
 public class ReviewService {
 	
 	@Autowired
-	ReviewDao reviewDao;
+	private ReviewDao reviewDao;
 
+	public int insertReview(Review r) {
+		int result = reviewDao.insertReview(r);
+		return result;
+	}
 	
 
 	public int selectPartyTotalCount() {
@@ -36,10 +40,6 @@ public class ReviewService {
 
 
 
-	public int insertReview(Review r) {
-		int result = reviewDao.insertReview(r);
-		return result;
-	}
 }
 
 

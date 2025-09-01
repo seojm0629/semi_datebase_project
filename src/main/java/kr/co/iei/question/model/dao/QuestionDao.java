@@ -47,6 +47,8 @@ public interface QuestionDao {
 
 	int updateQuestion(Question q);
 
+	int deleteQuestion(int questionNo);
+
 	
 
 	

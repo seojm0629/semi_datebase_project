@@ -132,6 +132,21 @@ public class QuestionController {
 		return "redirect:/question/detail?questionNo="+q.getQuestionNo();
 	}
 	
+	@GetMapping(value="/delete")
+	public String delete(int questionNo, Model model) {
+		List<QuestionFile> list = questionService.deleteQuestion(questionNo);
+		String savepath = root + "/question/";
+		for(QuestionFile questionFile : list) {
+			File delFile = new File(savepath+questionFile.getFilepath());
+			delFile.delete();
+		}
+		model.addAttribute("title", "문의사항 삭제 완료");
+		model.addAttribute("text", "문의사항이 삭제 되었습니다.");
+		model.addAttribute("icon", "success");
+		model.addAttribute("loc", "/question/list?reqPage=1");
+		return "common/msg";
+	}
+	
 	@GetMapping(value="/filedown")
 	public void filedown(int questionFileNo, HttpServletResponse response) {
 		QuestionFile questionFile = questionService.selectOneQuestionFile(questionFileNo);

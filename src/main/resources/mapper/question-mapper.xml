@@ -97,6 +97,10 @@
   <delete id="deleteQuestionFile">
   	delete from question_file where question_file_no = #{questionFileNo}
   </delete>
+  
+  <delete id="deleteQuestion">
+  	delete from question where question_no = #{questionNo}
+  </delete>
 </mapper>
 
 

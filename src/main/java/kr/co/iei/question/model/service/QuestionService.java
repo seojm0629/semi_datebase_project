@@ -180,6 +180,14 @@ public class QuestionService {
 		return delFileList;
 	}
 
+	public List<QuestionFile> deleteQuestion(int questionNo) {
+		//question를 삭제하면 해당 게시글의 첨부파일을 모두 삭제
+		//외래키 설정으로 자동으로 DB에서 삭제 -> 삭제 전에 DB의 파일목록 조회 후 삭제
+		List delFileList = questionDao.selectQuestionFile(questionNo);
+		int result = questionDao.deleteQuestion(questionNo);
+		return delFileList;
+	}
+
 	
 
 	

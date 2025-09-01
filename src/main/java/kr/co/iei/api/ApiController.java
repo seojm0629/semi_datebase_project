@@ -4,10 +4,16 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.iei.match.model.service.MatchService;
+import kr.co.iei.model.member.service.MemberService;
+import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.pay.model.vo.pay;
 import kr.co.iei.util.EmailSender;
 
 @Controller
@@ -16,6 +22,10 @@ public class ApiController {
 	
 	@Autowired
 	private EmailSender emailSender;
+	@Autowired
+	private MatchService matchService;
+	@Autowired
+	private MemberService memberService;
 	
 	@ResponseBody
 	@GetMapping(value = "/sendCode")
@@ -50,6 +60,26 @@ public class ApiController {
 		emailSender.sendMail(mailTitle, emailFull, emailContent);
 		
 		return sb.toString();
+	}
+	@PostMapping(value="/pay")
+	public String insertPayData(pay p , Model model, Member m) {
+		int result = matchService.insertPayData(p);
+		if(result==1) {
+			
+			int update = memberService.updateMemberPayment(m);
+			model.addAttribute("title", "결제 완료");
+			model.addAttribute("text", "돈 좀 더 써라.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/member/mypage?memberId="+p.getMemberId());
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "결제 실패");
+			model.addAttribute("text", "결제 정보를 확인해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/match/membershipFrm");
+			return "common/msg";
+		}
+		
 	}
 	
 }

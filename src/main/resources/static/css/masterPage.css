@@ -6,7 +6,7 @@
     margin-bottom: 80px
 }
 .masterPage-wrap{
-    width: 600px;
+    width: 750px;
     margin: 0 auto;
 }
 /*-----------------------masterPage-header-----------------------------*/
@@ -81,6 +81,10 @@
 }
 /*--------------------------member-seach--------------------------*/
 /*-------member-seach-input--------*/
+.member-seach-input{
+    width: 710px;
+    margin: 0 auto;
+}
 .member-seach{
     margin-top: 20px;
 }
@@ -103,6 +107,10 @@
     color: #FFF;
     border-radius: 10px;
 }
+#search-member-btn:hover{
+    background-color: #EAC88F;
+    cursor: pointer;
+}
 /*-------member-seach-output--------*/
 .member-seach-output{
     width: 100%;
@@ -115,15 +123,14 @@
 /*-------search-result--------*/
 .search-result{
     width: 98%;
-    border-bottom: 1px solid #2B2B2B;
     margin: 0 auto;
-    height: 45px;
-    line-height: 45px;
+    height: 55px;
+    line-height: 55px;
+    overflow: hidden;
 }
 .search-result>span{
     display: inline-block;
-    padding-top: 10px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
 }
 .search-result>span:nth-child(1){
@@ -137,6 +144,21 @@
 }
 .search-result>span:nth-child(4){
     width: 200px;
+}
+#firedMember{
+    width: 50px;
+    height: 30px;
+    border: none;
+    float: right;
+    margin-top: 12px;
+    margin-right: 5px;
+    background-color: #D9D9D9;
+    color: #FFF;
+    border-radius: 3px;
+}
+#firedMember:hover{
+    cursor: pointer;
+    color: #2B2B2B;
 }
 /*----------btn-zone----------*/
 .btn-zone{

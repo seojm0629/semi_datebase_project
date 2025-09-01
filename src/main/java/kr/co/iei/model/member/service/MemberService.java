@@ -35,8 +35,23 @@ public class MemberService {
 	}
 
 
+
 	public int updateMemberPayment(pay p) {
 		int update = memberDao.updateMemberPayment(p);
 		return 0;
+
+	
+	@Transactional
+	public int joinManager(Member m) {
+		int result = memberDao.joinManager(m);
+		return result;
+	}
+
+	
+	@Transactional
+	public int deleteMember(String memberId) {
+		int result = memberDao.deleteMember(memberId);
+		return result;
+
 	}
 }

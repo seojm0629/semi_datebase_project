@@ -18,7 +18,6 @@ public class Question {
 	private String questionWriter;
 	private String questionContent;
 	private String regDate;
-	private String questionYn;
 	private List<QuestionFile> fileList;
 	private List<QuestionComment> questionList;
 	

@@ -17,9 +17,14 @@
                     <img src="../image/beer1.png" alt="이미지준비중" width="300px">
                 </div>
                 <div class="user-grade-zone">
-                    <h2>내 등급 : 없음</h2>
-                    <h3>남은 만남권 : 0회</h3>
-                    <h3>남은 패스권 : 0회</h3>
+                	<th:block th:if="${session.member.memberGrade != null}">
+                    	<h2 th:text="'내 등급 : '+${session.member.memberGrade}"></h2>
+                    </th:block>
+                    <th:block th:if="${session.member.memberGrade == null}">
+                    	<h2>내 등급 : 없음</h2>
+                    </th:block>
+                    <h3 th:text="'남은 만남권 : '+${session.member.myMatchingCount}+'회'"></h3>
+                    <h3 th:text="'남은 패스권 : '+${session.member.myPassCount}+'회'"></h3>
                     <div class="user-button">
                         <button type="button" id="buy-membership">회원권구매</button>
                         <button type="button" id="buy-list">결재내역</button>
@@ -29,25 +34,29 @@
                     <h2 id="mylist">내정보</h2>
                     <div class="common-profile">
                         <div class="profile-header">
-                            <span>범고래</span>
+                            <span id="profileName" th:text="${session.member.memberName}"></span>
                             <button type="button" id="profile-update">정보수정</button>
                             <button type="button" id="memberExit">회원탈퇴</button>
                         </div>
                         <div class="profile-content1">
                             <ul>
-                                <li>아이디 : </li>
-                                <li>email : </li>
-                                <li>생년월일 : </li>
-                                <li>성별 : </li>
+                                <li th:text="'아이디 : '+${session.member.memberId}"></li>
+                                <li th:text="'email : '+${session.member.memberEmail}"></li>
+                                <li th:text="'생년월일 : '+${session.member.birthDate}"></li>
+                                <th:block th:if="${session.member.memberGender == 'm'}">
+                                	<li>성별 : 남성</li>
+                                </th:block>
+                                <th:block th:if="${session.member.memberGender == 'f'}">
+                                	<li>성별 : 여성</li>
+                                </th:block>
                             </ul>
                         </div>
                         <div class="profile-content2">
                             <ul>
-                                <li>비밀번호 : </li>
-                                <li>전화번호 : </li>
-                                <li>주소 : </li>
-                                <li>취미 : </li>
-                                <li>MBTI : </li>
+                                <li th:text="'전화번호 : '+${session.member.memberPhone}"></li>
+                                <li th:text="'주소 : '+${session.member.memberAddr}"></li>
+                                <li th:text="'직업 : '+${session.member.memberJob}"></li>
+                                <li th:text="'MBTI : '+${session.member.memberMBTI}"></li>
                             </ul>
                         </div>
                     </div>
@@ -57,14 +66,14 @@
                         </div>
                         <div class="profile-plus-content1">
                             <ul>
-                                <li>학력 : </li>
-                                <li>근무형태 : </li>
+                                <li th:text="'학력 : '+${session.member.memberId}"></li>
+                                <li th:text="'근무형태 : '+${session.member.memberId}"></li>
                             </ul>
                         </div>
                         <div class="profile-plus-content2">
                             <ul>
-                                <li>직업 : </li>
-                                <li>연봉 : </li>
+                                <li th:text="'취미 : '+${session.member.memberId}"></li>
+                                <li th:text="'연봉 : '+${session.member.memberId}"></li>
                             </ul>
                         </div>
                     </div>
@@ -97,7 +106,11 @@
             </div>
         </div>
     </div>
-
+	<script>
+		$("#memberExit").on("click", function(){
+			location.href=("/member/memberExit");
+		});
+	</script>
     <th:block th:include="common/footer"></th:block>
 </body>
 </html>

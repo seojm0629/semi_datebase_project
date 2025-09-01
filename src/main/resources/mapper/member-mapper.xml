@@ -12,8 +12,18 @@
 			and member_pw = #{memberPw}
 		</if>
 	</select>
+
 	
 	<update id="updateMemberPayment">
 		update member set  pass_count = #{myPassCount} , match_count = #{myMatchingCount}
 	</update>
+
+	<insert id="joinManager">
+		insert into member
+		values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memberPhone},'none',#{memberEmail},'0000-00-00','m','none','none',2,'none',0,0,null)
+	</insert>
+	<delete id="deleteMember">
+		delete from member where member_id = #{memberId}
+	</delete>
+
 </mapper>

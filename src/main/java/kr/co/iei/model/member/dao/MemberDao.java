@@ -14,4 +14,9 @@ public interface MemberDao {
 
 	int updateMemberPayment(pay p);
 
+	int joinManager(Member m);
+
+	int deleteMember(String memberId);
+
+
 }

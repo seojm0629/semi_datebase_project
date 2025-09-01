@@ -15,4 +15,6 @@ public interface ReviewDao {
 
 	List selectPhotoList(HashMap<String, Object> param);
 	
+	int insertReview(Review r);
+	
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleap.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/creatManager.css">
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+		<div class="creat-manager-all-wrap">
+	        <div class="creat-manager-wrap">
+	            <div class="creat-manager-header">
+	                <h1>직원관리</h1>
+	            </div>
+	            <div class="creat-manager-content">
+	                <form action="/member/joinManager" method="post">
+	                    <div class="manager-input-content">
+	                        <span>이름<sup>*</sup> : </span>
+	                        <input type="text" name="memberName">
+	                    </div>
+	                    <div class="manager-input-content">
+	                        <span>아이디<sup>*</sup> : </span>
+	                        <input type="text" name="memberId">
+	                    </div>
+	                    <div class="manager-input-content">
+	                        <span>비밀번호<sup>*</sup> : </span>
+	                        <input type="text" name="memberPw">
+	                    </div>
+	                    <div class="manager-input-content">
+	                        <span>비밀번호 확인<sup>*</sup> : </span>
+	                        <input type="text" name="memberPwRe">
+	                    </div>
+	                    <div class="manager-input-content">
+	                        <span>전화번호<sup>*</sup> : </span>
+	                        <input type="text" name="memberPhone">
+	                    </div>
+	                    <div class="manager-input-content">
+	                        <span>Email<sup>*</sup> : </span>
+	                        <input type="text" name="memberEmail">
+	                    </div>
+	                    <div class="yesorno-btn">
+	                        <button type="button" id="managercancel">취소</button>
+	                        <button type="submit" id="managercreat">생성</button>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	    <script>
+	    	$("#managercancel").on("click", function(){
+	    		location.href=("/member/masterPage");
+	    	});
+	    </script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

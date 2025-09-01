@@ -32,4 +32,11 @@ public class MemberService {
 		Member member = memberDao.selectOneMember(m);
 		return member;
 	}
+
+	
+	@Transactional
+	public int joinManager(Member m) {
+		int result = memberDao.joinManager(m);
+		return result;
+	}
 }

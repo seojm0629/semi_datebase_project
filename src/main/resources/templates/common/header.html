@@ -32,11 +32,18 @@
 					<li><a href="/member/loginFrm">로그인</a></li>
 					<li><a href="/member/join-agree">회원가입</a></li>
 				</th:block>
-				<th:block th:if="${session.member != null}">
+				<th:block th:if="${session.member != null && session.member.memberLevel == 3}">
 					<li><a href="/member/logout">로그아웃</a></li>
-					<li><a href="">마이페이지</a></li>
+					<li><a href="/member/mypage">마이페이지</a></li>
 				</th:block>
-
+				<th:block th:if="${session.member != null && session.member.memberLevel == 1}">
+					<li><a href="/member/logout">로그아웃</a></li>
+					<li><a href="/member/masterPage">마이페이지</a></li>
+				</th:block>
+				<th:block th:if="${session.member != null && session.member.memberLevel == 2}">
+					<li><a href="/member/logout">로그아웃</a></li>
+					<li><a href="/member/masterPage">마이페이지</a></li>
+				</th:block>
 			</ul>
 		</div>
 

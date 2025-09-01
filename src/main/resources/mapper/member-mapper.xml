@@ -12,4 +12,8 @@
 			and member_pw = #{memberPw}
 		</if>
 	</select>
+	<insert id="joinManager">
+		insert into member
+		values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memberPhone},'none',#{memberEmail},'0000-00-00','m','none','none',2,'none',0,0,null)
+	</insert>
 </mapper>

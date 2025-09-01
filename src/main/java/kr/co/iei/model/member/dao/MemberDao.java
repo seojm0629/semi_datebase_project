@@ -11,4 +11,6 @@ public interface MemberDao {
 
 	Member selectOneMember(Member m);
 
+	int joinManager(Member m);
+
 }

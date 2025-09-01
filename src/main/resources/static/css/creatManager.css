@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/*------------------------main----------------------------------*/
+.creat-manager-all-wrap{
+    width: 1200px;
+    margin: 0 auto;
+}
+.creat-manager-wrap{
+    width: 900px;
+    margin: 0 auto;
+}
+/*------------------------creat-manager-header----------------------------*/
+.creat-manager-header{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.creat-manager-header>h1{
+    color: #E5BA73;
+}
+/*------------------------creat-manager-content----------------------------*/
+.creat-manager-content{
+    text-align: center;
+    font-size: 20px;
+    margin-right: 30px;
+}
+/*-----------manager-input-content sup----------*/
+.manager-input-content sup{
+    color: #FF6868;
+}
+/*-----------manager-input-content span----------*/
+.manager-input-content span{
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+}
+/*---------manager-input-content input----------*/
+.manager-input-content input{
+    width: 220px;
+    border: none;
+    border-bottom: 1px solid #2B2B2B;
+    outline: none;
+    margin: 15px 5px;
+}
+.manager-input-content input:focus{
+    border-bottom: 2px solid #C58940;
+}
+/*------------------------yesorno-btn----------------------------*/
+.yesorno-btn{
+    margin: 50px 0px;
+    margin-left: 45px;
+}
+.yesorno-btn>button{
+    width: 200px;
+    height: 35px;
+    margin-right: 10px;
+    border: none;
+    font-size: 18px;
+    color: #FFF;
+    border-radius: 5px;
+}
+/*--------yesorno-btn>#managercancel-------*/
+.yesorno-btn>#managercancel{
+    background-color: #D9D9D9;
+}
+.yesorno-btn>#managercancel:hover{
+    color: #2B2B2B;
+}
+/*--------yesorno-btn>#managercreat-------*/
+.yesorno-btn>#managercreat{
+    background-color: #E5BA73;
+}
+.yesorno-btn>#managercreat:hover{
+    background-color: #EAC88F;
+}

@@ -22,7 +22,7 @@ public class MatchService {
 	@Transactional
 	public int insertPayData(pay p) {
 		int result = matchDao.insertPayData(p);
-		return 0;
+		return result;
 	}
 	
 }

@@ -7,6 +7,6 @@
 	</select>
 	
 	<insert id="insertPayData">
-		insert member_pay_table values(pay_seq.nextval,#{memberId},#{payPrice},#{payName},#{payState},sysdate)
+		insert into member_pay_table values(pay_seq.nextval,#{memberId},#{payPrice},#{payName},#{payState}, sysdate)
 	</insert>
 </mapper>

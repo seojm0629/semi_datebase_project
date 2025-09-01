@@ -62,16 +62,24 @@ public class ApiController {
 		return sb.toString();
 	}
 	@PostMapping(value="/pay")
-	public String insertPayData(pay p , Model model) {
+	public String insertPayData(pay p , Model model, Member m) {
 		int result = matchService.insertPayData(p);
 		if(result==1) {
-			int update = memberService.updateMemberPayment(p);
+			
+			int update = memberService.updateMemberPayment(m);
 			model.addAttribute("title", "결제 완료");
 			model.addAttribute("text", "돈 좀 더 써라.");
 			model.addAttribute("icon", "success");
 			model.addAttribute("loc", "/member/mypage?memberId="+p.getMemberId());
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "결제 실패");
+			model.addAttribute("text", "결제 정보를 확인해주세요.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/match/membershipFrm");
+			return "common/msg";
 		}
-		return "common/msg";
+		
 	}
 	
 }

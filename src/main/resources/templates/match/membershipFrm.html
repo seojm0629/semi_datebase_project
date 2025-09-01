@@ -330,10 +330,11 @@ button[type=submit]{
 						    buyer_tel: m.memberPhone,
 						    buyer_addr: m.memberAddr,
 						    custom_data : {
-						    	memberId : m.memberId, 
+						    	memberId : m.memberId,
+						    	memberGrade : g.memberGrade
 						    	
 						    },
-						    notice_url : "http://192.168.10.23/pay/paysuccess"
+						    notice_url : "http://192.168.10.23/member/mypage?memberId="+m.memberId
 						    
 						  },
 						  function (rsp) {
@@ -367,7 +368,7 @@ button[type=submit]{
 							 	const input4 = document.createElement("input");
 							 	input4.setAttribute("type", "hidden");
 							 	input4.setAttribute("name", "payState");
-							 	if(rsp.suceess){
+							 	if(rsp.success){
 							 		input4.setAttribute("value", "성공");
 							 	}
 							 	
@@ -381,9 +382,15 @@ button[type=submit]{
 							 	input6.setAttribute("name", "myPassCount");
 							 	input6.setAttribute("value", g.passCount );
 							 	
+							 	const input7 = document.createElement("input");
+							 	input7.setAttribute("type", "hidden");
+							 	input7.setAttribute("name", "memberGrade");
+							 	input7.setAttribute("value", rsp.custom_data.memberGrade );
+							 	
 							 	form.appendChild(input4);
 							 	form.appendChild(input5);
 							 	form.appendChild(input6);
+							 	form.appendChild(input7);
 							 	document.body.appendChild(form);
 							 	form.submit();
 							 	

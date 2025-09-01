@@ -35,11 +35,11 @@ public class MemberService {
 	}
 
 
-
-	public int updateMemberPayment(pay p) {
-		int update = memberDao.updateMemberPayment(p);
-		return 0;
-
+	@Transactional
+	public int updateMemberPayment(Member m) {
+		int update = memberDao.updateMemberPayment(m);
+		return update;
+	}
 	
 	@Transactional
 	public int joinManager(Member m) {

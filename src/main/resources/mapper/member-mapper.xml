@@ -15,7 +15,7 @@
 
 	
 	<update id="updateMemberPayment">
-		update member set  pass_count = #{myPassCount} , match_count = #{myMatchingCount}
+		update member set member_grade = #{memberGrade}, my_pass_count = #{myPassCount} , my_matching_count = #{myMatchingCount} where member_id = #{memberId}
 	</update>
 
 	<insert id="joinManager">

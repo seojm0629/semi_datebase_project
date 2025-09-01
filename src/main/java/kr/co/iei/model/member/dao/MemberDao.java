@@ -12,7 +12,7 @@ public interface MemberDao {
 
 	Member selectOneMember(Member m);
 
-	int updateMemberPayment(pay p);
+	int updateMemberPayment(Member m);
 
 	int joinManager(Member m);
 

@@ -20,6 +20,5 @@ public class pay {
 	private String payName;
 	private String payState;
 	private Date   payDate;
-	private Member myMatchingCount;
-	private Member myPassCount;
+	
 }

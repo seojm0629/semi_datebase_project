@@ -36,6 +36,10 @@ public interface QuestionDao {
 
 	int insertQuestionComment(QuestionComment qc);
 
+	int updateQuestionComment(QuestionComment qc);
+
+	int deleteQuestionComment(int questionCommentNo);
+
 	
 	
 	

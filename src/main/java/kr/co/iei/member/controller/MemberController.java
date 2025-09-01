@@ -124,4 +124,11 @@ public class MemberController {
 		Member m = memberService.selectOneMember(memberId);
 		return m;
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/deleteMember")
+	public int deleteMember(String memberId) {
+		int result = memberService.deleteMember(memberId);
+		return result;
+	}
 }//controller

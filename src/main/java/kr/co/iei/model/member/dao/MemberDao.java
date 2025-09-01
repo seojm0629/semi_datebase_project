@@ -13,4 +13,6 @@ public interface MemberDao {
 
 	int joinManager(Member m);
 
+	int deleteMember(String memberId);
+
 }

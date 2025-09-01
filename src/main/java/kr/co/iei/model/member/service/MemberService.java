@@ -39,4 +39,11 @@ public class MemberService {
 		int result = memberDao.joinManager(m);
 		return result;
 	}
+
+	
+	@Transactional
+	public int deleteMember(String memberId) {
+		int result = memberDao.deleteMember(memberId);
+		return result;
+	}
 }

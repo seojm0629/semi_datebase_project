@@ -27,11 +27,20 @@ public class MatchController {
 		return "/match/membershipFrm";
 	}
 	
-	@PostMapping(value="/calcPrice")
+	@GetMapping(value="/calcPrice")
 	@ResponseBody
-	public int calcPrice(Grade g) {
-		System.out.println(g.getMatchCount());
-		int result = matchService.calcPrice(g);
-		return 0;
+	public Grade calcPrice(Grade g) {
+		/*
+		int match = Integer.parseInt(matchCount);
+		int age = Integer.parseInt(memberAge);
+		Grade g = new Grade();
+		g.setMatchCount(match);
+		g.setMemberAge(age);
+		g.setMemberGender(memberGender);
+		g.setMemberGrade(memberGrade);
+		System.out.println(g);
+		*/
+		Grade grade = matchService.calcPrice(g);
+		return grade;
 	}
 }

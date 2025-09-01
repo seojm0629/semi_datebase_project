@@ -12,9 +12,9 @@ public class MatchService {
 	@Autowired
 	private MatchDao matchDao;
 	
-	public int calcPrice(Grade g) {
-		int result = matchDao.calcPrice(g);
-		return 0;
+	public Grade calcPrice(Grade g) {
+		Grade grade = matchDao.calcPrice(g);
+		return grade;
 	}
 	
 }

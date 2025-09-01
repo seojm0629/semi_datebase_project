@@ -7,6 +7,6 @@ import kr.co.iei.match.model.vo.Grade;
 @Mapper
 public interface MatchDao {
 
-	int calcPrice(Grade g);
+	Grade calcPrice(Grade g);
 	
 }

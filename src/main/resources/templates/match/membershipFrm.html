@@ -209,6 +209,7 @@ button[type=submit]{
 				</div>
 			</div>
 			<div class="btn-box">
+				<input type="hidden" name="memberGender" th:value="${session.member.memberGender}">
 				<button type="submit" class="pay">결제하기</button>
 			</div>
 		</div>
@@ -223,7 +224,7 @@ button[type=submit]{
 	const memberYear = age.slice(0,4);
 	const month = ('0' + (currDate.getMonth()+1));
 	const day = ('0' + (currDate.getDate())).slice(-2);
-	
+
 	const today = `${year}-${month}-${day}`;
 	
 	const userAge = year - memberYear + 1;
@@ -279,23 +280,25 @@ button[type=submit]{
 		}
 	});
 		
-	$(".pay").on("click",function(e){
+	$(".pay").on("click",function(){
 		
 		const matchCount = $("[name=matchCount]").val();
 		
 		const memberAge = $("[name=memberAge]").val();
 		const memberGrade = $("[name=memberGrade]").val();
+		const memberGender = $("[name=memberGender]").val();
+		console.log(matchCount, memberAge, memberGrade, memberGender);
 		
 		$.ajax({
 			url : "/match/calcPrice",
-			type : "post",
-			data : { memberGrade : memberGrade, memberAge : memberAge, matchCount : matchCount },
+			type : "get",
+			data : { memberGrade : memberGrade, memberAge : memberAge, matchCount : matchCount , memberGender : memberGender },
 			dataType : "json",
-			success : function(price){
-				
+			success : function(grade){
+				console.log(grade);
 			},
-			error : function(){
-				console.log("실패");
+			error : function(e){
+				console.log(e);
 			}
 		});
 		

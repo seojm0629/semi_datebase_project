@@ -169,17 +169,6 @@
 	
 	<th:block th:include="common/footer"></th:block>
 	<script th:inline="javascript">
-		const tabMenu = $(".party-blind>div");
-		const tabContent = $(".party-tab-review>div");
-	
-		tabMenu.on("click", function(){
-			tabMenu.removeClass("active-tab");
-			tabContent.hide();
-			$(this).addClass("active-tab");
-			const i = tabMenu.index(this);
-			tabContent.eq(i).show();
-		});
-		tabMenu.eq(0).click();
 		
 		/*파티 후기*/
 		const totalCount = [[${partyTotalCount}]];	//페이지 들어올 때 조회해온 전체 게시물 수
@@ -193,16 +182,15 @@
 				type: "get",
 				data: {start : start, amount: amount},
 				success: function(data){
-					
 				for(let i=0; i<data.length;i++){
 					const r = data[i];
-					
+					console.log(r);
 					const li = $("<li>");
 					li.addClass("posting-item");
 					const imgDiv = $("<div>");
 					imgDiv.addClass("posting-img");
-					const img = $("<img>")
-					img.attr("src", "/review_party/image/"+r.reviewImg)
+					const img = $("<img>");
+					img.attr("src", "/review_party/image/"+r.reviewImg);
 					
 					imgDiv.append(img);
 					
@@ -239,6 +227,18 @@
 			}
 			});
 		});
+		
+		const tabMenu = $(".party-blind>div");
+		const tabContent = $(".party-tab-review>div");
+	
+		tabMenu.on("click", function(){
+			tabMenu.removeClass("active-tab");
+			tabContent.hide();
+			$(this).addClass("active-tab");
+			const i = tabMenu.index(this);
+			tabContent.eq(i).show();
+		});
+		tabMenu.eq(0).click();
 	</script>
 </body>
 </html>

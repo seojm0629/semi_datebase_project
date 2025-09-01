@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleap.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/userpage.css">
+</head>
+<body>
+<th:block th:include="common/header"></th:block>
+<div class="userpage-all-wrap">
+        <div class="userpage-content-all-wrap">
+            <div class="userpage-header-wrap">
+                <h1>마이 페이지</h1>
+            </div>
+            <div class="userpage-profile-wrap">
+                <div class="user-img">
+                    <img src="../image/beer1.png" alt="이미지준비중" width="300px">
+                </div>
+                <div class="user-grade-zone">
+                    <h2>내 등급 : 없음</h2>
+                    <h3>남은 만남권 : 0회</h3>
+                    <h3>남은 패스권 : 0회</h3>
+                    <div class="user-button">
+                        <button type="button" id="buy-membership">회원권구매</button>
+                        <button type="button" id="buy-list">결재내역</button>
+                    </div>
+                </div>
+                <div class="user-profile-zone">
+                    <h2 id="mylist">내정보</h2>
+                    <div class="common-profile">
+                        <div class="profile-header">
+                            <span>범고래</span>
+                            <button type="button" id="profile-update">정보수정</button>
+                            <button type="button" id="memberExit">회원탈퇴</button>
+                        </div>
+                        <div class="profile-content1">
+                            <ul>
+                                <li>아이디 : </li>
+                                <li>email : </li>
+                                <li>생년월일 : </li>
+                                <li>성별 : </li>
+                            </ul>
+                        </div>
+                        <div class="profile-content2">
+                            <ul>
+                                <li>비밀번호 : </li>
+                                <li>전화번호 : </li>
+                                <li>주소 : </li>
+                                <li>취미 : </li>
+                                <li>MBTI : </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="profile-plus">
+                        <div class="profile-plus-header">
+                            <h3>추가 정보</h3>
+                        </div>
+                        <div class="profile-plus-content1">
+                            <ul>
+                                <li>학력 : </li>
+                                <li>근무형태 : </li>
+                            </ul>
+                        </div>
+                        <div class="profile-plus-content2">
+                            <ul>
+                                <li>직업 : </li>
+                                <li>연봉 : </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="plus-content">
+                        <div class="my-qna-list">
+                            <div class="my-qna-list-header">
+                                <span><b>내 문의 내역</b></span>
+                            </div>
+                            <div class="my-qna-list-content">
+                                <div class="qna-line-heder">
+                                    <span>제목</span>
+                                    <span>날짜</span>
+                                </div>
+                                <div class="qna-line-content">
+                                    <span>제목</span>
+                                    <span>날짜</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-mitting-list">
+                            <div class="my-qna-mitting-header">
+                                <span><b>소개팅 이력</b></span>
+                            </div>
+                            <div class="my-qna-mitting-content">
+                                
+                            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:include="common/footer"></th:block>
+</body>
+</html>

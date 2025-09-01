@@ -76,6 +76,27 @@
   <delete id="deleteQuestionComment">
   	delete from question_comment where question_comment_no = #{questionCommentNo}
   </delete>
+  
+  <update id="updateQuestion">
+  	update question set
+  		question_title = #{questionTitle},
+  		question_content = #{questionContent}
+  	where
+  		question_no=#{questionNo}
+  </update>
+ 
+  <select id="selectQuestionFileList" resultType="questionFile">
+ 	select *
+ 		from question_file
+ 		where question_file_no in
+ 		<foreach collection="array" item="questionFileNo" open="(" close=")" separator=",">
+ 			#{questionFileNo}
+ 		</foreach>
+  </select>
+  
+  <delete id="deleteQuestionFile">
+  	delete from question_file where question_file_no = #{questionFileNo}
+  </delete>
 </mapper>
 
 

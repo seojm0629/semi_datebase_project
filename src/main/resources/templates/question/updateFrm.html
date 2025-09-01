@@ -3,9 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+@font-face {
+    font-family: main2;
+    src: url(../CSS/font/PyeongChang-Regular.ttf);
+}
+@font-face {
+    font-family: mainB2;
+    src: url(../CSS/font/PyeongChang-Bold.ttf);
+}
+:root{
+    --color1 : #2B2B2B;/*검은 글씨색*/
+    --color2 : #FAF8F1;/*푸터 배경색*/
+    --color3 : #FAEAB1;/**/
+    --color4 : #E5BA73;/*버튼색, 로고, 페이지 제목*/
+    --color5 : #C58940;/*푸터 두꺼운 글씨, 선 그을때*/
+    --color6 : #EAC88F;/*버튼 호버한 경우 색*/
+    --color7 : #FF6868;/*경고색*/
+    --color8 : #D9D9D9;/*취소버튼*/
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    color: #2B2B2B;
+    font-family: mainB2;
+}
+.section{
+	width: 900px;
+	margin: 0 auto;
+}
+.page-title{
+	text-align:center;
+	font-family: mainB2;
+	font-size: 38px;
+	color: #E5BA73;
+	margin-top: 40px;	
+}
+.tbl{
+	border-spacing: 0;
+	border: 1px solid #ccc;
+}
+.tbl>tbody>tr:first-child{
+	width: 900px;
+	margin: 0 auto;	
+}
+.tbl>tbody>tr:first-child>th{
+	height: 35px;
+}
+.tbl>tbody>tr:first-child>th>td{
+	height: 35px;
+	box-sizing : border-box;
+}
+.tbl>tbody>tr:first-child>td>div>input{
+	height: 35px;
+	width: 750px;
+	padding-left: 10px;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	font-size: 22px;
+}
+.tbl>tbody>tr>th{
+	width: 150px;
+	background-color: #E5BA73;	
+	border-bottom : 1px solid #ccc;
+}
+.tbl>tbody>tr:nth-child(2)>th{
+	height: 35px;
+	line-height: 35px;
+	border-bottom: 1px solid #ccc;
+}
+.tbl>tbody>tr:nth-child(2)>td{
+	padding-left: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.tbl>tbody>tr:nth-child(3)>td{
+	padding-left : 10px;
+	height: 50px;
+	border-bottom: 1px solid #ccc;
+}
+.tbl>tbody>tr:nth-child(4)>td{
+	height: 400px;
+	padding-left: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.tbl>tbody>tr:nth-child(4)>td>div>textarea{
+	width: 740px;
+	height: 400px;
+	resize: none;
+	border: none;
+	padding-top: 10px;
+}
+.tbl>tbody>tr:last-child>td{
+	padding : 30px 0px;
+	text-align: center;
+}
+[class^="btn-"] {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: ns-b;
+  text-align:center;
+  box-sizing: border-box;
+  
+}
+
+.btn-a:hover{
+	background-color:  #C58940;
+}
+.btn-a {
+  border: 1px solid #ccc;
+  background-color: #E5BA73;
+  color: #ffffff;
+}
+.btn-button {
+  border: 1px solid #ccc;
+  background-color: #D9D9D9;
+  color: #ffffff;
+}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
+	<section class="section question-update-frm">
+		<div class="page-title">문의사항 수정</div>
+		<form action="/question/update" method="post" enctype="multipart/form-data">
+			<table class="tbl">
+				<tr>
+					<th>제목</th>
+					<td>
+						<div class="input-item">
+							<input type="text" name="questionTitle" th:value="${q.questionTitle}">				
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td>
+						<!-- 기존 첨부파일을 화면에 출력(삭제가능하도록) -->
+						<div class="file-wrap">
+							<div th:each="file : ${q.fileList}" class="files">
+								<!-- 공지사항 작성 시 첨부파일을 걸어둔 파일명 확인 -->
+								<span class="delFileName" th:text="${file.filename}"></span>
+								<!-- 공지사항 작성 시 첨부파일을 걸어둔 각각의 자료에 each문을 통하여 삭제버튼 활성화-->
+								<span class="material-icons del-btn" th:onclick="deleteFile([[${file.questionFileNo}]], this);">delete</span>
+								
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>추가파일</th>
+					<td class="left">
+						<!-- 단 하나의 파일이 아닌 여러 개의 파일을 업로드를 원할시 multiple을 사용하여 활용 -->
+						<!-- 단 하나의 파일만 올리고 싶을 때는 multiple 속성 제외 -->
+						<!-- 파일을 올리고 싶을 때, type="file"로 지정 -->
+						<input type="file" name="upfile" multiple>
+					</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+						<div class="input-item">
+							<textarea name="questionContent" th:text="${q.questionContent}"></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="submit" class="btn-a lg">수정</button>
+						<a class="btn-button lg" th:href = "@{/question/detail(questionNo=${q.questionNo})}">취소</a>
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="questionNo" th:value="${q.questionNo}">
+		</form>
+		
+	</section>
+	<script>
+		// 삭제를 하기위한 script 작성
+		function deleteFile(questionFileNo, obj){
+			const input = $("<input>"); //input 태그 생성
+			input.attr("name", "delFileNo"); //name이 delFileNo인 구문에
+			input.attr("type", "hidden"); //type을 hidden으로 변경
+			input.val(questionFileNo); 
+			$(".question-update-frm>form").append(input);
+			
+			$(obj).parent().remove(); // 첨부한 파일 네임과 같이 사라지게
+		}
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

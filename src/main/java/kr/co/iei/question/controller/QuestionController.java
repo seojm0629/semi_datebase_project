@@ -1,6 +1,8 @@
 package kr.co.iei.question.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,6 +106,30 @@ public class QuestionController {
 		Question q = questionService.selectOneQuestion(questionNo, 0);
 		model.addAttribute("q", q);
 		return "question/updateFrm";
+	}
+	@PostMapping(value="/update")
+	public String update(Question q, MultipartFile[] upfile, int[] delFileNo) {
+		//새로 추가할 파일 업로드
+		List<QuestionFile> fileList = new ArrayList<QuestionFile>();
+		String savepath = root + "/question";
+		if(!upfile[0].isEmpty()) {
+			for(MultipartFile file: upfile) {
+				String filename = file.getOriginalFilename();
+				String filepath = fileUtil.upload(savepath, file);
+				QuestionFile qf = new QuestionFile();
+				qf.setFilename(filename);
+				qf.setFilepath(filepath);
+				fileList.add(qf);
+			}
+		}
+		//수정요청시 데이터를 3개 전달(q: question테이블 수정 / fileList: 새첨부파일 추가용 / delfileNo: 삭제파일용)
+		//-> DB작업이 완료되면 실제 업로드된 파일을 지우기 위해서 삭제한 파일의 filepath가 필요하기 때문에
+		List<QuestionFile> delFileList = questionService.updateQuestion(q, fileList, delFileNo);
+		for(QuestionFile questionFile : delFileList) {
+			File delFile = new File(savepath, questionFile.getFilepath());
+			delFile.delete();
+		}
+		return "redirect:/question/detail?questionNo="+q.getQuestionNo();
 	}
 	
 	@GetMapping(value="/filedown")

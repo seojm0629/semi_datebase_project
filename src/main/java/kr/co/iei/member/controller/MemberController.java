@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpSession;
 import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.model.member.vo.MemberMoreInfo;
 //import kr.co.iei.util.FileUtil;
 import kr.co.iei.util.FileUtil;
 
@@ -89,7 +90,13 @@ public class MemberController {
 	}
 	
 	@GetMapping(value = "/mypage")
-	public String mypage() {
+	public String mypage(@SessionAttribute Member member, Model model) {
+		System.out.println(member);
+		int memberNo = member.getMemberNo();
+		System.out.println(memberNo);
+		MemberMoreInfo memberMoreInfo = memberService.searchMemberMoreINfo(memberNo);
+		System.out.println(memberMoreInfo);
+		model.addAttribute("memberMoreInfo", memberMoreInfo);
 		return "/member/mypage";
 	}
 	

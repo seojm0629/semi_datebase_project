@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.model.member.dao.MemberDao;
 import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.model.member.vo.MemberMoreInfo;
 
 @Service
 public class MemberService {
@@ -45,5 +46,11 @@ public class MemberService {
 	public int deleteMember(String memberId) {
 		int result = memberDao.deleteMember(memberId);
 		return result;
+	}
+
+
+	public MemberMoreInfo searchMemberMoreINfo(int memberNo) {
+		MemberMoreInfo memberMoreInfo = memberDao.searchMemberMoreINfo(memberNo);
+		return memberMoreInfo;
 	}
 }

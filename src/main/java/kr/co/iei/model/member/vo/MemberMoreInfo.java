@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Alias(value = "more")
 @Data
 public class MemberMoreInfo {
-	private int member_no;
-    private String member_edu;
-    private String member_hobby;
-    private int member_salary;
-    private String member_work_type;
+	private int memberNo;
+    private String memberEdu;
+    private String memberHobby;
+    private int memberSalary;
+    private String memberWorkType;
 }

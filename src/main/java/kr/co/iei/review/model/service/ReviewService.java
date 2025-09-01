@@ -34,7 +34,6 @@ public class ReviewService {
 		param.put("start", start);
 		param.put("end", end);
 		List photoList = reviewDao.selectPhotoList(param);
-		System.out.println("포토 : "+photoList);
 		return photoList;
 	}
 

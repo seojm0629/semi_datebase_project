@@ -1,5 +1,6 @@
 package kr.co.iei.question.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -159,6 +160,27 @@ public class QuestionService {
 		int result = questionDao.deleteQuestionComment(questionCommentNo);
 		return result;
 	}
+
+	public List<QuestionFile> updateQuestion(Question q, List<QuestionFile> fileList, int[] delFileNo) {
+		int result = questionDao.updateQuestion(q);
+		
+		for(QuestionFile questionFile : fileList) {
+			questionFile.setQuestionNo(q.getQuestionNo());
+			result += questionDao.insertQuestionFile(questionFile);
+		}
+		
+		List<QuestionFile> delFileList = new ArrayList<QuestionFile>();
+		if(delFileNo != null) {
+			List list = questionDao.selectQuestionFileList(delFileNo);
+			for(int questionFileNo : delFileNo) {
+				result += questionDao.deleteQuestionFile(questionFileNo);
+			}
+		}
+		
+		return delFileList;
+	}
+
+	
 
 	
 }

@@ -3,16 +3,31 @@
 
 <mapper namespace="kr.co.iei.party.model.dao.PartyDao">
 	<select id="getAllParties" resultType="party">
-		SELECT party_no AS partyNo,
+		SELECT party_no AS
+		partyNo,
 		party_type AS partyType,
 		party_title AS partyTitle,
 		party_content AS partyContent,
 		party_place AS partyPlace,
-		party_thumb AS partyThumb,
+		party_thumb AS
+		partyThumb,
 		party_date AS partyDate,
 		party_male AS partyMale,
 		party_female AS partyFemale,
 		party_price AS partyPrice
 		FROM party
 	</select>
+
+	<insert id="insertParty" parameterType="party">
+		INSERT INTO party (
+		party_no, party_type, party_title, party_content,
+		party_place, party_thumb, party_date,
+		party_male, party_female, party_price
+		) VALUES (
+		party_seq.NEXTVAL, #{partyType}, #{partyTitle}, #{partyContent},
+		#{partyPlace}, #{partyThumb}, TO_DATE(#{partyDate}, 'YYYY-MM-DD'),
+		#{partyMale}, #{partyFemale}, #{partyPrice}
+		)
+	</insert>
+
 </mapper>

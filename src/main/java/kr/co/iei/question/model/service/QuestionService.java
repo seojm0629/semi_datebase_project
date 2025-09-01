@@ -104,7 +104,6 @@ public class QuestionService {
 	@Transactional
 	public int insertQuestion(Question q, List<QuestionFile> fileList) {
 		int newQuestionNo = questionDao.getQuestionNo();
-		System.out.println(newQuestionNo);
 		q.setQuestionNo(newQuestionNo);
 		int result = questionDao.insertQuestion(q);
 		
@@ -126,9 +125,6 @@ public class QuestionService {
 			//해당 게시글의 댓글 조회(해당 questionNo)에 달려있는 댓글 전부 가져오는 작업
 			List<QuestionComment> commentList = questionDao.selectQuestionCommentList(questionNo);
 			for(QuestionComment qc : commentList) {
-				//댓글 좋아요 수
-				int questionCommentLikeCount = questionDao.selectQuestionCommentLikeCount(qc.getQuestionCommentNo());
-				qc.setLikeCount(questionCommentLikeCount);
 				HashMap<String, Object> param = new HashMap<String, Object>();
 				param.put("questionCommentNo", qc.getQuestionCommentNo());
 				param.put("memberNo", memberNo);	
@@ -152,6 +148,19 @@ public class QuestionService {
 		int result = questionDao.insertQuestionComment(qc);
 		return result;
 	}
+
+	@Transactional
+	public int updateQuestionComment(QuestionComment qc) {
+		int result = questionDao.updateQuestionComment(qc);
+		return result;
+	}
+
+	public int deleteQuestionComment(int questionCommentNo) {
+		int result = questionDao.deleteQuestionComment(questionCommentNo);
+		return result;
+	}
+
+	
 }
 
 

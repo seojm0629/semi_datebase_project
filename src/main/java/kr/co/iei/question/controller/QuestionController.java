@@ -87,17 +87,23 @@ public class QuestionController {
 	public String questionDetail(int questionNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member==null ? 0 : member.getMemberNo();
 		Question q = questionService.selectOneQuestion(questionNo, memberNo);
-		System.out.println(q);
 		if(q == null) {
 			model.addAttribute("title", "문의사항 조회 실패");
 			model.addAttribute("text", "이미 삭제된 게시글입니다.");
 			model.addAttribute("icon", "info");
-			model.addAttribute("loc", "/ question/list?reqPage=1" );
+			model.addAttribute("loc", "/question/list?reqPage=1");
 			return "common/msg";
 		} else {
 			model.addAttribute("q", q);
 			return "question/detail";
 		}
+	}
+	
+	@GetMapping(value="/updateFrm")
+	public String updateFrm(int questionNo, Model model) {
+		Question q = questionService.selectOneQuestion(questionNo, 0);
+		model.addAttribute("q", q);
+		return "question/updateFrm";
 	}
 	
 	@GetMapping(value="/filedown")
@@ -110,10 +116,21 @@ public class QuestionController {
 	
 	@PostMapping(value="/insertComment")
 	public String insertComment(QuestionComment qc) {
-		System.out.println(qc);
 		int result = questionService.insertQuestionComment(qc);
 		System.out.println(result);
-		return "redirect:/question/detail?questionNo=" + qc.getQuestionCommentRef();
+		return "redirect:/question/detail?questionNo=" + qc.getQuestionRef();
+	}
+	
+	@PostMapping(value="/updateComment")
+	public String update(QuestionComment qc) {
+		int result = questionService.updateQuestionComment(qc);
+		return "redirect:/question/detail?questionNo=" + qc.getQuestionRef();
+	}
+	
+	@GetMapping(value="/deleteComment")
+	public String delete(QuestionComment qc) {
+		int result = questionService.deleteQuestionComment(qc.getQuestionCommentNo());
+		return "redirect:/question/detail?questionNo="+qc.getQuestionRef();
 	}
 }
 

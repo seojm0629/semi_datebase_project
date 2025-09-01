@@ -26,7 +26,7 @@
   </select>
   
   <insert id="insertQuestion">
-  	insert into question values(question_comment_seq.nextval, #{questionTitle}, #{questionWriter}, #{questionContent}, to_char(sysdate, 'yyyy-mm-dd'), #{questionRef})
+  	insert into question values(#{questionNo}, #{questionTitle}, #{questionWriter}, #{questionContent}, to_char(sysdate, 'yyyy-mm-dd'))
   </insert>
   
   <insert id="insertQuestionFile">
@@ -42,12 +42,10 @@
   </select>
   
   <select id="selectQuestionCommentList" resultType="questionComment">
-  	select * from question_comment where question_comment_ref = #{questionNo}
+  	select * from question_comment where question_ref = #{questionNo}
   </select>
   
-  <select id="selectQuestionCommentLikeCount" resultType="int">
-  	select count(*) from question_comment_like where question_comment_no = #{questionCommentNo}
-  </select>
+
   
   <select id="selectOneQuestionFile" resultType="questionFile">
   	select * from question_file where question_file_no = #{questionFileNo}
@@ -68,8 +66,16 @@
   			</if>
   	)
   </insert>
+  <update id="updateQuestionComment">
+  	update question_comment set 
+  		question_comment_content = #{questionCommentContent}
+  	where
+  		question_comment_no = #{questionCommentNo}
+  </update>
   
-  
+  <delete id="deleteQuestionComment">
+  	delete from question_comment where question_comment_no = #{questionCommentNo}
+  </delete>
 </mapper>
 
 

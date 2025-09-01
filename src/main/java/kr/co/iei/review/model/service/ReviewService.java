@@ -13,7 +13,7 @@ import kr.co.iei.review.model.vo.Review;
 public class ReviewService {
 	
 	@Autowired
-	ReviewDao reviewDao;
+	private ReviewDao reviewDao;
 
 	
 
@@ -30,7 +30,7 @@ public class ReviewService {
 		param.put("start", start);
 		param.put("end", end);
 		List photoList = reviewDao.selectPhotoList(param);
-		System.out.println(photoList);
+		System.out.println("포토 : "+photoList);
 		return photoList;
 	}
 

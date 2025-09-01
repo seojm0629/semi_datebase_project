@@ -13,7 +13,7 @@ public interface ReviewDao {
 	int selectPartyTotalCount();
 
 	List selectPhotoList(HashMap<String, Object> param);
-
+	
 	int insertReview(Review r);
 	
 }

@@ -112,7 +112,7 @@ public class QuestionController {
 	public String insertComment(QuestionComment qc) {
 		System.out.println(qc);
 		int result = questionService.insertQuestionComment(qc);
-		
+		System.out.println(result);
 		return "redirect:/question/detail?questionNo=" + qc.getQuestionCommentRef();
 	}
 }

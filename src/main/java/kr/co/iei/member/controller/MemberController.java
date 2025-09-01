@@ -101,4 +101,20 @@ public class MemberController {
 	public String creatManager() {
 		return "/member/creatManager";
 	}
+	
+	@PostMapping(value = "/joinManager")
+	public String joinManager(Member m, Model model) {
+		int result = memberService.joinManager(m);
+		if(result == 1) {
+			model.addAttribute("title", "생성 완료");
+			model.addAttribute("text", "계정 생성 완료.");
+			model.addAttribute("loc", "/member/masterPage");
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "생성 실패");
+			model.addAttribute("text", "계정 생성에 실패하였습니다. 잠시 후 다시 시도해주십시오.");
+			model.addAttribute("loc", "/member/masterPage");
+			return "common/msg";
+		}
+	}
 }//controller

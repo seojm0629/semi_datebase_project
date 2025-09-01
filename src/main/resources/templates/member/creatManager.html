@@ -13,7 +13,7 @@
 	                <h1>직원관리</h1>
 	            </div>
 	            <div class="creat-manager-content">
-	                <form action="/member/joinManager">
+	                <form action="/member/joinManager" method="post">
 	                    <div class="manager-input-content">
 	                        <span>이름<sup>*</sup> : </span>
 	                        <input type="text" name="memberName">
@@ -46,6 +46,11 @@
 	            </div>
 	        </div>
 	    </div>
+	    <script>
+	    	$("#managercancel").on("click", function(){
+	    		location.href=("/member/masterPage");
+	    	});
+	    </script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

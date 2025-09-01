@@ -178,7 +178,65 @@
   border: 1px solid #ccc;
 }
 
-	
+.posting-comment{
+	width: 900px;
+	margin: 0 auto;
+	display: flex;
+  	border-top: 2px solid #ccc;
+  	list-style-type: none;
+}
+.posting-comment > li:first-child {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  border-top : none;
+}
+
+.posting-comment>li:first-child>span{
+	font-size: 100px;
+	color: #ccc;
+}
+.posting-comment > li {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.posting-comment.reply > li:last-child {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.posting-comment > li:last-child {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+.posting-comment > li:last-child > p {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.posting-comment > li:last-child > .comment-info > span {
+  padding: 0px 10px;
+}
+.posting-comment > li:last-child > .comment-info > span:not(:last-child) {
+  border-right: 2px solid #ccc;
+}
+.posting-comment > li:last-child > .comment-content {
+  padding: 0px 15px;
+}
+.posting-comment > li:last-child > .comment-link {
+  text-align: right;
+}
+.posting-comment > li:last-child > .comment-link > a {
+  margin: 0px 5px;
+}
+.posting-comment > li:last-child > .comment-link > a:hover {
+  text-decoration: underline;
+}
 </style>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -223,6 +281,7 @@
 				</tr>
 			</table>
 			
+			<!-- 댓글 입력 -->
 			<div class="inputCommentBox" th:if="${session.member != null}"> 
 				<form action="/question/insertComment" method="post">
 					<ul>
@@ -243,6 +302,31 @@
 				</form>
 			</div>
 			
+			<!-- 댓글 출력 -->
+			<th:block th:each="qc : ${q.questionList}" th:if="${qc.questionCommentRef == 0}">
+				<ul class="posting-comment">
+					<li>
+						<span class="material-icons">account_box</span>
+					</li>
+					<li>
+						<p class="comment-info">
+							<span>작성자</span>
+							<span>작성일자</span>
+						</p>
+						<p class="comment-content">작성내용</p>
+						<div class="input-item" style="display:none;">로그인 했을때만
+							<textarea name="noticeCommentContent"></textarea>
+						</div>
+						<p class="comment-link">
+							<th:block th:if="${session.member != null}">
+								<a th:onclick="#">수정</a>
+								<a th:onclick="#">삭제</a>
+							</th:block>
+							<a class="recShow">답글달기</a>
+						</p>
+					</li>	
+				</ul>
+			</th:block>
 			
 				
 		</section>

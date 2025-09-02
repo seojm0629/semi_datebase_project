@@ -116,6 +116,7 @@ public class QuestionService {
 		return result;
 	}
 
+	
 	public Question selectOneQuestion(int questionNo, int memberNo) {
 		Question q = questionDao.selectOneQuestion(questionNo);
 		if(q != null) {

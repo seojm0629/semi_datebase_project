@@ -25,11 +25,13 @@
 	<delete id="deleteMember">
 		delete from member where member_id = #{memberId}
 	</delete>
- 
-
 
 	<select id="searchMemberMoreINfo" resultType="more">
 		select * from member_More_info where member_no = #{memberNo}
 	</select>
 
+	<update id="updateMember">
+		UPDATE MEMBER 
+		set member_pw = #{memberPw}, member_addr = #{memberAddr}, member_Phone = #{memberPhone}, member_MBTI = #{memberMBTI}, member_job = #{memberJob} where member_id = #{memberId}
+	</update>
 </mapper>

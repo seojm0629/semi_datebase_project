@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/*------------------------main----------------------------------*/
+.updateMember-all-wrap{
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 70px;
+}
+.updateMember-wrap{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+/*----------------------------updateMember-header---------------------------*/
+.updateMember-header{
+    margin-top: 50px;
+    margin-bottom: 35px;
+}
+.updateMember-header>h1{
+    color: #E5BA73;
+}
+/*----------------------------creat-manager-content------------------------------*/
+.update-input-content{
+    font-size: 22px;
+    margin: 15px;
+}
+.update-input-content>.up-pwRule{
+    font-size: 11px;
+    color: #a5a5a5;
+    margin-left: 160px;
+}
+.update-input-content>.up-pw-input-msg{
+    font-size: 11px;
+    color: #a5a5a5;
+}
+/*-------------------.manager-input-content>span+sup----------------------*/
+.update-input-content>span{
+    display: inline-block;
+    width: 155px;
+    text-align: right;
+}
+.update-input-content>span>sup{
+    color: #FF6868;
+}
+/*---------------.manager-input-content>input------------------*/
+.update-input-content>input{
+    border: none;
+    border-bottom: 1px solid #2B2B2B;
+    width: 250px;
+    outline: none;
+}
+.update-input-content>#memberAddr{
+    width: 180px;
+}
+.update-input-content>input:focus{
+    border-bottom: 2px solid #C58940;
+}
+/*-------search-addr------*/
+.update-input-content>#search-addr{
+    width: 70px;
+    height: 35px;
+    background-color: #E5BA73;
+    border: none;
+    color: #FFF;
+    border-radius: 5px;
+}
+.update-input-content>#search-addr:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}
+/*-----------------update-input-content>select-----------------------*/
+.update-input-content>select{
+    width: 250px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #2B2B2B;
+    font-size: 18px;
+}
+/*--------------------------updateMember-btn----------------------------*/
+.updateMember-btn>button{
+    width: 180px;
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    color: #FFF;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.updateMember-btn>#member-update-cancel{
+    background-color: #D9D9D9;
+}
+.updateMember-btn>#member-update{
+    background-color: #E5BA73;
+}
+.updateMember-btn>#member-update-cancel:hover{
+    cursor: pointer;
+    color: #2B2B2B;
+}
+.updateMember-btn>#member-update:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}

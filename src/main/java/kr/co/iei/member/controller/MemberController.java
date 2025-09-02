@@ -149,12 +149,35 @@ public class MemberController {
 			model.addAttribute("title", "회원탈퇴 완료");
 			model.addAttribute("text", "탈퇴가 왼료되었습니다.");
 			model.addAttribute("loc", "/member/logout");
-			return "common/msg";
+			return "/common/msg";
 		}else {
 			model.addAttribute("title", "회원탈퇴 실패");
 			model.addAttribute("text", "잠시후에 다시 시도해주십시오.");
 			model.addAttribute("loc", "/member/mypage");
-			return "common/msg";
+			return "/common/msg";
+		}
+	}
+	
+	@GetMapping(value = "/memberUpdateFrm")
+	public String memberUpdateFrm() {
+		return "/member/memberUpdateFrm";
+	}
+	
+	@PostMapping(value = "/memberUpdate")
+	public String memberUpdate(@SessionAttribute Member member, Member m,Model model) {
+		String memberId = member.getMemberId();
+		m.setMemberId(memberId);
+		int result = memberService.updateMember(m);
+		if(result == 1) {
+			model.addAttribute("title", "수정완료");
+			model.addAttribute("text", "정보 수정이 완료되었습니다.");
+			model.addAttribute("loc", "/member/mypage");
+			return "/common/msg";
+		}else {
+			model.addAttribute("title", "수정실패");
+			model.addAttribute("text", "잠시 후에 다시 시도해주세요.");
+			model.addAttribute("loc", "/member/mypage");
+			return "/common/msg";
 		}
 	}
 }//controller

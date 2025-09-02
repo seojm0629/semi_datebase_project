@@ -295,6 +295,7 @@
     height: 200px;
     border-radius: 10px;
     overflow-y: scroll;
+   	width: 306px
 }
 .my-mitting-list>.my-qna-mitting-content::-webkit-scrollbar {
     width: 6px;

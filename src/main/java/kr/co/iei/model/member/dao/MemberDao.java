@@ -21,4 +21,6 @@ public interface MemberDao {
 
 	MemberMoreInfo searchMemberMoreINfo(int memberNo);
 
+	int updateMember(Member m);
+
 }

@@ -223,4 +223,22 @@ public class MemberController {
 		return "/member/updateManagerFrm";
 	}
 	
+	@PostMapping(value = "managerUpdate")
+	public String managerUpdate(Member m, String memberEmailF, String domainTxt, Model model) {
+		String memberEmail = memberEmailF+"@"+domainTxt;
+		m.setMemberEmail(memberEmail);
+		System.out.println(m);
+		int result = memberService.managerUpdate(m);
+		if(result == 1) {
+			model.addAttribute("title", "완료 메세지");
+			model.addAttribute("text", "수정이 완료되었습니다.");
+			model.addAttribute("loc", "/member/masterPage");
+			return "/common/msg";
+		}else {
+			model.addAttribute("title", "실패 메세지");
+			model.addAttribute("text", "잠시 후 다시 시도해주세요.");
+			model.addAttribute("loc", "/member/masterPage");
+			return "/common/msg";
+		}
+	}
 }//controller

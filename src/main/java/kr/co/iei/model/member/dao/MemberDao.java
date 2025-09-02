@@ -28,4 +28,6 @@ public interface MemberDao {
 
 	int insertMoreInfo(MemberMoreInfo memberMoreInfo);
 
+	int managerUpdate(Member m);
+
 }

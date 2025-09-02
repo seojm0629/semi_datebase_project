@@ -3,11 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <title>Manager Page</title>
-<link rel="stylesheet" href="../css/updateManager.css">
+<link rel="stylesheet" href="../css/updateManagerFrm.css">
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-	
+		<div class="manager-update-all-wrap">
+	        <div class="manager-update-wrap">
+	            <div class="manager-update-header">
+	                <h1>정보 수정</h1>
+	            </div>
+	            <form action="/member/managerUpdate" method="post">
+	            <input type="hidden" name="memberId" th:value="${session.member.memberId}">
+	                <div class="manager-update-content">
+	                    <div class="joinFrm-input">
+	                        <span>비밀번호<sup>*</sup> : </span>
+	                        <input type="password" name="memberPw" id="memberPw">
+	                        <p class="pwRule">알파벳 8글자 이상 20글자 이하, 특수문자 포함(!,@,#,$,%)</p>
+	                    </div>
+	                    <div class="joinFrm-input">
+	                        <div class="join-input">
+	                            <span>비밀번호 확인<sup>*</sup> : </span>
+	                            <input type="password" name="memberPwRe" id="memberPwRe">
+	                        </div>
+	                        <p class="manager-input-msg"></p>
+	                    </div>
+	                    <div class="joinFrm-input">
+	                        <span>전화번호<sup>*</sup> : </span>
+	                        <input type="text" name="memberPhone" id="memberPhone" placeholder="-포함 입력">
+	                    </div>
+	                    <div class="joinFrm-input">
+	                        <span>이메일<sup>*</sup> : </span>
+	                        <input type="text" name="memberEmailF" id="memberEmailF">
+	                        <span class="mail">@</span>
+	                        <input class="box" id="domainTxt" type="text" name="domainTxt">
+	                        <div class="select-box">
+	                            <select class="box" id="domain-list" name="domain-list">
+	                                <option value="type">직접 입력</option>
+	                                <option value="naver.com">naver.com</option>
+	                                <option value="google.com">google.com</option>
+	                                <option value="hanmail.net">hanmail.net</option>
+	                                <option value="nate.com">nate.com</option>
+	                                <option value="kakao.com">kakao.com</option>
+	                            </select>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="manager-update-btn">
+	                    <button type="button" id="manager-update-cancel">취소</button>
+	                    <button type="submit" id="manager-update-cuccess">완료</button>
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+	    <script>
+	    	$("#manager-update-cancel").on("click", function(){
+	    			location.href=("/member/masterPage");
+	 	    	});
+	    	
+	    	$("#memberPwRe").on("keyup", function(){
+				const inputPw = $("#memberPw").val();
+				const inputPwRe = $("#memberPwRe").val();
+				if(inputPw === inputPwRe){
+					$(".manager-input-msg").text("비밀번호가 같습니다.");
+					$(".manager-input-msg").css("color", "#25bd53");
+				}else{
+					$(".manager-input-msg").text("비밀번호를 확인해주세요.");
+					$(".manager-input-msg").css("color", "var(--warning)");
+				}
+	    	});
+	    	
+	    	$("#domain-list").on("change", function(){
+				const list =  $("#domain-list").val();
+				console.log(list);
+				if(list !== "type"){
+					$("#domainTxt").attr("value", list);
+					$("#domainTxt").attr("readonly", true);
+				}else{
+					$("#domainTxt").attr("value", "");
+					$("#domainTxt").attr("readonly", false);
+				}
+			});
+	    </script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

@@ -1,1 +1,114 @@
 @charset "UTF-8";
+/*------------------------main----------------------------------*/
+.manager-update-all-wrap{
+    width: 1200px;
+    margin: 0 auto;
+}
+.manager-update-wrap{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+/*-------------------manager-update-header--------------------*/
+.manager-update-header{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+.manager-update-header>h1{
+    color: #E5BA73;
+}
+/*--------------------joinFrm-input,join-input----------------------*/
+.joinFrm-input{
+    margin: 15px 0px;
+}
+.joinFrm-input>span>sup{
+    color: #FF6868;
+}
+.join-input>span>sup{
+    color: #FF6868;
+}
+.joinFrm-input>span{
+    display: inline-block;
+    width: 160px;
+    text-align: right;
+    font-size: 22px;
+}
+.join-input>span{
+    display: inline-block;
+    width: 160px;
+    text-align: right;
+    font-size: 22px;
+}
+.joinFrm-input>.mail{
+    display: inline-block;
+    width: 15px;
+}
+.joinFrm-input>.pwRule{
+    font-size: 11px;
+    color: #9c9c9c;
+    margin-left: 140px;
+}
+.manager-input-msg{
+    font-size: 11px;
+}
+/*-----------joinFrm-input>input------------*/
+.joinFrm-input>input{
+    width: 250px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #2B2B2B;
+    font-size: 18px;
+}
+.join-input>input{
+    width: 250px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #2B2B2B;
+    font-size: 18px;
+}
+.joinFrm-input>#domainTxt{
+    width: 140px;
+}
+.joinFrm-input>#memberEmailF{
+    width: 250px;
+}
+.manager-update-content>:last-child{
+    margin-left: 160px;
+}
+/*----------------select-box------------------*/
+.select-box{
+    text-align: right;
+    margin-right: 82px;
+}
+.select-box>#domain-list{
+    width: 140px;
+}
+/*-------------------------manager-update-btn------------------------*/
+.manager-update-btn{
+    margin-top: 60px;
+    margin-bottom: 80px;
+}
+.manager-update-btn>button{
+    width: 180px;
+    height: 35px;
+    font-size: 18px;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+}
+#manager-update-cancel{
+    background-color: #D9D9D9;
+    margin-right: 30px;
+    margin-left: 50px;
+}
+#manager-update-cuccess{
+    background-color: #E5BA73;
+}
+#manager-update-cancel:hover{
+    cursor: pointer;
+    color: #2B2B2B;
+}
+#manager-update-cuccess:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}

@@ -47,14 +47,6 @@ public class ReviewService {
 		return photoList;
 	}
 
-
-
-	public int selectBlindTotalCount() {
-		int blindTotalCount = reviewDao.selectBlindTotalCount();
-		return blindTotalCount;
-	}
-
-
 	public List selectBlindList(int start, int amount) {
 		int end = start + amount - 1;	//한 줄당 나올 페이지의 수 (1~3)
 		HashMap<String, Object> param = new HashMap<String, Object>();
@@ -63,6 +55,14 @@ public class ReviewService {
 		List photoList = reviewDao.selectBlindList(param);
 		return photoList;
 	}
+
+
+	public int selectBlindTotalCount() {
+		int blindTotalCount = reviewDao.selectBlindTotalCount();
+		return blindTotalCount;
+	}
+
+
 
 	public Review selectOneReview(int reviewPartyNo, int memberNo) {
 		Review r = reviewDao.selectOneReview(reviewPartyNo);

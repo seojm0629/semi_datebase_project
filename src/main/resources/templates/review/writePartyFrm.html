@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	@font-face {
+    font-family: main2;
+    src: url(../CSS/font/PyeongChang-Regular.ttf);
+	}
+	@font-face {
+    font-family: mainB2;
+    src: url(../CSS/font/PyeongChang-Bold.ttf);
+	}
+	:root{
+    --color1 : #2B2B2B;/*검은 글씨색*/
+    --color2 : #FAF8F1;/*푸터 배경색*/
+    --color3 : #FAEAB1;/**/
+    --color4 : #E5BA73;/*버튼색, 로고, 페이지 제목*/
+    --color5 : #C58940;/*푸터 두꺼운 글씨, 선 그을때*/
+    --color6 : #EAC88F;/*버튼 호버한 경우 색*/
+    --color7 : #FF6868;/*경고색*/
+    --color8 : #D9D9D9;/*취소버튼*/
+	}
+
+	*{
+    margin: 0px;
+    padding: 0px;
+    color: #2B2B2B;
+    font-family: mainB2;
+	}
+	
+	.page-title{
+		width: 900px;
+		margin: 32px auto;
+		text-align: center;
+		font-size: 28px;
+		font-family: mainB2;
+		color: #E5BA73;
+		
+	}
+	.input-title>input{
+		padding-left: 20px;
+	}
+	.tbl{
+		width: 900px;
+		margin: 0 auto;
+		border: 1px solid #ccc;
+		border-spacing: 0;
+	}
+	.tbl>tbody>tr:first-child>th{
+		width:150px;
+		height: 45px;
+		font-size: 18px;
+		background-color: #E5BA73;
+		border-bottom: 1px solid #ccc;
+	}
+	.tbl>tbody>tr:first-child>td>div>input{
+		width: 750px;
+		height: 47.5px;
+		border: none;
+		border-bottom: 1px solid #ccc;
+	}
+	.tbl>tbody>tr:nth-child(2)>th{
+		width:150px;
+		height: 45px;
+		font-size: 18px;
+		background-color: #E5BA73;
+		border-spacing: 0;
+		border-bottom: 1px solid #ccc;
+	}
+	.tbl>tbody>tr:nth-child(2)>td{
+		width: 250px;
+		text-align:center;
+	}
+	.tbl>tbody>tr:nth-child(2)>td>input{
+		width: 290px;
+		margin-left: 10px;
+	}
+	.tbl>tbody>tr:nth-child(3)>th{	
+		height: 45px;
+		font-size: 18px;
+		background-color: #E5BA73;
+		border-spacing: 0;
+		border-bottom: 1px solid #ccc;
+	}
+	.tbl>tbody>tr:nth-child(3)>td{
+		width: 290px;
+		height: 46.25px;
+		line-height: 46.25px;
+		
+		text-align: center;
+		display: flex;	
+		align-items: flex-start;
+	}
+	.tbl>tbody>tr:nth-child(3)>td>div{
+		display: flex;	
+		flex-direction: row;
+		align-items: center;
+		text-align: center;
+		
+		justify-content: space-around;
+	}
+	.tbl>tbody>tr:nth-child(3)>td>div>span{
+		width: 120px;
+		text-align: right;
+		margin-right: 22px;
+	}
+	.tbl>tbody>tr:nth-child(3)>td>div>select{
+		height: 25px;
+		line-height: 25px;
+		border-bottom: 1px solid #ccc;
+	}
+	.tbl>tbody>tr:nth-child(3)>td>div>input{
+		height: 25px;
+		line-height: 25px;
+		border-bottom: 1px solid #ccc;
+		
+	}
+	
+	
+	.tbl>tbody>tr:last-child{
+		overflow: hidden;		
+	}
+	.tbl>tbody>tr:last-child>td{
+		border-top: 1px solid #ccc;
+	}
+	.tbl>tbody>tr:last-child>th{
+		background-color: #E5BA73;
+		border-bottom: 1px solid #ccc;	
+	}
+	.tbl>tbody>tr:nth-child(2)>td{	
+		border-bottom: 1px solid #ccc;
+	}
+	.img-viewer{
+		float:left;
+	}
+	
+	.img-viewer>img{
+		margin-left: 20px;
+	}
+	.input-item>textarea{
+		width: 380px;
+		height: 300px;
+		margin-top: 20px;
+		margin-left: 30px;
+		resize: none;
+	}
+	.review-btn{
+		width: 900px;
+		height: 150px;
+		line-height: 150px;
+		margin: 0 auto;
+		text-align:center;
+	}
+	.review-btn>button{
+		width: 200px;
+		height: 60px;
+		font-size: 25px;
+		font-family: main2;
+		font-weight: 800;
+		background-color: #E5BA73;
+		border: none;
+		border-radius: 15px;
+		color: #fff;
+	}
+	
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main>
+		<div class="page-title">후기 작성하기</div>		
+		<form action="/review/writeParty" method="post" enctype="multipart/form-data">
+		
+			<table class="tbl">
+				<tr>
+					<th>제목</th>
+					<td colspan="3">
+						<div class="input-title">
+							<input type="text" name="reviewPartyTitle" id="reviewTitle">
+							
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td>
+						<span th:text="${session.member.memberId}"></span>
+						<input type="hidden" name="reviewPartyWriter" th:value="${session.member.memberId}">
+					</td>
+					<th>썸네일</th>
+					<td>
+						<input type="file" name="imageFile" accept="image/*" onchange="loadImg(this);">
+					</td>
+				</tr>
+				<tr>
+					<th>카테고리</th>
+					<td colspan="3">
+						<div>
+							<span>테마</span>
+							<select name="theme">
+								<option value="">선택</option>
+								<option value="party">파티</option>
+								<option value="blind">소개팅</option>
+							</select>
+						</div>
+						<div>
+							<span>직업</span>
+							<select name="reviewPartyJob">
+								<option value="">선택</option>
+								<option value="IT">IT</option>
+								<option value="의료종사자">의료종사자</option>
+								<option value="제조업">제조업</option>
+								<option value="회계">회계</option>
+								<option value="경영">경영</option>
+								<option value="개인사업">개인사업</option>
+							</select>
+						</div>
+						<div>
+							<span>날짜</span>
+							<input type="date" id="date">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>이미지 미리보기</th>
+					<td colspan="3">
+						<div class="img-viewer">
+							<img id="img-view" width="300px" src="/image/default_img.png">
+						</div>
+						<div class="input-item">
+							<textarea name="reviewPartyContent"></textarea>
+						</div>
+					</td>
+				</tr>
+			</table>
+				<div colspan="4" class="review-btn">
+					<button class="btn-point lg" type="submit">후기 등록하기</button>
+				</div>
+								
+		</form>
+		
+		
+		
+	</main>
+	<script>
+	/*
+		const date = new Date();
+		const year = `${date.getFullYear()}`;
+		const currentDate = `${date.getDate()}`;
+		console.log(date);
+		
+		$("#date").attr("min", year+"-01-01");
+		if(date > currentDate){
+			
+		}
+		$("#date").attr("max", date);
+		
+		for(let i = 0 ; i < 39 ; i++){
+			const option = $("<option>");
+			pYear++
+			option.attr("value",pYear);
+			option.text(pYear)
+			$("#year").append(option);
+			;
+		}
+		*/
+		const date = new Date();
+		const year = `${date.getFullYear()}`;
+		let month = date.getMonth() + 1; // 0~11이라 +1
+		let day = date.getDate();        // 1~31
+
+		// 두 자리 수 맞추기 (padStart 대신)
+		if (month < 10) month = "0" + month;
+		if (day < 10) day = "0" + day;
+
+		const today = year + "-" + month + "-" + day;
+
+		//console.log(year);
+		//console.log(pYear);
+		//console.log(fYear);
+		$("#date").attr("min", year+"-01-01");
+		$("#date").attr("max", today);
+		
+		/*for(let i = 0 ; i < 39 ; i++){
+			const option = $("<option>");
+			pYear++
+			option.attr("value",pYear);
+			option.text(pYear)
+			$("#year").append(option);
+			;
+		}*/
+		function loadImg(obj){
+			
+			if(obj.files.length !==0){
+				const reader = new FileReader();
+				reader.readAsDataURL(obj.files[0]);
+				reader.onload = function(e){
+					$("#img-view").attr("src", e.target.result);
+				}
+			} else {
+				$("#img-view").attr("src", "/img/default_img.png");
+			}
+		}
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

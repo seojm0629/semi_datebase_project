@@ -186,7 +186,7 @@
 	                <div th:text=${blindTotalCount}></div>
                 </div>
                 <div th:if="${session.member != null}" >
-	          		<a href="/review/writeFrm" class="write-btn">글쓰기</a>
+	          		<a href="/review/writeChoiceFrm" class="write-btn">글쓰기</a>
 	       	 	</div>
             </div>
             
@@ -237,7 +237,7 @@
 						const imgDiv = $("<div>");
 						imgDiv.addClass("posting-img");
 						const img = $("<img>");
-						img.attr("src", "/review_party/image/"+r.reviewPartyImg);
+						img.attr("src", "/photo/image/"+r.reviewPartyImg);
 						
 						imgDiv.append(img);
 						
@@ -298,7 +298,7 @@
 						const imgDiv = $("<div>");
 						imgDiv.addClass("posting-img");
 						const img = $("<img>");
-						img.attr("src", "/review_blind/image/"+r.reviewBlindImg);
+						img.attr("src", "/photo/image/"+r.reviewBlindImg);
 						
 						imgDiv.append(img);
 						
@@ -349,7 +349,7 @@
 			const i = tabMenu.index(this);
 			tabContent.eq(i).show();
 			boardCount.eq(i).show();
-			ul.removeClass(".reviewWrapper");
+			
 		});
 		tabMenu.eq(0).click();
 	</script>

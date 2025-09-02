@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.question.model.vo.Question;
 import kr.co.iei.review.model.service.ReviewService;
@@ -41,14 +42,24 @@ public class ReviewController {
 		model.addAttribute("blindTotalCount", blindTotalCount);
 		return "review/list";
 	}
-	@GetMapping(value="/writeFrm")
-	public String writeFrm() {
-		return "review/writeFrm";
+	@GetMapping(value="/writePartyFrm")
+	public String writePartyFrm() {	
+		return "review/writePartyFrm";
+	}
+	@GetMapping(value="/writeBlindFrm")
+	public String writeBlindFrm() {	
+		return "review/writeBlindFrm";
 	}
 	
-	/*
-	@PostMapping(value="/write")
-	public String write(Review r, MultipartFile imageFile, Model model) {
+	@GetMapping(value="/writeChoiceFrm")
+	public String writeChoiceFrm() {		
+		return "review/writeChoiceFrm";
+	}
+	
+	
+	
+	@PostMapping(value="/writeParty")
+	public String writeParty(Review r, MultipartFile imageFile, Model model) {
 		String savepath = root+"/review_party/";
 		String filepath = fileUtil.upload(savepath, imageFile);
 		r.setReviewPartyImg(filepath);
@@ -68,17 +79,38 @@ public class ReviewController {
 		}
 		
 	}
-	*/
+	@PostMapping(value="/writeBlind")
+	public String writeBlind(ReviewBlind r, MultipartFile imageFile, Model model) {
+		String savepath = root+"/review_blind/";
+		String filepath = fileUtil.upload(savepath, imageFile);
+		r.setReviewBlindImg(filepath);
+		int result = reviewService.insertReviewBlind(r);     
+		if(result == 0) {
+			model.addAttribute("title", "문의사항 입력 실패");
+			model.addAttribute("text", "문의사항을 작성할 수 없습니다.");
+			model.addAttribute("icon", "info");
+			model.addAttribute("loc", "/review/list");
+			return "common/msg";
+		} else {
+			model.addAttribute("title", "문의사항 입력 완료!");
+			model.addAttribute("text", "문의사항을 작성 완료했습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/review/list");
+			return "common/msg";
+		}
+		
+	}
+	
+	/*
 	//두 클래스, 테이블에서 가져오기 위한 값
-	@PostMapping(value="/write")
-	public String write(String theme, String reviewPartyTitle, String reviewPartyWriter, String reviewPartyJob, String reviewPartyContent, 
-			String reviewBlindTitle, String reviewBlindWriter, String reviewBlindContent, String reviewBlindJob,
+	@PostMapping(value="/writePartyFrm")
+	public String write(String theme, String reviewPartyTitle, String reviewPartyWriter, String reviewPartyJob, String reviewPartyContent,
 			MultipartFile imageFile, Model model) {
 		int result = 0;
 		String savepath = "";
 		
-		
-		if(theme.equals("party")) {
+		System.out.println(theme);
+		if("party".equals(theme)) {
 			Review r = new Review();
 			savepath = root + "/review_party/";
 			String filepath = fileUtil.upload(savepath, imageFile);
@@ -90,7 +122,7 @@ public class ReviewController {
 			
 			
 			result = reviewService.insertReview(r);
-		} else if(theme.equals("blind")){
+		} else if("blind".equals(theme)){
 			ReviewBlind rb = new ReviewBlind();
 			savepath = root + "/review_blind/";
 			String filepath = fileUtil.upload(savepath, imageFile);
@@ -118,6 +150,8 @@ public class ReviewController {
 		
 		
 	}
+	*/
+	
 	
 	@GetMapping(value="/partyMore")
 	@ResponseBody
@@ -137,7 +171,6 @@ public class ReviewController {
 	public String detail(int reviewPartyNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member==null ? 0 : member.getMemberNo();
 		Review r = reviewService.selectOneReview(reviewPartyNo, memberNo);
-		System.out.println(r);
 		if(r == null) {
 			model.addAttribute("title", "문의사항 조회 실패");
 			model.addAttribute("text", "이미 삭제된 게시글입니다.");

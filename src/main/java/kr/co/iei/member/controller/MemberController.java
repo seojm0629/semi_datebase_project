@@ -180,4 +180,47 @@ public class MemberController {
 			return "/common/msg";
 		}
 	}
+	
+	@GetMapping(value = "updatePlusFrm")
+	public String updatePlus() {
+		return "/member/updatePlusFrm";
+	}
+	
+	@PostMapping(value = "updatePlus")
+	public String updatePlus(MemberMoreInfo memberMoreInfo, Model model) {
+		MemberMoreInfo more = memberService.searchMemberMoreINfo(memberMoreInfo.getMemberNo());
+		if(more != null) {
+			int result = memberService.updatePlusInfo(memberMoreInfo);
+			if(result == 1) {
+				model.addAttribute("title", "완료 메세지");
+				model.addAttribute("text", "적용이 완료되었습니다.");
+				model.addAttribute("loc", "/member/mypage");
+				return "/common/msg";
+			}else {
+				model.addAttribute("title", "실패 메세지");
+				model.addAttribute("text", "잠시 후에 다시 시도해주세요.");
+				model.addAttribute("loc", "/member/mypage");
+				return "/common/msg";
+			}
+		}else {
+			int result = memberService.insertMoreInfo(memberMoreInfo);
+			if(result == 1) {
+				model.addAttribute("title", "완료 메세지");
+				model.addAttribute("text", "적용이 완료되었습니다.");
+				model.addAttribute("loc", "/member/mypage");
+				return "/common/msg";
+			}else {
+				model.addAttribute("title", "실패 메세지");
+				model.addAttribute("text", "잠시 후에 다시 시도해주세요.");
+				model.addAttribute("loc", "/member/mypage");
+				return "/common/msg";
+			}
+		}
+	}//updatePlus
+	
+	@GetMapping(value = "/updateManagerFrm")
+	public String updateManagerFrm() {
+		return "/member/updateManagerFrm";
+	}
+	
 }//controller

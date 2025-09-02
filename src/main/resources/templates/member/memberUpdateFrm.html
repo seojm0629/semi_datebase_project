@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thyeleap.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Update Page</title>
 <link rel="stylesheet" href="../css/memberUpdateFrm.css">
 </head>
 <body>
@@ -112,6 +112,10 @@
 			$(".up-pw-input-msg").css("color", "var(--warning)");
 		}
 	});
+    
+    $("#member-update-cancel").on("click", function(){
+    	location.href=("/member/mypage");
+    });
     </script>
 	<th:block th:include="common/footer"></th:block>
 </body>

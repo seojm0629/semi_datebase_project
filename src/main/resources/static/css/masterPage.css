@@ -61,7 +61,8 @@
 }
 .master-profile-content-in1>ul{
     list-style-type: none;
-    padding: 10px 30px;
+    padding: 10px;
+    padding-left: 40px
 }
 .master-profile-content-in1>ul>li{
     margin-bottom: 5px;

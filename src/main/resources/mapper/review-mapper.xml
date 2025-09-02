@@ -2,11 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.iei.review.model.dao.ReviewDao">
 	<insert id="insertReview">
-		insert into review_party values(review_party_seq.nextval, #{reviewWriter}, #{reviewTitle}, #{reviewContent}, #{reviewImg})
+		insert into review_party values(review_party_seq.nextval, #{reviewPartyWriter}, #{reviewPartyTitle}, #{reviewPartyContent}, #{reviewPartyImg}, #{reviewPartyJob})
 	</insert>
-  
+	<insert id="insertReviewBlind">
+		insert into review_blind values(review_blind_seq.nextval, #{reviewBlindWriter}, #{reviewBlindTitle}, #{reviewBlindContent}, #{reviewBlindImg}, #{reviewBlindJob})
+	</insert>
+	
   <select id="selectPartyTotalCount">
   	select count(*) from review_party
+  </select>
+  <select id="selectBlindTotalCount">
+  	select count(*) from review_blind
   </select>
   
   <select id="selectPhotoList" resultType="review">
@@ -24,10 +30,56 @@
   		where rnum between #{start} and #{end}
 
   </select>
+  <select id="selectBlindList" resultType="reviewBlind">
+  		select * 
+  			from (select rownum as rnum, r.*
+  				from (select 
+  						review_blind_no,
+  						review_blind_writer,
+  						review_blind_title,
+  						review_blind_content,
+  						review_blind_img
+  					from review_blind order by review_blind_no desc
+  					)r	
+  				)
+  		where rnum between #{start} and #{end}
+  </select>
   
-  
+  <select id="selectOneReview" resultType="review">
+  	select * from review_party where review_party_no = #{reviewPartyNo}
+  </select>
   
   
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

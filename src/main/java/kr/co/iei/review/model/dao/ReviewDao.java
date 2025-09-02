@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.review.model.vo.Review;
+import kr.co.iei.review.model.vo.ReviewBlind;
 
 @Mapper
 public interface ReviewDao {
@@ -14,6 +15,14 @@ public interface ReviewDao {
 	int selectPartyTotalCount();
 
 	List selectPhotoList(HashMap<String, Object> param);
+
+	int insertReviewBlind(ReviewBlind r);
+
+	int selectBlindTotalCount();
+
+	List selectBlindList(HashMap<String, Object> param);
+
+	Review selectOneReview(int reviewPartyNo);
 	
 	
 	

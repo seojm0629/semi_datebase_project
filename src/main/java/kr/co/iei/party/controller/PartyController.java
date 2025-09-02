@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.iei.party.model.service.PartyService;
@@ -22,39 +23,42 @@ public class PartyController {
 	@Autowired
 	private PartyService partyService;
 
-	// 파티 목록 페이지
+	// -------------------------------
+	// 전체 파티 목록 페이지
+	// -------------------------------
 	@GetMapping
 	public String partyPage(Model model) {
 		List<Party> parties = partyService.getAllParties();
 		model.addAttribute("parties", parties);
-		return "party/party"; //
+		return "party/party";
 	}
 
-	// 관리자 페이지
+	// -------------------------------
+	// 관리자/사용자/소개 페이지
+	// -------------------------------
 	@GetMapping("/admin")
 	public String partyAdmin() {
 		return "party/partyadmin";
 	}
 
-	// 사용자 페이지
 	@GetMapping("/user")
 	public String partyUser() {
 		return "party/partyuser";
 	}
 
-	// 소개 페이지
 	@GetMapping("/intro")
 	public String intro() {
 		return "party/intro";
 	}
 
-	// 파티 등록 폼 페이지 (GET)
+	// -------------------------------
+	// 파티 등록
+	// -------------------------------
 	@GetMapping("/new")
 	public String writeForm() {
 		return "party/partyFrm";
 	}
 
-	// 파티 등록 처리 (POST)
 	@PostMapping("/new")
 	public String createParty(Party party, @RequestParam("partyThumbFile") MultipartFile file) {
 		if (!file.isEmpty()) {
@@ -74,6 +78,12 @@ public class PartyController {
 
 		partyService.insertParty(party);
 		return "redirect:/party";
+	}
+
+	@ResponseBody
+	@GetMapping("/admin/list")
+	public List<Party> getPartyList(@RequestParam("type") String type) {
+		return partyService.getPartyByType(type);
 	}
 
 }

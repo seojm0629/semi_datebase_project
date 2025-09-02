@@ -20,4 +20,21 @@
 		select * from dual		
 	</insert>
 	
+	<select id="selectMatchList" resultType="match">
+		select match_no, 
+				member_id, 
+				m.member_grade, 
+				match_date, 
+				match_pass, 
+				match_field, 
+				match_age, 
+				match_job, 
+				match_mbti,
+				match_hobby,
+				match_edu,
+				match_salary,
+				match_work_type,
+				m.member_gender
+			from match_mypage p join member m using(member_id)
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package kr.co.iei.match.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,5 +89,12 @@ public class MatchController {
 		model.addAttribute("loc", "match/matchWrite");
 		
 		return "common/msg";
+	}
+	
+	@GetMapping(value="/management")
+	public String management(Model model) {
+		List matchList = matchService.selectMatchList();
+		model.addAttribute("list", matchList);
+		return "match/management";
 	}
 }

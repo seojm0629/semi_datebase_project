@@ -13,6 +13,7 @@
 	                <h1>정보 수정</h1>
 	            </div>
 	            <form action="/member/managerUpdate" method="post">
+	            <input type="hidden" name="memberId" th:value="${session.member.memberId}">
 	                <div class="manager-update-content">
 	                    <div class="joinFrm-input">
 	                        <span>비밀번호<sup>*</sup> : </span>

@@ -60,6 +60,7 @@
 		height: 47.5px;
 		border: none;
 		border-bottom: 1px solid #ccc;
+		font-size: 18px;
 	}
 	.tbl>tbody>tr:nth-child(2)>th{
 		width:150px;
@@ -144,6 +145,8 @@
 		height: 300px;
 		margin-top: 20px;
 		margin-left: 30px;
+		padding-top: 10px;
+		padding-left: 10px;
 		resize: none;
 	}
 	.review-btn{
@@ -170,7 +173,7 @@
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main>
-		<div class="page-title">후기 작성하기</div>		
+		<div class="page-title">파티후기 작성하기</div>		
 		<form action="/review/writeParty" method="post" enctype="multipart/form-data">
 		
 			<table class="tbl">
@@ -198,11 +201,14 @@
 					<th>카테고리</th>
 					<td colspan="3">
 						<div>
-							<span>테마</span>
-							<select name="theme">
+							<span>매니저</span>
+							<select name="manager">
 								<option value="">선택</option>
-								<option value="party">파티</option>
-								<option value="blind">소개팅</option>
+								<option value="James">James</option>
+								<option value="김철수">김철수</option>
+								<option value="Thomas">Thomas</option>
+								<option value="hello">hello</option>
+								<option value="random">random</option>
 							</select>
 						</div>
 						<div>

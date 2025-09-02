@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Alias(value="reviewBlind")
+@Alias(value="reviewblind")
 public class ReviewBlind {
 	private int reviewBlindNo;
 	private String reviewBlindWriter;

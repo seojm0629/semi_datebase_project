@@ -39,7 +39,7 @@ public class WebConfig implements WebMvcConfigurer{
 		registry
 			.addResourceHandler("/photo/image/**")
 			.addResourceLocations("file:///"+root+"/review_blind/");
-		
+			
 		registry
 			.addResourceHandler("/photo/editor/**")
 			.addResourceLocations("file:///" + root + "/question/editor/");

@@ -53,4 +53,9 @@ public class MatchController {
 		
 		return grade;
 	}
+	
+	@GetMapping(value="/matchWrite")
+	public String matchWrite() {
+		return "/match/matchWrite";
+	}
 }

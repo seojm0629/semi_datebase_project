@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Alias(value="review")
 public class Review {
-	private int reviewNo;
-	private String reviewWriter;
-	private String reviewTitle;
-	private String reviewContent;
-	private String reviewImg;
+	private int reviewPartyNo;
+	private String reviewPartyWriter;
+	private String reviewPartyTitle;
+	private String reviewPartyContent;
+	private String reviewPartyImg;
 }

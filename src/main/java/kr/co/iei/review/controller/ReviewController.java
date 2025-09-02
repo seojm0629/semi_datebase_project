@@ -45,7 +45,7 @@ public class ReviewController {
 	public String write(Review r, MultipartFile imageFile) {
 		String savepath = root+"/review_party/";
 		String filepath = fileUtil.upload(savepath, imageFile);
-		r.setReviewImg(filepath);
+		r.setReviewPartyImg(filepath);
 		int result = reviewService.insertReview(r);
 		return "redirect:/review/list";
 	}
@@ -53,7 +53,7 @@ public class ReviewController {
 	@GetMapping(value="/more")
 	@ResponseBody
 	public List more(int start, int amount) {
-		List photoList = reviewService.selectPhotoList(start, amount);
+		List photoList = reviewService.selectPhotoList(start, amount);	
 		return photoList;
 	}
 }

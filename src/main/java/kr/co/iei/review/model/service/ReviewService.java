@@ -13,8 +13,12 @@ import kr.co.iei.review.model.vo.Review;
 public class ReviewService {
 	
 	@Autowired
-	ReviewDao reviewDao;
+	private ReviewDao reviewDao;
 
+	public int insertReview(Review r) {
+		int result = reviewDao.insertReview(r);
+		return result;
+	}
 	
 
 	public int selectPartyTotalCount() {
@@ -30,16 +34,11 @@ public class ReviewService {
 		param.put("start", start);
 		param.put("end", end);
 		List photoList = reviewDao.selectPhotoList(param);
-		System.out.println(photoList);
 		return photoList;
 	}
 
 
 
-	public int insertReview(Review r) {
-		int result = reviewDao.insertReview(r);
-		return result;
-	}
 }
 
 

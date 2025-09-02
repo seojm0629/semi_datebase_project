@@ -215,6 +215,12 @@ public class MemberController {
 				model.addAttribute("loc", "/member/mypage");
 				return "/common/msg";
 			}
-		}//updatePlus
+		}
+	}//updatePlus
+	
+	@GetMapping(value = "/updateManagerFrm")
+	public String updateManagerFrm() {
+		return "/member/updateManagerFrm";
 	}
+	
 }//controller

@@ -62,20 +62,62 @@
                     </div>
                     <div class="profile-plus">
                         <div class="profile-plus-header">
-                            <h3>추가 정보</h3>
+                            <span><b>추가 정보</b></span>
+                            <th:block th:if="${memberMoreInfo == null}">
+                            	<button id="plus-input">정보추가</button>
+                            </th:block>
+                            <th:block th:if="${memberMoreInfo != null}">
+                            	<button id="plus-update">정보수정</button>
+                            </th:block>
                         </div>
+                        <th:block th:if="${memberMoreInfo != null}">
                         <div class="profile-plus-content1">
                             <ul>
-                                <li th:text="'학력 : '+${memberMoreInfo.memberEdu}"></li>
-                                <li th:text="'근무형태 : '+${memberMoreInfo.memberWorkType}"></li>
+                            	<th:block th:if="${memberMoreInfo.memberEdu != null}">
+                                	<li th:text="'학력 : '+${memberMoreInfo.memberEdu}"></li>
+                                </th:block>
+                                <th:block th:if="${memberMoreInfo.memberEdu == null}">
+                                	<li>학력 : </li>
+                                </th:block>
+                                <th:block th:if="${memberMoreInfo.memberWorkType != null}">
+                                	<li th:text="'근무형태 : '+${memberMoreInfo.memberWorkType}"></li>
+                                </th:block>
+                                <th:block th:if="${memberMoreInfo.memberWorkType == null}">
+                                	<li>근무형태 : </li>
+                                </th:block>
                             </ul>
                         </div>
                         <div class="profile-plus-content2">
                             <ul>
-                                <li th:text="'취미 : '+${memberMoreInfo.memberHobby}"></li>
-                                <li th:text="'연봉 : '+${memberMoreInfo.memberSalary}+'만원'"></li>
+                            	<th:block th:if="${memberMoreInfo.memberHobby != null}">
+                                	<li th:text="'취미 : '+${memberMoreInfo.memberHobby}"></li>
+                                </th:block>
+                                <th:block th:if="${memberMoreInfo.memberHobby == null}">
+                                	<li>취미 : </li>
+                                </th:block>
+                                <th:block th:if="${memberMoreInfo.memberSalary != null}">
+                                	<li th:text="'연봉 : '+${memberMoreInfo.memberSalary}+'만원'"></li>
+                                </th:block>
+                                <th:block th:if="${memberMoreInfo.memberSalary == null}">
+                                	<li>연봉 : </li>
+                                </th:block>
                             </ul>
                         </div>
+                        </th:block>
+                        <th:block th:if="${memberMoreInfo == null}">
+                        <div class="profile-plus-content1">
+                            <ul>
+                            	<li>학력 : </li>
+                                <li>근무형태 : </li>
+                            </ul>
+                        </div>
+                        <div class="profile-plus-content2">
+                            <ul>
+                            	<li>취미 : </li>
+                                <li>연봉 : </li>
+                            </ul>
+                        </div>
+                        </th:block>
                     </div>
                     <div class="plus-content">
                         <div class="my-qna-list">
@@ -109,6 +151,10 @@
 	<script>
 		$("#memberExit").on("click", function(){
 			location.href=("/member/memberExit");
+		});
+		
+		$("#profile-update").on("click", function(){
+			location.href=("/member/memberUpdateFrm");
 		});
 	</script>
     <th:block th:include="common/footer"></th:block>

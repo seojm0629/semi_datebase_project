@@ -16,7 +16,7 @@ import kr.co.iei.party.model.service.PartyService;
 import kr.co.iei.party.model.vo.Party;
 
 @Controller
-@RequestMapping("/party") 
+@RequestMapping("/party")
 public class PartyController {
 
 	@Autowired
@@ -27,36 +27,36 @@ public class PartyController {
 	public String partyPage(Model model) {
 		List<Party> parties = partyService.getAllParties();
 		model.addAttribute("parties", parties);
-		return "party/party"; // 
+		return "party/party"; //
 	}
 
 	// 관리자 페이지
 	@GetMapping("/admin")
 	public String partyAdmin() {
-		return "party/partyadmin"; 
+		return "party/partyadmin";
 	}
 
 	// 사용자 페이지
 	@GetMapping("/user")
 	public String partyUser() {
-		return "party/partyuser"; 
+		return "party/partyuser";
 	}
 
 	// 소개 페이지
 	@GetMapping("/intro")
 	public String intro() {
-		return "party/intro"; 
+		return "party/intro";
 	}
 
 	// 파티 등록 폼 페이지 (GET)
 	@GetMapping("/new")
 	public String writeForm() {
-		return "party/partyFrm"; 
+		return "party/partyFrm";
 	}
 
 	// 파티 등록 처리 (POST)
 	@PostMapping("/new")
-	public String createParty(Party party, @RequestParam("partyThumb") MultipartFile file) {
+	public String createParty(Party party, @RequestParam("partyThumbFile") MultipartFile file) {
 		if (!file.isEmpty()) {
 			try {
 				String rootPath = "C:/Temp/upload/";
@@ -64,15 +64,16 @@ public class PartyController {
 				File saveFile = new File(rootPath, fileName);
 				saveFile.getParentFile().mkdirs();
 				file.transferTo(saveFile);
-				party.setPartyThumb(fileName); // DB에는 파일명 저장
+
+				// DB에는 파일명만 저장
+				party.setPartyThumb(fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		// DB 저장
 		partyService.insertParty(party);
-
-		return "redirect:/party"; 
+		return "redirect:/party";
 	}
+
 }

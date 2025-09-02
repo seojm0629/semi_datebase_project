@@ -76,6 +76,7 @@ public class MemberService {
 	}
 
 
+	@Transactional
 	public int insertMoreInfo(MemberMoreInfo memberMoreInfo) {
 		int result = memberDao.insertMoreInfo(memberMoreInfo);
 		return result;

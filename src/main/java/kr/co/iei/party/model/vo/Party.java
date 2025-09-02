@@ -22,5 +22,5 @@ public class Party {
 	private int partyMale;
 	private int partyFemale;
 	private int partyPrice;
-
+	private String partyTime;
 }

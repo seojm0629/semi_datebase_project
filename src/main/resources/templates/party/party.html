@@ -33,7 +33,7 @@
 					</th:block>
 					<div class="arrow right">&gt;</div>
 				</div>
-				<!-- info는 하나만 두고 JS로 바꿔줌 -->
+			
 				<div class="info">
 					<div class="info-row">
 						<span>일시</span> <span id="wine-date"></span>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 
-			<!-- 비어 파티 -->
+		
 			<div class="party-tab" data-party="beer">
 				<div class="party-img">
 					<div class="arrow left">&lt;</div>
@@ -80,7 +80,7 @@
 	<th:block th:include="common/footer"></th:block>
 
 	<script>
-		// 탭 전환
+	
 		const tabs = document.querySelectorAll(".tabs div");
 		const partyTabs = document.querySelectorAll(".party-tab");
 
@@ -93,7 +93,7 @@
 			});
 		});
 
-		// 이미지 + 정보 연동 슬라이드
+		
 		partyTabs.forEach(tab => {
 			const imgs = tab.querySelectorAll("img");
 			const left = tab.querySelector(".arrow.left");

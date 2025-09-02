@@ -1,14 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<th:block th:include="common/header"></th:block>
-
-	<!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>파티 관리</title>
@@ -44,14 +35,18 @@ body {
 	font-weight: 600;
 }
 
-.tab span {
+.tab-btn {
 	font-size: 20px;
 	font-weight: bold;
 	border-bottom: 2px solid #b58b39;
 	color: #b58b39;
 	padding-bottom: 5px;
 	cursor: pointer;
-	color: #b58b39;
+}
+
+.tab-btn.active {
+	color: #A66E33;
+	border-bottom: 3px solid #A66E33;
 }
 
 /* 파티 테이블 */
@@ -101,15 +96,22 @@ td {
 	background: #d3d3d3;
 }
 </style>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 
-	<!-- 페이지 제목 -->
+	<!-- 헤더 include -->
+	<th:block th:include="common/header"></th:block>
+
 	<h1 class="page-title">파티 관리</h1>
 
 	<!-- 탭 -->
 	<div class="tab">
-		<span>와인 파티 🍷</span> <span>비어 파티 🍺</span>
+		<span class="tab-btn active" data-type="와인">와인 파티 🍷</span> <span
+			class="tab-btn" data-type="비어">비어 파티 🍺</span>
 	</div>
 
 	<!-- 파티 리스트 -->
@@ -122,55 +124,63 @@ td {
 					<th>인원 현황</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
-				<tr>
-					<td>2025/08/28(목)</td>
-					<td>우리집 내방안 침대위</td>
-					<td>남 30명 여 30명</td>
-				</tr>
+			<tbody id="party-table-body">
+				<!-- AJAX로 불러온 데이터가 들어옴 -->
 			</tbody>
 		</table>
 	</div>
 
-	<!-- 글쓰기 버튼 -->
 	<button class="btn-write">파티 게시글 작성</button>
 
+	<!-- footer include -->
 	<th:block th:include="common/footer"></th:block>
 
 	<script>
-		$(".btn-write").on("click", function() {
-			location.href = "/partyFrm";
-		});
-	</script>
+$(document).ready(function(){
+
+    function loadParty(type){
+    	$.ajax({
+    	    url: '/party/admin/list',
+    	    type: 'GET',
+    	    data: { type: '비어' },
+    	    success: function(list){
+    	        let tbody = $("#party-table-body");
+    	        tbody.empty();
+    	        
+    	        if(list.length === 0){
+    	            tbody.append('<tr><td colspan="3">등록된 파티가 없습니다.</td></tr>');
+    	        } else {
+    	            list.forEach(function(p){
+    	                tbody.append(
+    	                    `<tr>
+    	                        <td>${p.partyDate}</td>
+    	                        <td>${p.partyPlace}</td>
+    	                        <td>남 ${p.partyMale}명 / 여 ${p.partyFemale}명</td>
+    	                    </tr>`
+    	                );
+    	            });
+    	        }
+    	    },
+    	    error: function(xhr, status, error){
+    	        console.error("AJAX Error:", xhr.status, error);
+    	        $("#party-table-body").html('<tr><td colspan="3">데이터를 불러오는데 실패했습니다.</td></tr>');
+    	    }
+    	});
+
+    }
+
+    // 초기 로딩: 와인 파티
+    loadParty('와인');
+
+    // 탭 클릭 이벤트
+    $(".tab-btn").click(function(){
+        $(".tab-btn").removeClass("active"); // 모든 탭 비활성화
+        $(this).addClass("active");          // 클릭한 탭만 활성화
+        let type = $(this).data("type");
+        loadParty(type);
+    });
+});
+</script>
+
 </body>
 </html>

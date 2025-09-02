@@ -14,12 +14,15 @@ public class PartyService {
 	@Autowired
 	private PartyDao partyDao;
 
-	// 모든 파티 불러오기
 	public List<Party> getAllParties() {
 		return partyDao.getAllParties();
 	}
 
 	public int insertParty(Party party) {
 		return partyDao.insertParty(party);
+	}
+
+	public List<Party> getPartyByType(String type) {
+		return partyDao.getPartyByType(type);
 	}
 }

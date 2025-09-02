@@ -17,4 +17,5 @@ public class Review {
 	private String reviewPartyContent;
 	private String reviewPartyImg;
 	private String reviewPartyJob;
+	
 }

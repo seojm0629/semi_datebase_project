@@ -5,48 +5,14 @@
 <title>파티 등록</title>
 <style>
 :root {
-	/*main color
-  --main1: #3d3d3d;
-  --main2: #6059f7;
-  --main3: #6592fe;
-  --main4: #36c3fe;
-  --main5: #8c61ff;
-  box-bg
-  --box-bg: #f0f1f1;
-  gray
-  --gray1: #222222;
-  --gray2: #555555;
-  --gray3: #717171;
-  --gray4: #8f8f8f;
-  --gray5: #b7b7b7;
-  --gray6: #d6d6d6;
-  --gray7: #efefef;
-  --gray8: #ffffff;
-
-  line-color
-  --line1: #222222;
-  --line2: #d6d6d6;
-  --line3: #eaeced;
-  --line4: #f6f6f6;
-  --line5: #f8f9fa;*/
-	--black: #2B2B2B; /*검은 글씨색*/
-	--footerB: #FAF8F1; /*푸터 배경색*/
-	--color: #FAEAB1; /*얇은 글씨 특) 잘 안보임*/
-	--main: #E5BA73; /*버튼색, 로고, 페이지 제목*/
-	--bold: #C58940; /*푸터 두꺼운 글씨, 선 그을때*/
-	--hover: #EAC88F; /*버튼 호버한 경우 색*/
-	--warning: #FF6868; /*경고색*/
-	--cancel: #D9D9D9; /*취소버튼*/
-}
-
-@font-face {
-	font-family: main2;
-	src: url(/font/PyeongChang-Regular.ttf);
-}
-
-@font-face {
-	font-family: mainB2;
-	src: url(/font/PyeongChang-Bold.ttf);
+	--black: #2B2B2B;
+	--footerB: #FAF8F1;
+	--color: #FAEAB1;
+	--main: #E5BA73;
+	--bold: #C58940;
+	--hover: #EAC88F;
+	--warning: #FF6868;
+	--cancel: #D9D9D9;
 }
 
 * {
@@ -122,7 +88,6 @@ form {
 	min-height: 70px;
 }
 
-/* 남/여 인원 한 줄 반반 배치 */
 .gender-row {
 	display: flex;
 	gap: 20px;
@@ -157,7 +122,7 @@ button[type="submit"]:hover {
 	<th:block th:include="common/header"></th:block>
 	<h1>파티 등록</h1>
 
-	<form th:action="@{/party/new}" method="post"
+	<form id="partyForm" th:action="@{/party/new}" method="post"
 		enctype="multipart/form-data">
 		<!-- 큰 이미지 박스 -->
 		<div class="image-box" id="imageBox">이미지</div>
@@ -174,7 +139,19 @@ button[type="submit"]:hover {
 
 			<label>장소:</label> <input type="text" name="partyPlace"
 				placeholder="장소를 입력하세요" required> <label>날짜:</label> <input
-				type="date" name="partyDate" required>
+				type="date" name="partyDate" required> <label>시간:</label> <select
+				name="partyTime" required>
+				<option value="">시간 선택</option>
+				<option value="19:00">19:00</option>
+				<option value="19:30">19:30</option>
+				<option value="20:00">20:00</option>
+				<option value="20:30">20:30</option>
+				<option value="21:00">21:00</option>
+				<option value="21:30">21:30</option>
+				<option value="22:00">22:00</option>
+				<option value="22:30">22:30</option>
+				<option value="23:00">23:00</option>
+			</select>
 
 			<div class="gender-row">
 				<div class="gender-col">
@@ -199,13 +176,9 @@ button[type="submit"]:hover {
 	// 이미지 미리보기
 	const imageBox = document.getElementById('imageBox');
 	const fileInput = document.getElementById('partyThumb');
-
-	imageBox.addEventListener('click', () => {
-		fileInput.click();
-	});
-
+	imageBox.addEventListener('click', () => { fileInput.click(); });
 	fileInput.addEventListener('change', () => {
-		if(fileInput.files && fileInput.files[0]) {
+		if(fileInput.files && fileInput.files[0]){
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				imageBox.style.backgroundImage = `url(${e.target.result})`;
@@ -220,10 +193,17 @@ button[type="submit"]:hover {
 	// 가격 입력 시 천 단위 콤마 적용
 	const priceInput = document.getElementById("partyPrice");
 	priceInput.addEventListener("input", (e) => {
-		let value = e.target.value.replace(/,/g, ""); // 콤마 제거
+		let value = e.target.value.replace(/,/g, "");
 		if (!isNaN(value) && value !== "") {
-			e.target.value = parseInt(value, 10).toLocaleString(); // 천 단위 콤마 추가
+			e.target.value = parseInt(value, 10).toLocaleString();
 		}
+	});
+
+	// 폼 제출 시 콤마 제거 후 전송
+	const partyForm = document.getElementById("partyForm");
+	partyForm.addEventListener("submit", (e) => {
+		const priceField = document.getElementById("partyPrice");
+		priceField.value = priceField.value.replace(/,/g, "");
 	});
 	</script>
 

@@ -36,7 +36,7 @@ public class MatchService {
 	@Transactional
 	public int insertMatch(Match m) {
 		int result = matchDao.matchEnroll(m);
-		return 0;
+		return result;
 	}
 	
 	@Transactional

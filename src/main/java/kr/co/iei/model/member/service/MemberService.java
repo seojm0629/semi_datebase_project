@@ -76,8 +76,15 @@ public class MemberService {
 	}
 
 
+	@Transactional
 	public int insertMoreInfo(MemberMoreInfo memberMoreInfo) {
 		int result = memberDao.insertMoreInfo(memberMoreInfo);
+		return result;
+	}
+
+	@Transactional
+	public int managerUpdate(Member m) {
+		int result = memberDao.managerUpdate(m);
 		return result;
 	}
 }

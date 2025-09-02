@@ -84,12 +84,7 @@
     			data : {memberId : memberId},
     			dataType : "json",
     			success : function(m){
-    				console.log(m);
     				if(m != ""){
-    					console.log(m.memberName);
-    					console.log(m.memberId);
-    					console.log(m.memberPhone);
-    					console.log(m.memberEmail);
     					$("#memberNameRe").text(m.memberName);
     					$("#memberIdRe").text(m.memberId);
     					$("#memberPhoneRe").text(m.memberPhone);
@@ -107,7 +102,6 @@
     			type : "get",
     			data : {memberId : memberId},
     			success : function(data){
-    				console.log(data);
     				if(data == 1){
     					$("#memberNameRe").empty();
     					$("#memberIdRe").empty();

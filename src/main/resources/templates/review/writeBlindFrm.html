@@ -170,14 +170,16 @@
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main>
-		<div class="page-title">후기 작성하기</div>
-		<form action="/review/write" method="post" enctype="multipart/form-data">
+		<div class="page-title">후기 작성하기</div>		
+		<form action="/review/writeBlind" method="post" enctype="multipart/form-data">
+		
 			<table class="tbl">
 				<tr>
 					<th>제목</th>
 					<td colspan="3">
 						<div class="input-title">
-							<input type="text" th:name="${theme == 'party'} ? 'reviewPartyTitle' : reviewBlindTitle" id="reviewTitle">
+							<input type="text" name="reviewBlindTitle" id="reviewTitle">
+							
 						</div>
 					</td>
 				</tr>
@@ -185,7 +187,7 @@
 					<th>작성자</th>
 					<td>
 						<span th:text="${session.member.memberId}"></span>
-						<input type="hidden" th:name="${theme == 'party'} ? 'reviewPartyWriter' : 'reviewBlindWriter'" th:value="${session.member.memberId}">
+						<input type="hidden" name="reviewBlindWriter" th:value="${session.member.memberId}">
 					</td>
 					<th>썸네일</th>
 					<td>
@@ -205,7 +207,7 @@
 						</div>
 						<div>
 							<span>직업</span>
-							<select th:name="${theme == 'party'} ? 'reviewPartyJob' : 'reviewBlindJob'">
+							<select name="reviewBlindJob">
 								<option value="">선택</option>
 								<option value="IT">IT</option>
 								<option value="의료종사자">의료종사자</option>
@@ -228,7 +230,7 @@
 							<img id="img-view" width="300px" src="/image/default_img.png">
 						</div>
 						<div class="input-item">
-							<textarea th:name="${theme == 'party'} ? 'reviewPartyContent' : 'reviewBlindContent'"></textarea>
+							<textarea name="reviewBlindContent"></textarea>
 						</div>
 					</td>
 				</tr>

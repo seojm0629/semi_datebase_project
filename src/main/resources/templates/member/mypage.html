@@ -14,7 +14,7 @@
             </div>
             <div class="userpage-profile-wrap">
                 <div class="user-img">
-                    <img src="../image/beer1.png" alt="이미지준비중" width="300px">
+                    <img th:src="'/member/memberImg/'+${session.member.memberImgPath}" alt="이미지준비중" width="300px">
                 </div>
                 <div class="user-grade-zone">
                 	<th:block th:if="${session.member.memberGrade != null}">

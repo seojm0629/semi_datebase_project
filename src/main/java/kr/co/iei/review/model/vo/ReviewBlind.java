@@ -17,4 +17,5 @@ public class ReviewBlind {
 	private String reviewBlindContent;
 	private String reviewBlindImg;
 	private String reviewBlindJob;
+	
 }

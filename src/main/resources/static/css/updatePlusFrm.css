@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/*------------------------main----------------------------------*/
+.updatePlus-all-wrap{
+    width: 120ppx;
+    margin: 0 auto;
+    margin-bottom: 70px;
+}
+.updatePlus-wrap{
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+/*----------------------updatePlus-header-----------------------*/
+.updatePlus-header{
+    margin-top: 75px;
+    margin-bottom: 50px;
+}
+.updatePlus-header>h1{
+    color: #E5BA73;
+}
+/*-----------------------updatePlus-content------------------------*/
+
+/*---------------------updatePlus-input-content---------------------*/
+.updatePlus-input-content{
+    font-size: 22px;
+    margin: 25px 0px;
+}
+/*---------updatePlus-input-content>span---------*/
+.updatePlus-input-content>span{
+    display: inline-block;
+    width: 95px;
+    text-align: right;
+}
+.updatePlus-input-content>#won{
+    width: 45px;
+}
+/*-----------updatePlus-input-content>select----------*/
+.updatePlus-input-content>select{
+    width: 250px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #2B2B2B;
+    font-size: 18px;
+}
+/*-------updatePlus-input-content>input------*/
+.updatePlus-input-content>#memberSalary{
+    width: 200px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #2B2B2B;
+    font-size: 18px;
+    text-align: right;
+}
+.updatePlus-input-content>#memberSalary:focus{
+    border-bottom: 2px solid #C58940;
+}
+/*----------------------------updatePlus-button----------------------------*/
+.updatePlus-button{
+    margin-top: 60px;
+}
+.updatePlus-button>button{
+    width: 180px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 18px;
+}
+.updatePlus-button>#updatePlus-cancel{
+    background-color: #D9D9D9;
+    margin-right: 30px;
+}
+.updatePlus-button>#updatePlus-success{
+    background-color: #E5BA73;
+}
+.updatePlus-button>#updatePlus-cancel:hover{
+    cursor: pointer;
+    color: #2B2B2B;
+}
+.updatePlus-button>#updatePlus-success:hover{
+    cursor: pointer;
+    background-color: #EAC88F;
+}

@@ -61,4 +61,23 @@ public class MemberService {
 		MemberMoreInfo memberMoreInfo = memberDao.searchMemberMoreINfo(memberNo);
 		return memberMoreInfo;
 	}
+
+	@Transactional
+	public int updateMember(Member m) {
+		int result = memberDao.updateMember(m);
+		return result;
+	}
+
+	
+	@Transactional
+	public int updatePlusInfo(MemberMoreInfo info) {
+		int result = memberDao.updatePlusInfo(info);
+		return result;
+	}
+
+
+	public int insertMoreInfo(MemberMoreInfo memberMoreInfo) {
+		int result = memberDao.insertMoreInfo(memberMoreInfo);
+		return result;
+	}
 }

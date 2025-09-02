@@ -26,10 +26,29 @@
 		delete from member where member_id = #{memberId}
 	</delete>
  
-
+	
 
 	<select id="searchMemberMoreINfo" resultType="more">
 		select * from member_More_info where member_no = #{memberNo}
 	</select>
+	
+	<update id="useMatchCount">
+		update member set my_matching_count = #{myMatchingCount} where member_id = #{memberId}
+	</update>
 
+	<update id="updateMember">
+		UPDATE MEMBER 
+		set member_pw = #{memberPw}, member_addr = #{memberAddr}, member_Phone = #{memberPhone}, member_MBTI = #{memberMBTI}, member_job = #{memberJob} where member_id = #{memberId}
+	</update>
+	
+	<update id="updatePlusInfo">
+		update member_more_info
+		set member_edu = #{memberEdu}, member_hobby = #{memberHobby}, member_salary =#{memberSalary}, member_work_type = #{memberWorkType}
+		where member_no = #{memberNo}
+	</update>
+	
+	<insert id="insertMoreInfo">
+		insert into member_more_info
+		values (#{memberNo}, #{memberEdu}, #{memberHobby}, #{memberSalary}, #{memberWorkType})
+	</insert>
 </mapper>

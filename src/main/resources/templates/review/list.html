@@ -68,10 +68,33 @@
 }
 
 .review-board{
-    display: flex;
+	overflow: hidden;
 }
 .review-board>div:first-child{
-    padding-right: 20px;
+	float: left;
+	line-height: 50px;
+	font-size: 18px;
+}
+.review-board>div:nth-child(2){
+	float: left;
+	line-height: 50px;
+	padding-left: 8px;
+	font-size: 18px;
+}
+.review-board>div:last-child{
+	float: right;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 8px;
+	text-align: center;
+	background-color: #E5BA73;
+}
+.review-board>div:last-child>a{
+	font-family: main2;
+	font-size: 22px;
+	font-weight: 800;
+	color: #fff;
 }
 
 .party-blind>div{
@@ -81,10 +104,8 @@
 
 .party-tab-review{
 	width: 900px;
-    height: 600px;
-    line-height: 600px;
+    
     background-color: #ffffff;
-    border: 1px solid black;
 }
 
 .party-tab-review{
@@ -112,6 +133,7 @@
 .posting-wrap{
 	overflow: hidden;
 	padding: 10px;
+	text-align: center;
 }
 .posting-wrap>.posting-item{
 	box-sizing: border-box;
@@ -127,6 +149,17 @@
 	height:100%;
 	object-fit:contain;
 }
+.btn-point{
+	width: 150px;
+	height: 60px;
+	background-color: #E5BA73;
+	font-size: 22px;
+	font-family: main2;
+	font-weight: 800;
+	border-radius: 8px;
+	color: #fff;
+	border: none;
+}
 
 
 </style>
@@ -139,9 +172,7 @@
                 <h2>DateBase 이용 후기</h2>
             </div>
             
-	        <div th:if="${session.member != null}">
-	          	<a href="/review/writeFrm" class="write-btn">글쓰기</a>
-	        </div>
+	        
 
             <div class="party-blind">
                 <div class="party">파티 후기</div>
@@ -150,18 +181,29 @@
 
             <div class="review-board">
                 <div>게시판</div>
-                <div>게시판 수</div>
+               	<div class="board-count">
+	                <div th:text=${partyTotalCount}></div>
+	                <div th:text=${blindTotalCount}></div>
+                </div>
+                <div th:if="${session.member != null}" >
+	          		<a href="/review/writeFrm" class="write-btn">글쓰기</a>
+	       	 	</div>
             </div>
             
-            <ul class="reviewWrapper posting-wrap">
-            
-            </ul>
 
+			<ul class="reviewWrapper posting-wrap">
+            	
+           	</ul>
+           	
+           	         	
 			<div class="party-tab-review">
 				<div class="party-review">
-					<button class="btn-point" id="party-more-btn">더보기</button>
+					<button class="btn-point" id="party-more-btn">파티 더보기</button>
 				</div>
-				<div>blind</div>
+				
+				<div class="blind-review">
+					<button class="btn-point" id="blind-more-btn">소개팅 더보기</button>
+				</div>
 			</div>
             
 
@@ -169,74 +211,145 @@
 	
 	<th:block th:include="common/footer"></th:block>
 	<script th:inline="javascript">
+			
 		
+	
 		/*파티 후기*/
 		const totalCount = [[${partyTotalCount}]];	//페이지 들어올 때 조회해온 전체 게시물 수
 		let currentCount = 0;					//현재까지 읽어온 게시물 수를 저장
 		let start = 1;							//추가로 가져올 게시물의 시작번호
 		const amount = 3;						//더보기 한번 클릭 시 추가로 가져올 게시물 수
 		
-		$("#party-more-btn").on("click", function(){
 			
+		
+		$("#party-more-btn").on("click", function(){
 			$.ajax({
-				url: "/review/more",
+				url: "/review/partyMore",
 				type: "get",
 				data: {start : start, amount: amount},
 				success: function(data){
-				for(let i=0; i<data.length;i++){
-					const r = data[i];
-					const li = $("<li>");
-					li.addClass("posting-item");
-					const imgDiv = $("<div>");
-					imgDiv.addClass("posting-img");
-					const img = $("<img>");
-					img.attr("src", "/review_party/image/"+r.reviewPartyImg);
 					
-					imgDiv.append(img);
+					for(let i=0; i<data.length;i++){
+						const r = data[i];
+						const li = $("<li>");
+						li.addClass("posting-item");
+						
+						const imgDiv = $("<div>");
+						imgDiv.addClass("posting-img");
+						const img = $("<img>");
+						img.attr("src", "/review_party/image/"+r.reviewPartyImg);
+						
+						imgDiv.append(img);
+						
+						const infoDiv = $("<div>");
+						infoDiv.addClass("posting-info");
+						const titleDiv = $("<div>");
+						titleDiv.addClass("postion-title");
+						titleDiv.text(r.reviewPartyTitle);
+						const subDiv = $("<div>");
+						subDiv.addClass("posting-sub-info");
+						const span = $("<span>");
+						span.text(r.reviewPartyWriter);
+						
+						subDiv.append(span);
+						infoDiv.append(titleDiv).append(subDiv);
+						
+						li.append(imgDiv).append(infoDiv);
+						$(".reviewWrapper").append(li);
+					}
+					//화면에 요소 추가 끝
 					
-					const infoDiv = $("<div>");
-					infoDiv.addClass("posting-info");
-					const titleDiv = $("<div>");
-					titleDiv.addClass("postion-title");
-					titleDiv.text(r.reviewTitle);
-					const subDiv = $("<div>");
-					subDiv.addClass("posting-sub-info");
-					const span = $("<span>");
-					span.text(r.reviewPartyWriter);
+					//더보기를 누르면 그 이후 데이터를 가져오기 위한 설정
+					start = start + amount;
 					
-					subDiv.append(span);
-					infoDiv.append(titleDiv).append(subDiv);
-					
-					li.append(imgDiv).append(infoDiv);
-					$(".reviewWrapper").append(li);
+					//현재까지 읽어온 게시물 수 변경
+					currentCount = currentCount + data.length; 
+					//전체 게시물 수와 읽어온 게시물 수가 같으면 -> 더이상 읽어올 데이터가 없음
+					if(currentCount === totalCount){
+						$("#party-more-btn").remove();
+					}
+				},	
+				error: function(){
+					console.log("에러");
 				}
-				//화면에 요소 추가 끝
-				
-				//더보기를 누르면 그 이후 데이터를 가져오기 위한 설정
-				start = start + amount;
-				
-				//현재까지 읽어온 게시물 수 변경
-				currentCount = currentCount + data.length; 
-				//전체 게시물 수와 읽어온 게시물 수가 같으면 -> 더이상 읽어올 데이터가 없음
-				if(currentCount === totalCount){
-					$("#party-more-btn").remove();
+				});
+		});
+		
+		/*소개팅 후기*/
+		const blindTotalCount = [[${blindTotalCount}]];	//페이지 들어올 때 조회해온 전체 게시물 수
+		let blindCurrentCount = 0;					//현재까지 읽어온 게시물 수를 저장
+		let blindStart = 1;							//추가로 가져올 게시물의 시작번호
+		const blindAmount = 3;						//더보기 한번 클릭 시 추가로 가져올 게시물 수
+		
+		
+		$("#blind-more-btn").on("click", function(){
+			
+			$.ajax({
+				url: "/review/blindMore",
+				type: "get",
+				data: {start : blindStart, amount: blindAmount},
+				success: function(data){				
+					for(let i=0; i<data.length;i++){
+						const r = data[i];
+						console.log(r);
+						const li = $("<li>");
+						li.addClass("posting-item");
+						
+						const imgDiv = $("<div>");
+						imgDiv.addClass("posting-img");
+						const img = $("<img>");
+						img.attr("src", "/review_blind/image/"+r.reviewBlindImg);
+						
+						imgDiv.append(img);
+						
+						const infoDiv = $("<div>");
+						infoDiv.addClass("posting-info");
+						const titleDiv = $("<div>");
+						titleDiv.addClass("postion-title");
+						titleDiv.text(r.reviewBlindTitle);
+						const subDiv = $("<div>");
+						subDiv.addClass("posting-sub-info");
+						const span = $("<span>");
+						span.text(r.reviewBlindWriter);
+						
+						subDiv.append(span);
+						infoDiv.append(titleDiv).append(subDiv);
+						
+						li.append(imgDiv).append(infoDiv);
+						$(".reviewWrapper").append(li);
+					}
+					//화면에 요소 추가 끝
+					
+					//더보기를 누르면 그 이후 데이터를 가져오기 위한 설정
+					start = start + amount;
+					
+					//현재까지 읽어온 게시물 수 변경
+					currentCount = currentCount + data.length; 
+					//전체 게시물 수와 읽어온 게시물 수가 같으면 -> 더이상 읽어올 데이터가 없음
+					if(currentCount === totalCount){
+						$("#blind-more-btn").remove();
+					}
+				},	
+				error: function(){
+					console.log("에러");
 				}
-			},	
-			error: function(){
-				console.log("에러");
-			}
-			});
+				});
 		});
 		
 		const tabMenu = $(".party-blind>div");
 		const tabContent = $(".party-tab-review>div");
-	
+		const boardCount = $(".review-board>div:nth-child(2)>div");
+		const ul = $(".reviewWrapper");
 		tabMenu.on("click", function(){
+			ul.empty();
 			tabMenu.removeClass("active-tab");
 			tabContent.hide();
+			boardCount.hide();
 			$(this).addClass("active-tab");
 			const i = tabMenu.index(this);
 			tabContent.eq(i).show();
+			boardCount.eq(i).show();
+			ul.removeClass(".reviewWrapper");
 		});
 		tabMenu.eq(0).click();
 	</script>

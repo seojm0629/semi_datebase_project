@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thyeleap.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Manager Page</title>
 <link rel="stylesheet" href="../css/masterPage.css">
 </head>
 <body>
@@ -66,6 +66,10 @@
     <script>
     	$(".Management-btn").on("click", function(){
     		location.href=("/member/creatManager");
+    	});
+    	
+    	$("#master-update").on("click", function(){
+    		location.href=("/member/updateManagerFrm");
     	});
     	
     	$(".Management-party").on("click", function(){

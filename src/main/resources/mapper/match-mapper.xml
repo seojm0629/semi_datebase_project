@@ -39,4 +39,34 @@
 				m.member_img_path
 			from match_mypage p join member m using(member_id)
 	</select>
+	
+	<select id="findMatch" resultType="match">
+		select match_no, 
+				member_id, 
+				m.member_grade, 
+				match_date, 
+				match_pass, 
+				match_field, 
+				match_age, 
+				match_job, 
+				match_mbti,
+				match_hobby,
+				match_edu,
+				match_salary,
+				match_work_type,
+				m.member_gender,
+				m.member_name,
+				m.member_img_path 
+			from match_mypage p join member m using(member_id)
+			where member_grade = #{memberGrade} and 
+					match_field = #{matchField} and
+					match_age = #{matchAge} and
+					match_job = #{matchJob} and
+					match_mbti = #{matchMbti} and
+					match_hobby = #{matchHobby} and
+					match_edu = #{matchEdu} and
+					match_salary = #{matchSalary} and
+					match_work_type = #{matchWorkType} and
+					member_gender = #{memberGender} and
+	</select>
 </mapper>

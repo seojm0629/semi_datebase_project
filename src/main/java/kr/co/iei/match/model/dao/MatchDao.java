@@ -18,5 +18,7 @@ public interface MatchDao {
 	int matchEnroll(Match m);
 
 	List selectMatchList();
+
+	List findMatch(Match m);
 	
 }

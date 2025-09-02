@@ -109,4 +109,17 @@ public class MatchController {
 		model.addAttribute("list", matchList);
 		return "match/management";
 	}
+	@PostMapping(value="/findMatch")
+	@ResponseBody
+	public List findMatch(Match m) {
+		System.out.println(m);
+		if(m.getMemberGender() == "m") {
+			m.setMemberGender("f");
+		}else if(m.getMemberGender() == "f") {
+			m.setMemberGender("m");
+		}
+		List matchList = matchService.findMatch(m);
+		System.out.println(matchList);
+		return matchList;
+	}
 }

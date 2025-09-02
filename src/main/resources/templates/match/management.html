@@ -17,6 +17,7 @@
 	}
 	
 	.page-title{
+		text-align:center;
 		font-size : 25px;
 		font-family : mainB2;
 		color : var(--bold);
@@ -39,7 +40,7 @@
 		margin-top : 10px;
 		padding-left : 15px;
 	}
-	#grade{
+	.grade{
 		text-align : right;
 	}
 	.list-wrap{
@@ -66,6 +67,7 @@
 	
 	.modal{
 		width: 40%;
+		height : 800px;
 		position:fixed;
 		display : none;
 		top : 100px;
@@ -73,8 +75,8 @@
 		background-color : #fff;
 	}
 	.inner{
-		display:flex;
-		justify-content : space-between;
+		margin:0 auto;
+		
 	}
 	#modal-close{
 		cursor : pointer;
@@ -95,6 +97,49 @@
 				<a><span class="material-icons-outlined" id="modal-close">close</span></a>
 			<div class="inner" style="max-width:800px;">
 				<div class="page-title">이성 리스트</div>
+				<div class="partner-photo-box">
+				</div>
+				<div class="modal-table-wrap">
+					<table class="modal-table">
+						<tr>
+							<th>이름</th>
+							<td id="partnerName"></td>
+							<th>지역</th>
+							<td id="partnerField"></td>
+						</tr>
+						<tr>
+							<th>등급</th>
+							<td id="partnerGrade"></td>
+							<th>직업</th>
+							<td id="partnerJob"></td>
+						</tr>
+						<tr>
+							<th>신청일</th>
+							<td id="partnerMbti"></td>
+							<th>취미</th>
+							<td id="partnerHobby"></td>
+						</tr>
+						<tr>
+							<th>성별</th>
+							<td id="partnerGender"></td>
+							<th>나이</th>
+							<td id="partnerAge"></td>
+							
+						</tr>
+						
+						<tr>
+							<th colspan="2">연봉</th>
+							<td id="partnerSalary"></td>
+							<th>학력</th>
+							<td id="partnerEdu"></td>
+						</tr>
+						<tr>
+							<th colspan="3">근무형태</th>
+							<td id="partnerWorkType"></td>
+						</tr>
+					</table>
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>
@@ -110,38 +155,40 @@
 						
 						<tr>
 							<th>이름</th>
-							<td th:text="${match.memberName}"></td>
+							<td th:text="${match.memberName}" th:value="${match.memberName}" th:id="memberName"></td>
 							<th>지역</th>
-							<td th:text="${match.matchField}"></td>
+							<td th:text="${match.matchField}" th:value="${match.matchField}" th:id="matchField"></td>
 						</tr>
 						<tr>
 							<th>등급</th>
-							<td th:text="${match.memberGrade}"></td>
+							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" th:id="memberGrade"></td>
 							<th>직업</th>
-							<td th:text="${match.matchJob}"></td>
+							<td th:text="${match.matchJob}" th:value="${match.matchJob}" th:id="matchJob"></td>
 						</tr>
 						<tr>
-							<th>신청일</th>
-							<td th:text="${match.matchDate}"></td>
+							<th>MBTI</th>
+							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" th:id="matchMbti"></td>
 							<th>취미</th>
-							<td th:text="${match.matchHobby}"></td>
+							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" th:id="matchHobby"></td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender"></td>
-							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender"></td>
+							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" id="memberGender"></td>
+							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" id="memberGender"></td>
+							<th>나이</th>
+							<td th:text="${match.matchAge}" th:value="${match.matchAge}" th:id="matchAge"></td>
 							
-							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
-							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:text="${match.matchEdu}"></td>
 						</tr>
 						
-						<tr th:if="${match.memberGrade == 'platinum'}" id="grade">
-							<th colspan="3">연봉</th>
-							<td th:text="${match.matchSalary}"></td>
+						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
+							<th colspan="2">연봉</th>
+							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" th:id="matchSalary"></td>
+							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
+							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" th:id="memberGender"></td>
 						</tr>
-						<tr th:if="${match.memberGrade == 'platinum'}" id="grade">
+						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" id="matchWorkType">
 							<th colspan="3">근무형태</th>
-							<td th:text="${match.matchWorkType}"></td>
+							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}"></td>
 						</tr>
 						
 					</table>
@@ -153,7 +200,43 @@
 </main>
 <script>
 	$(".list-box").on("click", function(){
+		const memberName = $("#memberName").val();
+		const matchField = $("#matchField").val();
+		const memberGender = $("#memberGender").val();
+		const matchAge = $("#matchAge").val();
+		const memberGrade = $("#memberGrade").val();
+		const matchJob = $("#matchJob").val();
+		const matchSalary = $("#matchSalary").val();
+		const matchWorkType = $("#matchWorkType").val();
+		const matchEdu = $("#matchEdu").val();
+		const matchHobby = $("#matchHobby").val();
+		const matchMbti = $("#matchMbti").val();
+		console.log(memberName);
+		
 		$("#modal").fadeIn();
+		
+		$.ajax({
+			url : "/match/findMatch",
+			type : "post",
+			data : {
+					memberName : memberName,
+					matchField : matchField,
+					memberGender : memberGender,
+					matchAge : matchAge,
+					memberGrade : memberGrade,
+					matchJob	: matchJob,
+					matchSalary : matchSalary,
+					matchWorkType : matchWorkType,
+					matchEdu : matchEdu,
+					matchHobby : matchHobby,
+					matchMbti : matchMbti
+				},
+			dataType : "JSON",
+			success : function(data){
+				console.log(성공);
+				console.log(data);
+			}
+		});
 	});
 	
 	$("#modal-close").on("click", function(e){

@@ -61,5 +61,10 @@ public class MatchService {
 			
 		return matchList;
 	}
+
+	public List findMatch(Match m) {
+			List findMatchList = matchDao.findMatch(m);
+		return findMatchList;
+	}
 	
 }

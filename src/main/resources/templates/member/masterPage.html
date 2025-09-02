@@ -17,19 +17,19 @@
                     <h2>내 정보</h2>
                     <div class="master-profile-content">
                         <div class="master-profile-content-header">
-                            <span>범고래</span>
+                            <span id="profileName" th:text="${session.member.memberName}"></span>
                             <button type="button" id="master-update">정보수정</button>
                         </div>
                         <div class="master-profile-content-in1">
                             <ul>
-                                <li>아이디 : </li>
-                                <li>email : </li>
+                                <li id="profileId" th:text="'아이디 : '+${session.member.memberId}"></li>
+                                <li id="profileEmail" th:text="'email : '+${session.member.memberEmail}"></li>
                             </ul>
                         </div>
                         <div class="master-profile-content-in2">
                             <ul>
-                                <li>비밀번호 : </li>
-                                <li>전화번호 : </li>
+                                <li id="profilePw" th:text="'비밀번호 : '+${session.member.memberPw}"></li>
+                                <li id="profilePhone" th:text="'전화번호 : '+${session.member.memberPhone}"></li>
                             </ul>
                         </div>
                     </div>
@@ -37,10 +37,8 @@
                 <div class="member-seach">
                     <h2>회원 검색</h2>
                     <div class="member-seach-input">
-                        <form action="/member/selectOneMember" method="get">
-                            <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요..">
-                            <button type="submit" id="search-member-btn">검색</button>
-                        </form>
+                       	<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요..">
+                      	<button type="button" id="search-member-btn">검색</button>
                     </div>
                     <div class="member-seach-output">
                         <div class="search-result">
@@ -48,7 +46,9 @@
                             <span id="memberIdRe"></span>
                             <span id="memberPhoneRe"></span>
                             <span id="memberEmailRe"></span>
-                            <button id="firedMember">삭제</button>
+                            <th:block th:if="${session.member.memberLevel == 1}">
+                            	<button id="firedMember">삭제</button>
+                            </th:block>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,51 @@
     	$(".Management-party").on("click", function(){
     		location.href="/party/admin";
     	});
+    	$("#search-member-btn").on("click", function(){
+    		const memberId = $("#memberId").val();
+    		console.log(memberId);
+    		$.ajax({
+    			url : "/member/searchMember",
+    			type : "get",
+    			data : {memberId : memberId},
+    			dataType : "json",
+    			success : function(m){
+    				console.log(m);
+    				if(m != ""){
+    					console.log(m.memberName);
+    					console.log(m.memberId);
+    					console.log(m.memberPhone);
+    					console.log(m.memberEmail);
+    					$("#memberNameRe").text(m.memberName);
+    					$("#memberIdRe").text(m.memberId);
+    					$("#memberPhoneRe").text(m.memberPhone);
+    					$("#memberEmailRe").text(m.memberEmail);
+    				}
+    			}
+    		});
+    	});
+    	
+    	$("#firedMember").on("click", function(){
+    		const memberId = $("#memberId").val();
+    		console.log(memberId);
+    		$.ajax({
+    			url : "/member/deleteMember",
+    			type : "get",
+    			data : {memberId : memberId},
+    			success : function(data){
+    				console.log(data);
+    				if(data == 1){
+    					$("#memberNameRe").empty();
+    					$("#memberIdRe").empty();
+    					$("#memberPhoneRe").empty();
+    					$("#memberEmailRe").empty();
+    					$("#memberId").val("");
+    				}
+    			}
+    		});
+    	});
+    	
+
     </script>
 <th:block th:include="common/footer"></th:block>
 </body>

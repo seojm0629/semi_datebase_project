@@ -1,5 +1,6 @@
 package kr.co.iei.question.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -104,7 +105,6 @@ public class QuestionService {
 	@Transactional
 	public int insertQuestion(Question q, List<QuestionFile> fileList) {
 		int newQuestionNo = questionDao.getQuestionNo();
-		System.out.println(newQuestionNo);
 		q.setQuestionNo(newQuestionNo);
 		int result = questionDao.insertQuestion(q);
 		
@@ -126,9 +126,6 @@ public class QuestionService {
 			//해당 게시글의 댓글 조회(해당 questionNo)에 달려있는 댓글 전부 가져오는 작업
 			List<QuestionComment> commentList = questionDao.selectQuestionCommentList(questionNo);
 			for(QuestionComment qc : commentList) {
-				//댓글 좋아요 수
-				int questionCommentLikeCount = questionDao.selectQuestionCommentLikeCount(qc.getQuestionCommentNo());
-				qc.setLikeCount(questionCommentLikeCount);
 				HashMap<String, Object> param = new HashMap<String, Object>();
 				param.put("questionCommentNo", qc.getQuestionCommentNo());
 				param.put("memberNo", memberNo);	
@@ -152,6 +149,48 @@ public class QuestionService {
 		int result = questionDao.insertQuestionComment(qc);
 		return result;
 	}
+
+	@Transactional
+	public int updateQuestionComment(QuestionComment qc) {
+		int result = questionDao.updateQuestionComment(qc);
+		return result;
+	}
+
+	public int deleteQuestionComment(int questionCommentNo) {
+		int result = questionDao.deleteQuestionComment(questionCommentNo);
+		return result;
+	}
+
+	public List<QuestionFile> updateQuestion(Question q, List<QuestionFile> fileList, int[] delFileNo) {
+		int result = questionDao.updateQuestion(q);
+		
+		for(QuestionFile questionFile : fileList) {
+			questionFile.setQuestionNo(q.getQuestionNo());
+			result += questionDao.insertQuestionFile(questionFile);
+		}
+		
+		List<QuestionFile> delFileList = new ArrayList<QuestionFile>();
+		if(delFileNo != null) {
+			List list = questionDao.selectQuestionFileList(delFileNo);
+			for(int questionFileNo : delFileNo) {
+				result += questionDao.deleteQuestionFile(questionFileNo);
+			}
+		}
+		
+		return delFileList;
+	}
+
+	public List<QuestionFile> deleteQuestion(int questionNo) {
+		//question를 삭제하면 해당 게시글의 첨부파일을 모두 삭제
+		//외래키 설정으로 자동으로 DB에서 삭제 -> 삭제 전에 DB의 파일목록 조회 후 삭제
+		List delFileList = questionDao.selectQuestionFile(questionNo);
+		int result = questionDao.deleteQuestion(questionNo);
+		return delFileList;
+	}
+
+	
+
+	
 }
 
 

@@ -285,7 +285,18 @@
 			$("#year").append(option);
 			;
 		}*/
-	
+		function loadImg(obj){
+			
+			if(obj.files.length !==0){
+				const reader = new FileReader();
+				reader.readAsDataURL(obj.files[0]);
+				reader.onload = function(e){
+					$("#img-view").attr("src", e.target.result);
+				}
+			} else {
+				$("#img-view").attr("src", "/img/default_img.png");
+			}
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

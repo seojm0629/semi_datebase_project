@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.model.member.dao.MemberDao;
 import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.pay.model.vo.pay;
+import kr.co.iei.model.member.vo.MemberMoreInfo;
 
 @Service
 public class MemberService {
@@ -33,10 +35,30 @@ public class MemberService {
 		return member;
 	}
 
+
+	@Transactional
+	public int updateMemberPayment(Member m) {
+		int update = memberDao.updateMemberPayment(m);
+		return update;
+	}
 	
 	@Transactional
 	public int joinManager(Member m) {
 		int result = memberDao.joinManager(m);
 		return result;
+	}
+
+	
+	@Transactional
+	public int deleteMember(String memberId) {
+		int result = memberDao.deleteMember(memberId);
+		return result;
+
+	}
+
+
+	public MemberMoreInfo searchMemberMoreINfo(int memberNo) {
+		MemberMoreInfo memberMoreInfo = memberDao.searchMemberMoreINfo(memberNo);
+		return memberMoreInfo;
 	}
 }

@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.model.member.vo.MemberMoreInfo;
 //import kr.co.iei.util.FileUtil;
 import kr.co.iei.util.FileUtil;
 
@@ -88,7 +90,13 @@ public class MemberController {
 	}
 	
 	@GetMapping(value = "/mypage")
-	public String mypage() {
+	public String mypage(@SessionAttribute Member member, Model model) {
+		System.out.println(member);
+		int memberNo = member.getMemberNo();
+		System.out.println(memberNo);
+		MemberMoreInfo memberMoreInfo = memberService.searchMemberMoreINfo(memberNo);
+		System.out.println(memberMoreInfo);
+		model.addAttribute("memberMoreInfo", memberMoreInfo);
 		return "/member/mypage";
 	}
 	
@@ -114,6 +122,38 @@ public class MemberController {
 			model.addAttribute("title", "생성 실패");
 			model.addAttribute("text", "계정 생성에 실패하였습니다. 잠시 후 다시 시도해주십시오.");
 			model.addAttribute("loc", "/member/masterPage");
+			return "common/msg";
+		}
+	}//joinManager
+	
+	@ResponseBody
+	@GetMapping(value = "/searchMember")
+	public Member searchMember(String memberId) {
+		Member m = memberService.selectOneMember(memberId);
+		return m;
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/deleteMember")
+	public int deleteMember(String memberId) {
+		int result = memberService.deleteMember(memberId);
+		return result;
+	}
+	
+	@GetMapping(value = "/memberExit")
+	public String memberExit(@SessionAttribute Member member, Model model) {
+		String memberId = member.getMemberId();
+		System.out.println(memberId);
+		int result = memberService.deleteMember(memberId);
+		if(result == 1) {
+			model.addAttribute("title", "회원탈퇴 완료");
+			model.addAttribute("text", "탈퇴가 왼료되었습니다.");
+			model.addAttribute("loc", "/member/logout");
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "회원탈퇴 실패");
+			model.addAttribute("text", "잠시후에 다시 시도해주십시오.");
+			model.addAttribute("loc", "/member/mypage");
 			return "common/msg";
 		}
 	}

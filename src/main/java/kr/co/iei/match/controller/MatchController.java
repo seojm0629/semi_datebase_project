@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.iei.match.model.service.MatchService;
 import kr.co.iei.match.model.vo.Grade;
+import kr.co.iei.match.model.vo.Match;
 import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
 
@@ -57,5 +58,34 @@ public class MatchController {
 	@GetMapping(value="/matchWrite")
 	public String matchWrite() {
 		return "/match/matchWrite";
+	}
+	
+	@GetMapping(value="/enroll")
+	public String matchEnroll(Match m, int myMatchingCount, Model model) {
+		int useCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
+		if(useCount == 1 ) {
+				int result = matchService.matchEnroll(m);
+			if(result == 1) {
+				model.addAttribute("title", "신청 성공");
+				model.addAttribute("text", "신청해주셔서 감사합니다. 좋은 인연을 만들어드리겠습니다.");
+				model.addAttribute("icon", "success");
+				model.addAttribute("loc", "/");
+				
+				return "common/msg";
+			}else{
+				model.addAttribute("title", "신청 실패");
+				model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
+				model.addAttribute("icon", "error");
+				model.addAttribute("loc", "match/matchWrite");
+				
+				return "common/msg";
+			}
+		}
+		model.addAttribute("title", "신청 실패");
+		model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
+		model.addAttribute("icon", "error");
+		model.addAttribute("loc", "match/matchWrite");
+		
+		return "common/msg";
 	}
 }

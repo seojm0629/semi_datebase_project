@@ -1,8 +1,10 @@
 package kr.co.iei.match.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,9 @@ public class MatchController {
 	MatchService matchService;
 	@Autowired
 	MemberService memberService;
+	
+	@Value(value="${file.root}")
+	private String root;
 	
 	@GetMapping(value="/view")
 	public String view() {
@@ -94,6 +99,13 @@ public class MatchController {
 	@GetMapping(value="/management")
 	public String management(Model model) {
 		List matchList = matchService.selectMatchList();
+		/*
+		for(int i =0; i<matchList.size(); i++) {
+			Match m = (Match)matchList.get(i);
+			String memberImg = root+"/member/image/"+m.getMemberImgPath();
+			m.setMemberImgPath(memberImg);
+		}
+		*/
 		model.addAttribute("list", matchList);
 		return "match/management";
 	}

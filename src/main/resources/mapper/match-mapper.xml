@@ -34,7 +34,9 @@
 				match_edu,
 				match_salary,
 				match_work_type,
-				m.member_gender
+				m.member_gender,
+				m.member_name,
+				m.member_img_path
 			from match_mypage p join member m using(member_id)
 	</select>
 </mapper>

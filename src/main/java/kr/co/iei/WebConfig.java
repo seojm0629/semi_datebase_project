@@ -45,7 +45,9 @@ public class WebConfig implements WebMvcConfigurer{
 			.addResourceLocations("file:///" + root + "/review/editor/");
 		
 		//그 외 작성은 밑에서 해주세요.
-		
+		registry
+			.addResourceHandler("/member/image/**")
+			.addResourceLocations("file:///"+root+"/member/image/");
 	}
 	
 	

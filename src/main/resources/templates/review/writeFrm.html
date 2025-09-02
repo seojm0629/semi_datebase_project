@@ -37,6 +37,10 @@
 		font-size: 28px;
 		font-family: mainB2;
 		color: #E5BA73;
+		
+	}
+	.input-title>input{
+		padding-left: 20px;
 	}
 	.tbl{
 		width: 900px;
@@ -78,7 +82,7 @@
 		font-size: 18px;
 		background-color: #E5BA73;
 		border-spacing: 0;
-		
+		border-bottom: 1px solid #ccc;
 	}
 	.tbl>tbody>tr:nth-child(3)>td{
 		width: 290px;
@@ -173,7 +177,7 @@
 					<th>제목</th>
 					<td colspan="3">
 						<div class="input-title">
-							<input type="text" name=reviewTitle id="reviewTitle">
+							<input type="text" th:name="${theme == 'party'} ? 'reviewPartyTitle' : reviewBlindTitle" id="reviewTitle">
 						</div>
 					</td>
 				</tr>
@@ -181,7 +185,7 @@
 					<th>작성자</th>
 					<td>
 						<span th:text="${session.member.memberId}"></span>
-						<input type="hidden" name="reviewWriter" th:value="${session.member.memberId}">
+						<input type="hidden" th:name="${theme == 'party'} ? 'reviewPartyWriter' : 'reviewBlindWriter'" th:value="${session.member.memberId}">
 					</td>
 					<th>썸네일</th>
 					<td>
@@ -193,15 +197,15 @@
 					<td colspan="3">
 						<div>
 							<span>테마</span>
-							<select>
+							<select name="theme">
 								<option value="">선택</option>
-								<option value="파티">와인파티</option>
-								<option value="소개팅">소개팅</option>
+								<option value="party">파티</option>
+								<option value="blind">소개팅</option>
 							</select>
 						</div>
 						<div>
 							<span>직업</span>
-							<select>
+							<select th:name="${theme == 'party'} ? 'reviewPartyJob' : 'reviewBlindJob'">
 								<option value="">선택</option>
 								<option value="IT">IT</option>
 								<option value="의료종사자">의료종사자</option>
@@ -224,7 +228,7 @@
 							<img id="img-view" width="300px" src="/image/default_img.png">
 						</div>
 						<div class="input-item">
-							<textarea name="reviewContent"></textarea>
+							<textarea th:name="${theme == 'party'} ? 'reviewPartyContent' : 'reviewBlindContent'"></textarea>
 						</div>
 					</td>
 				</tr>

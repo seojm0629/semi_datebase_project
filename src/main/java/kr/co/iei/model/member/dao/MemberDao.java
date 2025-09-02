@@ -21,6 +21,7 @@ public interface MemberDao {
 
 	MemberMoreInfo searchMemberMoreINfo(int memberNo);
 
+	int useMatchCount(Member m);
 	int updateMember(Member m);
 
 	int updatePlusInfo(MemberMoreInfo info);

@@ -9,4 +9,15 @@
 	<insert id="insertPayData">
 		insert into member_pay_table values(pay_seq.nextval,#{memberId},#{payPrice},#{payName},#{payState}, sysdate)
 	</insert>
+	<insert id="matchEnroll">
+		insert all
+			when #{memberGrade} = 'silver' then
+				into match_mypage values(match_seq.nextval,#{memberId},#{memberGrade},sysdate,default,#{matchField},#{matchAge},#{matchJob},#{matchMbti},#{matchHobby},null,null,null)
+			when #{memberGrade} = 'gold' then
+				into match_mypage values(match_seq.nextval,#{memberId},#{memberGrade},sysdate,default,#{matchField},#{matchAge},#{matchJob},#{matchMbti},#{matchHobby},#{matchEdu},null,null)
+			when #{memberGrade} = 'platinum' then
+				into match_mypage values(match_seq.nextval,#{memberId},#{memberGrade},sysdate,default,#{matchField},#{matchAge},#{matchJob},#{matchMbti},#{matchHobby},#{matchEdu},#{matchSalary},#{matchWorkType})
+		select * from dual		
+	</insert>
+	
 </mapper>

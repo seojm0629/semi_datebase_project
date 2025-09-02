@@ -25,10 +25,16 @@
 	<delete id="deleteMember">
 		delete from member where member_id = #{memberId}
 	</delete>
+ 
+	
 
 	<select id="searchMemberMoreINfo" resultType="more">
 		select * from member_More_info where member_no = #{memberNo}
 	</select>
+	
+	<update id="useMatchCount">
+		update member set my_matching_count = #{myMatchingCount} where member_id = #{memberId}
+	</update>
 
 	<update id="updateMember">
 		UPDATE MEMBER 

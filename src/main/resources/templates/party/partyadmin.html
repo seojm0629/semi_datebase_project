@@ -166,5 +166,11 @@ td {
 	<button class="btn-write">파티 게시글 작성</button>
 
 	<th:block th:include="common/footer"></th:block>
+
+	<script>
+		$(".btn-write").on("click", function() {
+			location.href = "/partyFrm";
+		});
+	</script>
 </body>
 </html>

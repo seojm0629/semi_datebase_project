@@ -175,9 +175,25 @@
     margin: 0 auto;
     border-bottom: 1px solid #2B2B2B;
     line-height: 40px;
+    text-align: right;
 }
-.profile-plus>.profile-plus-header>h3{
+.profile-plus>.profile-plus-header>span{
+    font-size: 18px;
     margin: 0px 10px;
+    float: left;
+}
+.profile-plus>.profile-plus-header>button{
+    border: none;
+    background-color: #D9D9D9;
+    color: #FFF;
+    width: 65px;
+    height: 25px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.profile-plus>.profile-plus-header>button:hover{
+    cursor: pointer;
+    color: #2B2B2B;
 }
 /*---------profile-plus-content1----------*/
 .profile-plus-content1{

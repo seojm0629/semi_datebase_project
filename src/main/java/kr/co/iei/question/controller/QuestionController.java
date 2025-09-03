@@ -185,6 +185,18 @@ public class QuestionController {
 		return filepath;
 	}
 	
+	//작성자 확인용(보윤 확인용)
+	@GetMapping(value="/all")
+	public String selectAllMember() {
+		return "question/all";		
+	}
+	
+	@GetMapping(value="/allMember")
+	public String selectAllWriter(String questionWriter, Model model) {
+		List memberList = questionService.selectAllMember(questionWriter);
+		model.addAttribute("memberList", memberList);
+		return "question/all";
+	}
 	
 }
 

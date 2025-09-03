@@ -51,6 +51,8 @@ public interface QuestionDao {
 
 	int selectWriterTotalCount(String search);
 
+	List selectAllWriter(HashMap<String, Object> param);
+
 	
 
 	

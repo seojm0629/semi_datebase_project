@@ -32,6 +32,9 @@
     font-size: 11px;
     color: #a5a5a5;
 }
+.update-input-content>.phone-msg{
+    font-size: 11px;
+}
 /*-------------------.manager-input-content>span+sup----------------------*/
 .update-input-content>span{
     display: inline-block;

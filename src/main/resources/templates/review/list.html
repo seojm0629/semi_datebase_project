@@ -31,7 +31,7 @@
 }
 
 .review-content{
-    width: 900px;
+    width: 1000px;
     margin: 0 auto;    
 }
 .review-title{
@@ -46,6 +46,12 @@
 	font-weight: 800;
 	font-size: 34px;
 	margin-top: 50px;
+}
+.party-review{
+	width: 1000px;
+}
+.blind-review{
+	width: 1000px;
 }
 
 .party-blind{
@@ -195,7 +201,7 @@
 	                <div th:text=${partyTotalCount}></div>
 	                <div th:text=${blindTotalCount}></div>
                 </div>
-                <div th:if="${session.member != null}" >
+                <div th:if="${session.member != null}">
 	          		<a href="/review/writeChoiceFrm" class="write-btn">작성하기</a>
 	       	 	</div>
             </div>
@@ -228,6 +234,12 @@
 		let start = 1;							//추가로 가져올 게시물의 시작번호
 		const amount = 3;						//더보기 한번 클릭 시 추가로 가져올 게시물 수
 		
+		/*소개팅 후기*/
+		const blindTotalCount = [[${blindTotalCount}]];	//페이지 들어올 때 조회해온 전체 게시물 수
+		let blindCurrentCount = 0;					//현재까지 읽어온 게시물 수를 저장
+		let blindStart = 1;							//추가로 가져올 게시물의 시작번호
+		const blindAmount = 3;						//더보기 한번 클릭 시 추가로 가져올 게시물 수
+		
 			
 		
 		$("#party-more-btn").on("click", function(){
@@ -236,7 +248,7 @@
 				type: "get",
 				data: {start : start, amount: amount},
 				success: function(data){	
-					$(".reviewWrapper").empty();
+					
 					for(let i=0; i<data.length;i++){
 						const r = data[i];
 						const li = $("<li>");
@@ -276,8 +288,8 @@
 					//현재까지 읽어온 게시물 수 변경
 					currentCount = currentCount + data.length; 
 					//전체 게시물 수와 읽어온 게시물 수가 같으면 -> 더이상 읽어올 데이터가 없음
-					if(currentCount === totalCount){
-						$("#party-more-btn").remove();
+					if(currentCount >= totalCount){
+					    $("#party-more-btn").hide();
 					}
 				},	
 				error: function(){
@@ -286,11 +298,8 @@
 				});
 		});
 		
-		/*소개팅 후기*/
-		const blindTotalCount = [[${blindTotalCount}]];	//페이지 들어올 때 조회해온 전체 게시물 수
-		let blindCurrentCount = 0;					//현재까지 읽어온 게시물 수를 저장
-		let blindStart = 1;							//추가로 가져올 게시물의 시작번호
-		const blindAmount = 3;						//더보기 한번 클릭 시 추가로 가져올 게시물 수
+		
+		
 		
 		
 		$("#blind-more-btn").on("click", function(){
@@ -299,9 +308,10 @@
 				type: "get",
 				data: {start : blindStart, amount: blindAmount},
 				success: function(blindData){
-					$(".reviewWrapper").empty();
+					
 					for(let i=0; i<blindData.length;i++){
 						const rb = blindData[i];
+						
 						const li = $("<li>");
 						li.addClass("posting-item");
 						
@@ -328,16 +338,16 @@
 						li.append(imgDiv).append(infoDiv);
 						$(".reviewWrapper").append(li);
 					}
-					//화면에 요소 추가 끝
 					
+					//화면에 요소 추가 끝					
 					//더보기를 누르면 그 이후 데이터를 가져오기 위한 설정
 					blindStart = blindStart + blindAmount;
 					
 					//현재까지 읽어온 게시물 수 변경
 					blindCurrentCount = blindCurrentCount + blindData.length; 
 					//전체 게시물 수와 읽어온 게시물 수가 같으면 -> 더이상 읽어올 데이터가 없음
-					if(currentCount === blindTotalCount){
-						$("#blind-more-btn").remove();
+					if(blindCurrentCount >= blindTotalCount){
+					    $("#blind-more-btn").hide();
 					}
 				},	
 				error: function(){
@@ -345,8 +355,7 @@
 				}
 				});
 		});
-		
-		
+				
 		
 		const tabMenu = $(".party-blind>div");
 		const tabContent = $(".party-tab-review>div");
@@ -361,6 +370,16 @@
 			const i = tabMenu.index(this);
 			tabContent.eq(i).show();
 			boardCount.eq(i).show();
+			
+			if(i === 0){ // 파티
+		        $("#party-more-btn").show();
+		        start = 1;
+		        currentCount = 0;
+		    } else { // 소개팅
+		        $("#blind-more-btn").show();
+		        blindStart = 1;
+		        blindCurrentCount = 0;
+		    }
 			
 		});
 		tabMenu.eq(0).click();

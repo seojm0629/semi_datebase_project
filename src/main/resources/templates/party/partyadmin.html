@@ -169,17 +169,19 @@ $(document).ready(function(){
 
     }
 
-    // 초기 로딩: 와인 파티
+   
     loadParty('와인');
 
-    // 탭 클릭 이벤트
+  
     $(".tab-btn").click(function(){
-        $(".tab-btn").removeClass("active"); // 모든 탭 비활성화
-        $(this).addClass("active");          // 클릭한 탭만 활성화
+        $(".tab-btn").removeClass("active"); 
+        $(this).addClass("active");          
         let type = $(this).data("type");
         loadParty(type);
     });
 });
+
+
 </script>
 
 </body>

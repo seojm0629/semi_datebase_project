@@ -44,7 +44,8 @@
 	color: #E5BA73;
 	font-family: mainB2;
 	font-weight: 800;
-	font-size: 28px;
+	font-size: 34px;
+	margin-top: 50px;
 }
 
 .party-blind{
@@ -65,6 +66,7 @@
     border-radius: 15px;
     background-color: #E5BA73;
     cursor: pointer;
+    color: white;
 }
 
 .review-board{
@@ -73,7 +75,9 @@
 .review-board>div:first-child{
 	float: left;
 	line-height: 50px;
-	font-size: 18px;
+	font-size: 23px;
+	font-weight: 900;
+	color: #C58940;
 }
 .review-board>div:nth-child(2){
 	float: left;
@@ -81,11 +85,16 @@
 	padding-left: 8px;
 	font-size: 18px;
 }
+.review-board>div:nth-child(2)>div{
+	font-size: 23px;
+	font-weight: 900;
+	color: #C58940;
+}
 .review-board>div:last-child{
 	float: right;
-	width: 100px;
-	height: 50px;
-	line-height: 50px;
+	width: 120px;
+	height: 55px;
+	line-height: 55px;
 	border-radius: 8px;
 	text-align: center;
 	background-color: #E5BA73;
@@ -96,6 +105,7 @@
 	font-weight: 800;
 	color: #fff;
 }
+
 
 .party-blind>div{
 	font-weight: 800;
@@ -180,13 +190,13 @@
             </div>
 
             <div class="review-board">
-                <div>게시판</div>
+                <div>게시판 수</div>
                	<div class="board-count">
 	                <div th:text=${partyTotalCount}></div>
 	                <div th:text=${blindTotalCount}></div>
                 </div>
                 <div th:if="${session.member != null}" >
-	          		<a href="/review/writeChoiceFrm" class="write-btn">글쓰기</a>
+	          		<a href="/review/writeChoiceFrm" class="write-btn">작성하기</a>
 	       	 	</div>
             </div>
             
@@ -211,9 +221,7 @@
 	
 	<th:block th:include="common/footer"></th:block>
 	<script th:inline="javascript">
-			
-		
-	
+
 		/*파티 후기*/
 		const totalCount = [[${partyTotalCount}]];	//페이지 들어올 때 조회해온 전체 게시물 수
 		let currentCount = 0;					//현재까지 읽어온 게시물 수를 저장
@@ -228,6 +236,7 @@
 				type: "get",
 				data: {start : start, amount: amount},
 				success: function(data){	
+					$(".reviewWrapper").empty();
 					for(let i=0; i<data.length;i++){
 						const r = data[i];
 						const li = $("<li>");
@@ -240,15 +249,18 @@
 						
 						imgDiv.append(img);
 						
+						
 						const infoDiv = $("<div>");
 						infoDiv.addClass("posting-info");
 						const titleDiv = $("<div>");
 						titleDiv.addClass("postion-title");
 						titleDiv.text(r.reviewPartyTitle);
+						
 						const subDiv = $("<div>");
 						subDiv.addClass("posting-sub-info");
 						const span = $("<span>");
 						span.text(r.reviewPartyWriter);
+						
 						
 						subDiv.append(span);
 						infoDiv.append(titleDiv).append(subDiv);
@@ -282,14 +294,14 @@
 		
 		
 		$("#blind-more-btn").on("click", function(){
-			
 			$.ajax({
 				url: "/review/blindMore",
 				type: "get",
 				data: {start : blindStart, amount: blindAmount},
-				success: function(data){				
-					for(let i=0; i<data.length;i++){
-						const rb = data[i];
+				success: function(blindData){
+					$(".reviewWrapper").empty();
+					for(let i=0; i<blindData.length;i++){
+						const rb = blindData[i];
 						const li = $("<li>");
 						li.addClass("posting-item");
 						
@@ -319,10 +331,10 @@
 					//화면에 요소 추가 끝
 					
 					//더보기를 누르면 그 이후 데이터를 가져오기 위한 설정
-					start = start + amount;
+					blindStart = blindStart + blindAmount;
 					
 					//현재까지 읽어온 게시물 수 변경
-					currentCount = currentCount + data.length; 
+					blindCurrentCount = blindCurrentCount + blindData.length; 
 					//전체 게시물 수와 읽어온 게시물 수가 같으면 -> 더이상 읽어올 데이터가 없음
 					if(currentCount === blindTotalCount){
 						$("#blind-more-btn").remove();
@@ -333,6 +345,8 @@
 				}
 				});
 		});
+		
+		
 		
 		const tabMenu = $(".party-blind>div");
 		const tabContent = $(".party-tab-review>div");

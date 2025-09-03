@@ -18,6 +18,7 @@
                     <div class="updatePlus-input-content">
                         <span>학력 : </span>
                         <select title="학력선택" name="memberEdu" id="memberEdu">
+                        	<option value="">선택하세요</option>
                             <option value="전문학사">전문학사</option>
                             <option value="학사">학사</option>
                             <option value="석사">석사</option>
@@ -27,6 +28,7 @@
                     <div class="updatePlus-input-content">
                         <span>취미 : </span>
                         <select title="취미" name="memberHobby" id="memberHobby">
+                        	<option value="">선택하세요</option>
                             <option value="요리">요리</option>
                             <option value="음악">음악</option>
                             <option value="게임">게임</option>
@@ -46,6 +48,7 @@
                     <div class="updatePlus-input-content">
                         <span>근무형태 : </span>
                         <select title="근무형태" name="memberWorkType" id="memberWorkType">
+                        	<option value="">선택하세요</option>
                             <option value="정규직">정규직</option>
                             <option value="비정규직">비정규직</option>
                             <option value="임원">임원</option>
@@ -55,6 +58,7 @@
                         <span>연봉 : </span>
                         <input type="text" name="memberSalary" id="memberSalary">
                         <span id="won">만원</span>
+                        <p class="salaryCheck"></p>
                     </div>
                 </div>
                 <div class="updatePlus-button">
@@ -67,6 +71,34 @@
     <script>
     	$("#updatePlus-cancel").on("click", function(){
     		location.href=("/member/mypage");
+    	});
+    	
+    	let salaryCheck = false;
+    	$("#memberSalary").on("change", function(){
+    		
+    		const salaryRule = /^[0-9]+$/;
+    		const inputSalary = $("#memberSalary").val();
+    		const result = salaryRule.test(inputSalary);
+    		
+    		if(!result){
+    			$(".salaryCheck").text("숫자만 입력해주세요.");
+    			$(".salaryCheck").css("color", "var(--warning)");
+    			salaryCheck = false;
+    		}else{
+    			salaryCheck = true;
+    		}
+    	});
+    	
+    	$("#updatePlus-success").on("click", function(e){
+    		
+    		const edu = $("#memberEdu").val();
+    		const hobby = $("#memberHobby").val();
+    		const workType = $("#memberWorkType").val();
+    		
+    		if(!salaryCheck||edu==""||hobby==""||workType==""){
+    			alert("추가정보를 입력해주세요");
+    			e.preventDefault();
+    		}
     	});
     </script>
 	<th:block th:include="common/footer"></th:block>

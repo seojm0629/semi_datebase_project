@@ -65,14 +65,14 @@ public class ReviewController {
 		r.setReviewPartyImg(filepath);
 		int result = reviewService.insertReview(r);     
 		if(result == 0) {
-			model.addAttribute("title", "문의사항 입력 실패");
-			model.addAttribute("text", "문의사항을 작성할 수 없습니다.");
+			model.addAttribute("title", "파티후기 입력 실패");
+			model.addAttribute("text", "파티후기를 작성할 수 없습니다.");
 			model.addAttribute("icon", "info");
 			model.addAttribute("loc", "/review/list");
 			return "common/msg";
 		} else {
-			model.addAttribute("title", "문의사항 입력 완료!");
-			model.addAttribute("text", "문의사항을 작성 완료했습니다.");
+			model.addAttribute("title", "파티후기 입력 완료!");
+			model.addAttribute("text", "파티후기를 작성 완료했습니다.");
 			model.addAttribute("icon", "success");
 			model.addAttribute("loc", "/review/list");
 			return "common/msg";
@@ -86,14 +86,14 @@ public class ReviewController {
 		r.setReviewBlindImg(filepath);
 		int result = reviewService.insertReviewBlind(r);     
 		if(result == 0) {
-			model.addAttribute("title", "문의사항 입력 실패");
-			model.addAttribute("text", "문의사항을 작성할 수 없습니다.");
+			model.addAttribute("title", "소개팅후기 입력 실패");
+			model.addAttribute("text", "소개팅후기를 작성할 수 없습니다.");
 			model.addAttribute("icon", "info");
 			model.addAttribute("loc", "/review/list");
 			return "common/msg";
 		} else {
-			model.addAttribute("title", "문의사항 입력 완료!");
-			model.addAttribute("text", "문의사항을 작성 완료했습니다.");
+			model.addAttribute("title", "소개팅후기 입력 완료!");
+			model.addAttribute("text", "소개팅후기를 작성 완료했습니다.");
 			model.addAttribute("icon", "success");
 			model.addAttribute("loc", "/review/list");
 			return "common/msg";

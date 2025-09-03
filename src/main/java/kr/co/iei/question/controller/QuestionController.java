@@ -46,6 +46,14 @@ public class QuestionController {
 		return "question/list";
 	}
 	
+	@GetMapping(value="/search")
+	public String searchWriter(int reqPage, String search, Model model) {	//page작업을 위한 reqPage, 작성자를 조회하기 위한 search, 전송을 위한 model
+		//1. reqPage와 search를 Service에 전달
+		QuestionListData qld = questionService.selectWriterList(reqPage, search); 
+		model.addAttribute("pageNavi", qld.getPageNavi());
+		model.addAttribute("list", qld.getList());
+		return  "question/list";
+	}
 	@GetMapping(value="/writeFrm")
 	public String writeFrm() {
 		return "question/writeFrm";
@@ -78,12 +86,6 @@ public class QuestionController {
 		return "common/msg";
 	}
 	
-	@GetMapping(value="/search")
-	public String searchWriter(String search, Model model) {
-		List writeList = questionService.selectWriter(search);
-		model.addAttribute("list", writeList);
-		return  "question/list";
-	}
 	
 	@GetMapping(value="/detail")
 	public String questionDetail(int questionNo, @SessionAttribute(required = false) Member member, Model model) {

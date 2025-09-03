@@ -26,7 +26,8 @@
                     </div>
                     <div class="update-input-content">
                         <span>전화번호<sup>*</sup> : </span>
-                        <input type="text" name="memberPhone" placeholder="-포함 입력해주세요..">
+                        <input type="text" name="memberPhone" id="memberPhone" placeholder="ex) 010-0000-0000">
+                        <P class="phone-msg"></P>
                     </div>
                     <div class="update-input-content">
                         <span>주소<sup>*</sup> : </span>
@@ -35,7 +36,8 @@
                     </div>
                     <div class="update-input-content">
                     <span>직업<sup>*</sup> : </span>
-                    <select title="직업" name="memberJob">
+                    <select title="직업" name="memberJob" id="memberJob">
+                    	<option value="">직업을 선택하세요</option>
                         <option value="금융, 사무직">금융, 사무직</option>
                         <option value="연구원, 엔지니어">연구원, 엔지니어</option>
                         <option value="건축, 설계사">건축,설계사</option>
@@ -58,7 +60,8 @@
                 </div>
                 <div class="update-input-content">
                     <span>MBTI<sup>*</sup> : </span>
-                    <select title="MBTI" name="memberMBTI">
+                    <select title="MBTI" name="memberMBTI" id="memberMBTI">
+                    	<option value="">MBTI 선택</option>
                         <option value="ISTP">ISTP</option>
                         <option value="ISFJ">ISFJ</option>
                         <option value="INFJ">INFJ</option>
@@ -101,15 +104,71 @@
 	    }).open();
 	});
     
+    let pwCheck = false;
+	$("#memberPw").on("keyup", function(){
+	    
+	    const pwRange = /^.{8,20}$/;
+	    const pwRangeA = /[A-Z]/;
+	    const pwRangea = /[a-z]/;
+	    const pwRangeNum = /[0-9]/;
+	    const pwRangeO = /[!@#$%]/;
+	    const inputPw = $("#memberPw").val();
+	    const result1 = pwRange.test(inputPw);
+	    const result2 = pwRangeA.test(inputPw);
+	    const result3 = pwRangea.test(inputPw);
+	    const result4 = pwRangeNum.test(inputPw);
+	    const result5 = pwRangeO.test(inputPw);
+
+	    if(result1&&result2&&result3&&result4&&result5){
+	        $(".up-pwRule").text("사용가능한 비밀번호입니다.");
+	        $(".up-pwRule").css("color","#25bd53");
+	        pwCheck = true;
+	    }else{
+	        $(".up-pwRule").text("사용 불가능한 비밀번호입니다.");
+	        $(".up-pwRule").css("color","var(--warning)");
+	        pwCheck = false;
+	    }
+	});
+    
+	let pwReCheck = false;
     $("#memberPwRe").on("keyup", function(){
 		const inputPw = $("#memberPw").val();
 		const inputPwRe = $("#memberPwRe").val();
 		if(inputPw === inputPwRe){
 			$(".up-pw-input-msg").text("비밀번호가 같습니다.");
 			$(".up-pw-input-msg").css("color", "#25bd53");
+			pwReCheck = true;
 		}else{
 			$(".up-pw-input-msg").text("비밀번호를 확인해주세요.");
 			$(".up-pw-input-msg").css("color", "var(--warning)");
+			pwReCheck =false;
+		}
+	});
+    
+    let phoneCheck = false;
+	$("#memberPhone").on("change", function(){
+		const phCheck = /^010-\d{4}-\d{4}$/;
+		const phoneValue = $("#memberPhone").val();
+		const result = phCheck.test(phoneValue);
+		if(result){
+			phoneCheck = true;
+			$(".phone-msg").empty();
+		}else{
+			$(".phone-msg").text("-를 포함하여 다시 입력해주세요");
+			$(".phone-msg").css("color", "var(--warning)");
+			phoneCheck = false;
+		}
+	});
+	
+	$("#member-update").on("click", function(e){
+		
+		const addr = $("#memberAddr").val();
+		const job = $("#memberJob").val();
+		const MBTI = $("#memberMBTI").val();
+		
+		if(!pwCheck||!pwReCheck||!phoneCheck||addr==""||job==""||MBTI==""){
+			alert("필수 항목을 확인해주세요");
+			e.preventDefault();
 		}
 	});
     

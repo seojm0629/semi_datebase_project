@@ -176,10 +176,9 @@ $(".list-box").on("click", function(){
 
 	const matchWorkType = $(this).find("#matchWorkType").text();
 
-
+	const memberImgPath = $(this).find("#matchPhoto").attr("src");
 	
-	console.log(memberName);
-	console.log(matchField);
+	
 	const form = document.createElement("form");
 	form.setAttribute("method", "get");
 	form.setAttribute("action", "/match/findMatch");
@@ -249,6 +248,7 @@ $(".list-box").on("click", function(){
 	input11.setAttribute("type", "hidden");
 	input11.setAttribute("name", "matchWorkType");
 	input11.setAttribute("value", matchWorkType );
+	
 	
 	form.appendChild(input8);
 	form.appendChild(input9);

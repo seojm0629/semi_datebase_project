@@ -48,7 +48,7 @@
 		justify-content : space-between;
 		align-content : center;
 	}
-	.list-box{
+	.partner-box{
 		display:flex;
 		width: 45%;
 		margin-top : 30px;
@@ -64,26 +64,15 @@
 		width : 50%;
 	}
 	
-	.modal{
-		width: 40%;
-		height : 800px;
-		position:fixed;
-		display : none;
-		top : 100px;
-		left : 150px;
-		background-color : #fff;
-	}
 	.inner{
 		margin:0 auto;
 		
 	}
-	#modal-close{
-		cursor : pointer;
-		padding-top: 10px;
-		padding-right: 10px;
-	}
 	.tb{
 		text-align : right;
+	}
+	.partner-box:hover{
+		cursor : pointer;
 	}
 	
 </style>
@@ -94,7 +83,7 @@
 	<div class="content-wrap">
 		<div class="page-title">파트너 리스트</div>
 		<div class="list-wrap" >
-			<div class="list-box" th:each="match : ${matchList}">
+			<div class="partner-box" th:each="match : ${matchList}">
 				<div class="photo-box">
 					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
@@ -158,6 +147,32 @@
 <th:block th:include="common/footer"></th:block>
 </body>
 <script>
-	
+$(".partner-box").on("click", function(){
+	swal({
+		title : "파트너 매칭",
+		text : "이 회원을 매칭 시키겠습니까?",
+		icon : "info",
+		buttons : {
+			cancel : {
+				text : "취소",
+				value : false,
+				visible : true,
+				className : "btn-cancel",
+				closeModal : true
+			},
+			confirm : {
+				text : "매칭",
+				value : true,
+				visible : true,
+				className : "btn-confrim",
+				closeModal : true
+			}
+		}
+	}).then(function(isConfirm){
+		if(isConfirm){
+			location.href = "/match/matchSuccess";
+		}
+	})
+});
 </script>
 </html>

@@ -121,6 +121,11 @@ public class MatchController {
 	@GetMapping(value="/findMatch")
 	public String findMatch(Match m, Model model) {
 		System.out.println(m);
+		if(m.getMemberGender().equals("남")) {
+			m.setMemberGender("f");
+		}else if(m.getMemberGender().equals("여")) {
+			m.setMemberGender("m");
+		}
 		List matchList = matchService.findMatch(m);
 		System.out.println(matchList);
 		model.addAttribute("matchList", matchList);

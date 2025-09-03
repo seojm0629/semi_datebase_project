@@ -118,25 +118,27 @@ public class QuestionService {
 		param.put("end", end);		
 		param.put("search", search);
 								
-		// 7. 
+		// 7. 리스트의 총 개수를 출력하기 위한 Dao 작업 -> 매개변수로 search를 주어 작성자의 총 리스트를 출력
+		// 8. 가져온 총 개수를 계산하여 페이징 작업 위한 계산
+		// 9. pageNaviSize - 1페이지 당 5개씩 저장
+		// 10. pageNo - 1페이지 1~5 / 2페이지 2~6 ... 작업하기 위해 작업
 		int totalCount = questionDao.selectWriterTotalCount(search);
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		int pageNaviSize = 5;
-				
-		
-		
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
 		
 		// 페이지 네비 html을 생성
 		String pageNavi = "<ul class='pagination circle-style'>";
-		// 이전버튼(1페이지로 시작하는게 아닌경우에만 이전 버튼 생성
+		// 1. 이전버튼(1페이지로 시작하는게 아닌경우에만 이전 버튼 생성)
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item ' href='/question/list?reqPage="+(pageNo-1)+"'>";
-			pageNavi += "<span class='material-icons chevron'> chevron_left </span>";
-			pageNavi += "</a>";
+			pageNavi += 	"<a class='page-item ' href='/question/list?reqPage="+(pageNo-1)+"'>";
+			pageNavi += 		"<span class='material-icons chevron'> chevron_left </span>";
+			pageNavi += 	"</a>";
 			pageNavi += "</li>";
 		}
+		// 2. for문을 pageNaveSize까지 증가
+		// 2-1. pageNo == reqPage가 일치하면 css를 주어 표시해줌 / 일치하지 않으면 일반적인 상태
 		for(int i=0; i<pageNaviSize; i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
@@ -155,7 +157,7 @@ public class QuestionService {
 			}
 		}
 		// 다음버튼(최종 페이지를 출력하지 않은 경우)
-		if(pageNo <= totalPage) {
+		if(pageNo <= totalPage) { //12 <= 11
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/question/list?reqPage="+pageNo+"'>";
 			pageNavi += "<span class='material-icons chevron'> chevron_right </span>";

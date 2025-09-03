@@ -116,6 +116,20 @@
   <delete id="deleteQuestion">
   	delete from question where question_no = #{questionNo}
   </delete>
+  
+  <select id="selectAllWriter" resultType="question">
+  	select * 
+    from (
+        select rownum AS rnum, q.*
+        from (
+            select question_no, question_title, question_writer, reg_date
+            from question
+            where question_writer like '%'||#{questionWriter}||'%'
+            order by question_no desc
+        ) q
+    )
+    
+  </select>
 </mapper>
 
 

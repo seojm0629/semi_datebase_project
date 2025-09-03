@@ -355,7 +355,7 @@
 		
 		let phoneCheck = false;
 		$("#memberPhone").on("change", function(){
-			const phCheck = /^0\d{1,2}-\d{3,4}-\d{4}$/;
+			const phCheck = /^010-\d{4}-\d{4}$/;
 			const phoneValue = $("#memberPhone").val();
 			const result = phCheck.test(phoneValue);
 			if(result){

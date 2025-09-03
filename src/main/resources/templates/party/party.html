@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>파티 소개</title>
@@ -7,141 +7,139 @@
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-	<div class="container">
-		<div class="title">파티 소개</div>
+	<main class="content">
+		<div class="container">
+			<div class="title">파티 소개</div>
 
-		<!-- 탭 -->
-		<div class="tabs">
-			<div class="active">와인 파티 🍷</div>
-			<div>비어 파티 🍺</div>
-		</div>
+			<!-- 탭 -->
+			<div class="tabs">
+				<div class="active">와인 파티 🍷</div>
+				<div>비어 파티 🍺</div>
+			</div>
 
-		<!-- 탭별 콘텐츠 -->
-		<div class="tab-content">
-			<!-- 와인 파티 -->
-			<div class="party-tab active" data-party="wine">
-				<div class="party-img">
-					<div class="arrow left">&lt;</div>
-					<th:block th:each="party,iterStat : ${parties}"
-						th:if="${party.partyType.toLowerCase() == 'wine'}">
-						<img th:src="@{/image/{thumb}(thumb=${party.partyThumb})}"
-							th:data-date="${party.partyDate}"
-							th:data-place="${party.partyPlace}"
-							th:data-price="${party.partyPrice}"
-							th:classappend="${iterStat.index == 0} ? 'active' : ''"
-							th:alt="${party.partyTitle}">
-					</th:block>
-					<div class="arrow right">&gt;</div>
+			<!-- 탭별 콘텐츠 -->
+			<div class="tab-content">
+				<!-- 와인 파티 -->
+				<div class="party-tab active" data-party="wine">
+					<div class="party-img">
+						<div class="arrow left">&lt;</div>
+						<th:block th:each="party,iterStat : ${parties}"
+							th:if="${party.partyType.toLowerCase() == 'wine'}">
+							<img
+								th:src="@{/member/memberImg/{thumb}(thumb=${party.partyThumb})}"
+								th:data-date="${party.partyDate}"
+								th:data-place="${party.partyPlace}"
+								th:data-price="${party.partyPrice}"
+								th:classappend="${iterStat.index == 0} ? 'active' : ''"
+								th:alt="${party.partyTitle}">
+						</th:block>
+						<div class="arrow right">&gt;</div>
+					</div>
+
+					<div class="info">
+						<div class="info-row">
+							<span>일시</span> <span id="wine-date"></span>
+						</div>
+						<div class="info-row">
+							<span>장소</span> <span id="wine-place"></span>
+						</div>
+						<div class="info-row">
+							<span>가격</span> <span id="wine-price"></span>
+						</div>
+					</div>
 				</div>
 
-				<div class="info">
-					<div class="info-row">
-						<span>일시</span> <span id="wine-date"></span>
+				<!-- 비어 파티 -->
+				<div class="party-tab" data-party="beer">
+					<div class="party-img">
+						<div class="arrow left">&lt;</div>
+						<th:block th:each="party,iterStat : ${parties}"
+							th:if="${party.partyType.toLowerCase() == 'beer'}">
+							<img
+								th:src="@{/member/memberImg/{thumb}(thumb=${party.partyThumb})}"
+								th:data-date="${party.partyDate}"
+								th:data-time="${party.partyTime}"
+								th:data-place="${party.partyPlace}"
+								th:data-price="${party.partyPrice}"
+								th:classappend="${iterStat.index == 0} ? 'active' : ''"
+								th:alt="${party.partyTitle}">
+						</th:block>
+						<div class="arrow right">&gt;</div>
 					</div>
-					<div class="info-row">
-						<span>장소</span> <span id="wine-place"></span>
-					</div>
-					<div class="info-row">
-						<span>가격</span> <span id="wine-price"></span>
+
+					<div class="info">
+						<div class="info-row">
+							<span>일시</span> <span id="beer-date"></span>
+						</div>
+						<div class="info-row">
+							<span>장소</span> <span id="beer-place"></span>
+						</div>
+						<div class="info-row">
+							<span>가격</span> <span id="beer-price"></span>
+						</div>
 					</div>
 				</div>
 			</div>
-
-
-			<div class="party-tab" data-party="beer">
-				<div class="party-img">
-					<div class="arrow left">&lt;</div>
-					<th:block th:each="party,iterStat : ${parties}"
-						th:if="${party.partyType.toLowerCase() == 'beer'}">
-						<img th:src="@{'/party/thumb/' + ${party.partyThumb}}"
-							th:data-date="${party.partyDate}"
-							th:data-time="${party.partyTime}"
-							th:data-place="${party.partyPlace}"
-							th:data-price="${party.partyPrice}"
-							th:classappend="${iterStat.index == 0} ? 'active' : ''"
-							th:alt="${party.partyTitle}">
-					</th:block>
-
-					<div class="arrow right">&gt;</div>
-				</div>
-				<div class="info">
-					<div class="info-row">
-						<span>일시</span> <span id="beer-date"></span>
-					</div>
-					<div class="info-row">
-						<span>장소</span> <span id="beer-place"></span>
-					</div>
-					<div class="info-row">
-						<span>가격</span> <span id="beer-price"></span>
-					</div>
-				</div>
-			</div>
 		</div>
-	</div>
+	</main>
 
 	<th:block th:include="common/footer"></th:block>
 
 	<script>
-const tabs = document.querySelectorAll(".tabs div");
-const partyTabs = document.querySelectorAll(".party-tab");
+	const tabs = document.querySelectorAll(".tabs div");
+	const partyTabs = document.querySelectorAll(".party-tab");
 
-tabs.forEach((tab, i) => {
-	tab.addEventListener("click", () => {
-		tabs.forEach(t => t.classList.remove("active"));
-		partyTabs.forEach(pt => pt.classList.remove("active"));
-		tab.classList.add("active");
-		partyTabs[i].classList.add("active");
+	tabs.forEach((tab, i) => {
+		tab.addEventListener("click", () => {
+			tabs.forEach(t => t.classList.remove("active"));
+			partyTabs.forEach(pt => pt.classList.remove("active"));
+			tab.classList.add("active");
+			partyTabs[i].classList.add("active");
+		});
 	});
-});
 
-partyTabs.forEach(tab => {
-	const imgs = tab.querySelectorAll("img");
-	const left = tab.querySelector(".arrow.left");
-	const right = tab.querySelector(".arrow.right");
-	let cur = 0;
+	partyTabs.forEach(tab => {
+		const imgs = tab.querySelectorAll("img");
+		const left = tab.querySelector(".arrow.left");
+		const right = tab.querySelector(".arrow.right");
+		let cur = 0;
 
-	function showImg(index) {
-		if(imgs.length === 0) return; // 이미지 없으면 종료
-		imgs.forEach(img => img.classList.remove("active"));
-		const img = imgs[index];
-		img.classList.add("active");
+		function showImg(index) {
+			if(imgs.length === 0) return;
+			imgs.forEach(img => img.classList.remove("active"));
+			const img = imgs[index];
+			img.classList.add("active");
 
-		// info 갱신
-		const type = tab.dataset.party;
+			const type = tab.dataset.party;
 
-		// 날짜 YYYY-MM-DD HH:MM (초 제외)
-		const dateObj = new Date(img.dataset.date);
-		const year = dateObj.getFullYear();
-		const month = (dateObj.getMonth()+1).toString().padStart(2,'0');
-		const day = dateObj.getDate().toString().padStart(2,'0');
-		const hours = dateObj.getHours().toString().padStart(2,'0');
-		const minutes = dateObj.getMinutes().toString().padStart(2,'0');
-		tab.querySelector(`#${type}-date`).textContent = `${year}-${month}-${day} ${hours}:${minutes}`;
+			// 날짜 YYYY-MM-DD HH:MM
+			const dateObj = new Date(img.dataset.date);
+			const year = dateObj.getFullYear();
+			const month = (dateObj.getMonth()+1).toString().padStart(2,'0');
+			const day = dateObj.getDate().toString().padStart(2,'0');
+			const hours = dateObj.getHours().toString().padStart(2,'0');
+			const minutes = dateObj.getMinutes().toString().padStart(2,'0');
+			tab.querySelector(`#${type}-date`).textContent = `${year}-${month}-${day} ${hours}:${minutes}`;
 
-		// 장소
-		tab.querySelector(`#${type}-place`).textContent = img.dataset.place;
+			tab.querySelector(`#${type}-place`).textContent = img.dataset.place;
 
-		// 가격 천 단위 콤마
-		const price = Number(img.dataset.price).toLocaleString();
-		tab.querySelector(`#${type}-price`).textContent = price + "원";
-	}
+			const price = Number(img.dataset.price).toLocaleString();
+			tab.querySelector(`#${type}-price`).textContent = price + "원";
+		}
 
-	if(left && right){
-		left.addEventListener("click", () => {
-			cur = (cur - 1 + imgs.length) % imgs.length;
-			showImg(cur);
-		});
-		right.addEventListener("click", () => {
-			cur = (cur + 1) % imgs.length;
-			showImg(cur);
-		});
-	}
+		if(left && right){
+			left.addEventListener("click", () => {
+				cur = (cur - 1 + imgs.length) % imgs.length;
+				showImg(cur);
+			});
+			right.addEventListener("click", () => {
+				cur = (cur + 1) % imgs.length;
+				showImg(cur);
+			});
+		}
 
-	// 초기 세팅
-	showImg(cur);
-});
-</script>
-
-
+		showImg(cur);
+	});
+	</script>
 </body>
 </html>

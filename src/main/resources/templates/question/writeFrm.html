@@ -32,9 +32,10 @@
 
 .content-header{
     width: 400px;
-    margin: 0 auto;
+    margin: 55px auto;
     text-align: center;
-    padding-bottom: 30px;
+    
+    
 }
 
 .content-header>h1{
@@ -65,8 +66,11 @@
 	height: 50px;
 	line-height: 50px;
 	display:flex;
-	
 }
+.content-writer>tbody>tr:first-child>td{
+	padding-left: 20px;
+}
+
 
 .content-writer>tbody>tr:nth-child(2){
 	height: 50px;
@@ -84,6 +88,9 @@
 
 .content-writer>tbody>tr:nth-child(2)>td>input{
 	width:300px;
+}
+.content-writer>tbody>tr:nth-child(2)>td:last-child{
+	padding-left: 20px;
 }
 
 .content-writer>tbody>tr:first-child>th{
@@ -167,7 +174,7 @@
 	                </tr>
 					<tr>
 			            <td class="content">
-			            	<div>
+			            	<div class="input-content">
 			                	<textarea name="questionContent" id="content"></textarea>
 			                </div>
 			            </td>
@@ -181,6 +188,99 @@
 			</form>
         </div>
 	</main>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	
+	<script>
+		$("[name=questionContent]").summernote({
+			height: 500,
+			lang: "ko-KR",
+			callbacks: {
+				//사용자가 이미지를 올리면 동작할 함수를 지정
+				onImageUpload : function(file){
+					//사용자가 선택한 해당 파일 객체를 매개변수로 받음
+					//이미지를 처리할 함수를 실행 -> 서버에 ajax로 업로드하고 이미지 경로를 받아오는 작업
+					uploadImage(file[0],this);
+				}
+				
+			}
+		});
+		
+		function uploadImage(file, editor){
+			//ajax로 서버에 이미지를 업로드
+			//업로드 된 파일의 filepath를 받아옴
+			//받아온 filepath로 img태그의 src속성에 설정
+			
+			//ajax 파일 업로드
+			const form = new FormData();
+			form.append("upfile", file);
+			
+			$.ajax({
+				url: "/question/editorImage",
+				type: "post",
+				data: form,
+				processData: false,
+				contentType: false,
+				
+				success: function(result){
+					$(editor).summernote("insertImage", "/question/editor"+result);
+				}
+			});
+			//processData : ajax함수는 데이터 전송 시 기본적으로 문자열 전송 세팅 -> 그 기본세팅을 비활성화 
+			//contentType : enctype="application/x-www-formurlencoded;charset=utf-8" 기본값 비활성화
+		}
+	
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

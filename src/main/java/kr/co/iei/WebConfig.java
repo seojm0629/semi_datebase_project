@@ -41,16 +41,18 @@ public class WebConfig implements WebMvcConfigurer{
 			.addResourceLocations("file:///"+root+"/review_blind/");
 			
 		registry
-			.addResourceHandler("/photo/editor/**")
+			.addResourceHandler("/question/editor/**")
 			.addResourceLocations("file:///" + root + "/question/editor/");
 		registry
-			.addResourceHandler("/photo/editor/**")
-			.addResourceLocations("file:///" + root + "/review/editor/");
+			.addResourceHandler("/review/editor/**")
+			.addResourceLocations("file:///" + root + "/review_party/editor/");
+		registry
+			.addResourceHandler("/review/editor/**")
+			.addResourceLocations("file:///" + root + "/review_blind/editor/");
 		//그 외 작성은 밑에서 해주세요.
 
         registry.addResourceHandler("/party/thumb/**")
-        .addResourceLocations("file:///C:/Temp/upload/");
-		
+        .addResourceLocations("file:///"+root+"/upload/party/");
 
 		registry
 			.addResourceHandler("/member/memberImg/**")

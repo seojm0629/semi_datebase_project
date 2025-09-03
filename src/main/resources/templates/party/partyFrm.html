@@ -116,6 +116,31 @@ button[type="submit"] {
 button[type="submit"]:hover {
 	background-color: #EAC88F;
 }
+
+.addr-row {
+	display: flex;
+	gap: 10px;
+	margin-top: 5px;
+	align-items: center; /* 세로 가운데 정렬 */
+}
+
+.addr-row input {
+	flex: 1; /* 남는 공간 다 차지 */
+}
+
+.addr-row button {
+	padding: 8px 12px;
+	white-space: nowrap; /* 버튼 글자가 줄바꿈 안 되게 */
+	border: none;
+	border-radius: 5px;
+	background-color: #C58940;
+	color: white;
+	cursor: pointer;
+}
+
+.addr-row button:hover {
+	background-color: #E5BA73;
+}
 </style>
 </head>
 <body>
@@ -124,7 +149,7 @@ button[type="submit"]:hover {
 
 	<form id="partyForm" th:action="@{/party/new}" method="post"
 		enctype="multipart/form-data">
-		<!-- 큰 이미지 박스 -->
+
 		<div class="image-box" id="imageBox">이미지</div>
 		<input type="file" name="partyThumbFile" id="partyThumb"
 			style="display: none;" required>
@@ -137,8 +162,14 @@ button[type="submit"]:hover {
 				placeholder="제목을 입력하세요" required> <label>내용:</label>
 			<textarea name="partyContent" placeholder="내용을 입력하세요" required></textarea>
 
-			<label>장소:</label> <input type="text" name="partyPlace"
-				placeholder="장소를 입력하세요" required> <label>날짜:</label> <input
+			<label>장소:</label>
+			<div class="addr-row">
+				<input type="text" id="partyPlace" name="partyPlace"
+					placeholder="주소를 입력하세요" readonly required>
+				<button type="button" onclick="execDaumPostcode()">주소 검색</button>
+			</div>
+			<input type="text" id="partyPlaceDetail" name="partyPlaceDetail"
+				placeholder="상세 주소를 입력하세요" required> <label>날짜:</label> <input
 				type="date" name="partyDate" required> <label>시간:</label> <select
 				name="partyTime" required>
 				<option value="">시간 선택</option>
@@ -172,39 +203,53 @@ button[type="submit"]:hover {
 		</div>
 	</form>
 
+
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-	// 이미지 미리보기
-	const imageBox = document.getElementById('imageBox');
-	const fileInput = document.getElementById('partyThumb');
-	imageBox.addEventListener('click', () => { fileInput.click(); });
-	fileInput.addEventListener('change', () => {
-		if(fileInput.files && fileInput.files[0]){
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				imageBox.style.backgroundImage = `url(${e.target.result})`;
-				imageBox.style.backgroundSize = 'cover';
-				imageBox.style.backgroundPosition = 'center';
-				imageBox.textContent = '';
+		function execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					
+					document.getElementById("partyPlace").value = data.address;
+					
+					document.getElementById("partyPlaceDetail").focus();
+				}
+			}).open();
+		}
+
+		// 이미지 미리보기
+		const imageBox = document.getElementById('imageBox');
+		const fileInput = document.getElementById('partyThumb');
+		imageBox.addEventListener('click', () => { fileInput.click(); });
+		fileInput.addEventListener('change', () => {
+			if(fileInput.files && fileInput.files[0]){
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					imageBox.style.backgroundImage = `url(${e.target.result})`;
+					imageBox.style.backgroundSize = 'cover';
+					imageBox.style.backgroundPosition = 'center';
+					imageBox.textContent = '';
+				}
+				reader.readAsDataURL(fileInput.files[0]);
 			}
-			reader.readAsDataURL(fileInput.files[0]);
-		}
-	});
+		});
 
-	// 가격 입력 시 천 단위 콤마 적용
-	const priceInput = document.getElementById("partyPrice");
-	priceInput.addEventListener("input", (e) => {
-		let value = e.target.value.replace(/,/g, "");
-		if (!isNaN(value) && value !== "") {
-			e.target.value = parseInt(value, 10).toLocaleString();
-		}
-	});
+		// 가격 입력 , 자동 포맷팅
+		const priceInput = document.getElementById("partyPrice");
+		priceInput.addEventListener("input", (e) => {
+			let value = e.target.value.replace(/,/g, "");
+			if (!isNaN(value) && value !== "") {
+				e.target.value = parseInt(value, 10).toLocaleString();
+			}
+		});
 
-	// 폼 제출 시 콤마 제거 후 전송
-	const partyForm = document.getElementById("partyForm");
-	partyForm.addEventListener("submit", (e) => {
-		const priceField = document.getElementById("partyPrice");
-		priceField.value = priceField.value.replace(/,/g, "");
-	});
+		// submit 전 , 제거해서 숫자만 넘기기
+		const partyForm = document.getElementById("partyForm");
+		partyForm.addEventListener("submit", (e) => {
+			const priceField = document.getElementById("partyPrice");
+			priceField.value = priceField.value.replace(/,/g, "");
+		});
 	</script>
 
 	<th:block th:include="common/footer"></th:block>

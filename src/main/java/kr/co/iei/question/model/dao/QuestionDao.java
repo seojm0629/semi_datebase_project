@@ -16,7 +16,7 @@ public interface QuestionDao {
 
 	int selectQuestionTotalCount();
 
-	List searchWriter(String search);
+	List searchWriter(HashMap<String, Object> param);
 
 	int getQuestionNo();
 
@@ -48,6 +48,8 @@ public interface QuestionDao {
 	int updateQuestion(Question q);
 
 	int deleteQuestion(int questionNo);
+
+	int selectWriterTotalCount(String search);
 
 	
 

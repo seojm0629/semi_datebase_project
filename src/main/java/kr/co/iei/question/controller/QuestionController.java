@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -175,6 +176,16 @@ public class QuestionController {
 		int result = questionService.deleteQuestionComment(qc.getQuestionCommentNo());
 		return "redirect:/question/detail?questionNo="+qc.getQuestionRef();
 	}
+	
+	@PostMapping(value="/editorImage", produces="plain/text;charset=utf-8")
+	@ResponseBody
+	public String ediotrImageUpload(MultipartFile upfile) {
+		String savepath = root + "/question/editor/";
+		String filepath = fileUtil.upload(savepath, upfile);
+		return filepath;
+	}
+	
+	
 }
 
 

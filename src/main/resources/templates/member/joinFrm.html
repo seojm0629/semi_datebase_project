@@ -19,7 +19,7 @@
 					<span>아이디<sup>*</sup></span>
 					<input type="text" name="memberId" id="memberId">
 				</div>
-				<p class="input-msg"></p>
+				<p class="input-msg idCheckResult"></p>
 			</div>
 			<div class="joinFrm-input">
 				<span>비밀번호<sup>*</sup></span>
@@ -85,14 +85,15 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>성별<sup>*</sup></span>
-				<input type="radio" name="memberGender" id="m" value="m">
+				<input type="radio" name="memberGender" id="m" class="memberGender" value="m">
 				<label for="m">남자</label>
-				<input type="radio" name="memberGender" id="f" value="f">
+				<input type="radio" name="memberGender" id="f" class="memberGender" value="f">
 				<label for="f">여자</label>
 			</div>
 			<div class="joinFrm-input">
 				<span>직업<sup>*</sup></span>
-				<select title="직업" name="memberJob">
+				<select title="직업" name="memberJob" id="memberJob">
+					<option value="">직업 선택</option>
 					<option value="금융, 사무직">금융, 사무직</option>
 					<option value="연구원, 엔지니어">연구원, 엔지니어</option>
 					<option value="건축, 설계사">건축,설계사</option>
@@ -115,7 +116,8 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>MBTI<sup>*</sup></span>
-				<select title="MBTI" name="memberMBTI">
+				<select title="MBTI" name="memberMBTI" id="memberMBTI">
+					<option value="">MBTI 선택</option>
 					<option value="ISTP">ISTP</option>
 					<option value="ISFJ">ISFJ</option>
 					<option value="INFJ">INFJ</option>
@@ -149,6 +151,10 @@
 	</div>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		$(".no").on("click", function(){
+			location.href=("/");
+		});
+	
 		$("#checkBtn").hide();
 	
 		const date = new Date();
@@ -220,12 +226,12 @@
 					success : function(result){
 						console.log(result);
 						if(result === 0){
-							$(".input-msg").text("사용가능한 아이디입니다.");
-							$(".input-msg").css("color", "#25bd53");
+							$(".idCheckResult").text("사용가능한 아이디입니다.");
+							$(".idCheckResult").css("color", "#25bd53");
 							idCheck = true;
 						} else if(result === 1){
-							$(".input-msg").text("이미 사용중인 아이디입니다.");
-							$(".input-msg").css("color", "var(--warning)");
+							$(".idCheckResult").text("이미 사용중인 아이디입니다.");
+							$(".idCheckResult").css("color", "var(--warning)");
 							idCheck = false;
 						}
 					}
@@ -282,7 +288,7 @@
 				$(".mailCheck-result").css("color","#25bd53");
 				window.clearInterval(intervalId);
 				mailCode = null;
-				$("#time-zone").empty();
+				$(".timeCheck").empty();
 				mailCheck = true;
 			}else{
 				$(".mailCheck-result").text("인증실패");
@@ -301,8 +307,9 @@
 					if(min === "00"){
 						window.clearInterval(intervalId);
 						mailCode = null;
-						$("#authMsg").text("인증시간이 만료되었습니다.");
-						$("#authMsg").css("color","red");
+						$("mailCheck-result").text("시간 만료");
+						$("mailCheck-result").css("color","var(--warning)");
+						mailCheck = false;
 					}else{
 						const newMin = Number(min) - 1;
 						$("#min").text(newMin);
@@ -355,9 +362,31 @@
 				phoneCheck = true;
 				$(".Phone").empty();
 			}else{
-				$(".Phone").text("-를 포함하여 입력해주세요");
+				$(".Phone").text("-를 포함하여 다시 입력해주세요");
 				$(".Phone").css("color", "var(--warning)");
 				phoneCheck = false;
+			}
+		});
+		
+		$(".ok").on("click", function(e){
+			const Addr = $("#memberAddr").val();
+			const EmailF = $("#memberEmailF").val();
+			const Txt = $("#domainTxt").val();
+			const Date = $("#birthDate").val();
+			const Gender = $(".memberGender").val();
+			const Job = $("#memberJob").val();
+			const MBTI = $("#memberMBTI").val();
+			const Img = $("#memberImg").val();
+			
+			/*if(idCheck&&mailCheck){
+				alert("필수 항목을 확인해주세요");
+				e.preventDefault();
+			}
+			*/
+			if(!idCheck||!mailCheck||!pwCHeck||!phoneCheck||!Addr==""||EmailF==""||Txt==""||
+					Date==""||Gender==""||JOb==""||MBTI==""||Img==""){
+				alert("필수 항목을 확인해주세요");
+				e.preventDefault();
 			}
 		});
 	</script>

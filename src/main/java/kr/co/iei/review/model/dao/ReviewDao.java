@@ -12,11 +12,12 @@ import kr.co.iei.review.model.vo.ReviewBlind;
 public interface ReviewDao {
 	int insertReview(Review r);
 
+	int insertReviewBlind(ReviewBlind r);
+	
 	int selectPartyTotalCount();
 
 	List selectPhotoList(HashMap<String, Object> param);
 
-	int insertReviewBlind(ReviewBlind r);
 
 	int selectBlindTotalCount();
 

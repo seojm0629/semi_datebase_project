@@ -31,23 +31,31 @@ public class WebConfig implements WebMvcConfigurer{
 			.addResourceLocations("classpath:/templates/", "classpath:/static/");
 		//question, review 경로
 		registry
-			.addResourceHandler("/question/image/**")
+			.addResourceHandler("/photo/image/**")
 			.addResourceLocations("file:///"+root+"/question/");
 		registry
-			.addResourceHandler("/review/image/**")
-			.addResourceLocations("file:///"+root+"/review/");
-		
+			.addResourceHandler("/photo/image/**")
+			.addResourceLocations("file:///"+root+"/review_party/");
 		registry
-			.addResourceHandler("/question/editor/**")
+			.addResourceHandler("/photo/image/**")
+			.addResourceLocations("file:///"+root+"/review_blind/");
+			
+		registry
+			.addResourceHandler("/photo/editor/**")
 			.addResourceLocations("file:///" + root + "/question/editor/");
 		registry
-			.addResourceHandler("/review/editor/**")
+			.addResourceHandler("/photo/editor/**")
 			.addResourceLocations("file:///" + root + "/review/editor/");
-		
 		//그 외 작성은 밑에서 해주세요.
+
         registry.addResourceHandler("/party/thumb/**")
         .addResourceLocations("file:///C:/Temp/upload/");
 		
+
+		registry
+			.addResourceHandler("/member/memberImg/**")
+			.addResourceLocations("file:///"+ root + "/selfPhoto/");
+
 	}
 	
 	

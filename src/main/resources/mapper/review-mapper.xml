@@ -30,9 +30,9 @@
   		where rnum between #{start} and #{end}
 
   </select>
-  <select id="selectBlindList" resultType="reviewBlind">
+  <select id="selectBlindList" resultType="reviewblind">
   		select * 
-  			from (select rownum as rnum, r.*
+  			from (select rownum as rnum, rb.*
   				from (select 
   						review_blind_no,
   						review_blind_writer,
@@ -40,7 +40,7 @@
   						review_blind_content,
   						review_blind_img
   					from review_blind order by review_blind_no desc
-  					)r	
+  					)rb
   				)
   		where rnum between #{start} and #{end}
   </select>

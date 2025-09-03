@@ -127,7 +127,11 @@ input[name=memberGender]:checked+label{
     background-color: #EAC88F;
 }
 .mailCheck>.timeCheck{
-    width: 480px;
+    width: 65px;
+}
+.mailCheck>.mailCheck-result{
+    width: 150px;
+    margin-left: 270px;
 }
 /*----------------------------mail----------------------------------*/
 .joinFrm-input>.mail{
@@ -206,7 +210,7 @@ input[name=memberGender]:checked+label{
 }
 /*--------------------pwRule------------------------*/
 .joinFrm-input>.pwRule{
-    font-size: 10px;
+    font-size: 16px;
     color: #505050;
 
 }
@@ -235,6 +239,7 @@ input[name=memberGender]:checked+label{
 /*----------------------------pTag-----------------------------------------*/
 .joinFrm-input>p{
     text-align: center;
+    font-size: 16px
 }
 /*------------------------------button----------------------------------*/
 .Btn-submit{
@@ -263,4 +268,10 @@ input[name=memberGender]:checked+label{
 }
 .ok:hover{
     background-color: #EAC88F;
+}
+
+
+
+.joinFrm-content>.joinFrm-input>.input-msg{
+	font-size: 16px;
 }

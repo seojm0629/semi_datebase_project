@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.content{
+		text-align : center;
+		padding-bottom : 60px;
+	}
+	.content-wrap{
+		width : 1200px;
+		margin: 0 auto;
+		
+		
+	}
+	
+	.page-title{
+		text-align:center;
+		font-size : 25px;
+		font-family : mainB2;
+		color : var(--bold);
+		margin-top : 40px;
+	}
+	.match-table{
+		margin: 0 auto;
+	}
+	.match-table th{
+		padding-right : 14px;
+		
+	}
+	.match-table td{
+		text-align : right;
+		padding-right : 14px;
+		margin-right : 14px;
+		
+	}
+	.table-section{
+		margin-top : 10px;
+		padding-left : 15px;
+	}
+	.grade{
+		text-align : right;
+	}
+	.list-wrap{
+		margin-top : 40px;
+		display : flex;
+		justify-content : space-between;
+		align-content : center;
+	}
+	.list-box{
+		display:flex;
+		width: 45%;
+		margin-top : 30px;
+		background-color : var(--color);
+		border-radius : 5px;
+		padding-bottom : 10px;
+		justify-content : space-between;
+		align-items : center;
+		
+		
+	}
+	.photo-box>img{
+		width : 50%;
+	}
+	
+	.modal{
+		width: 40%;
+		height : 800px;
+		position:fixed;
+		display : none;
+		top : 100px;
+		left : 150px;
+		background-color : #fff;
+	}
+	.inner{
+		margin:0 auto;
+		
+	}
+	#modal-close{
+		cursor : pointer;
+		padding-top: 10px;
+		padding-right: 10px;
+	}
+	.tb{
+		text-align : right;
+	}
+	
+</style>
+</head>
+<body>
+<th:block th:include="common/header"></th:block>
+<main class="content">
+	<div class="content-wrap">
+		<div class="page-title">파트너 리스트</div>
+		<div class="list-wrap" >
+			<div class="list-box" th:each="match : ${list}">
+				<div class="photo-box">
+					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
+				</div>
+				<div class="table-section">
+					<table class="match-table">
+						
+						<tr>
+							<th>이름</th>
+							
+							<input type="hidden" name="memberName" th:value="${match.memberName}">
+							<th>지역</th>
+							<td th:text="${match.matchField}" th:value="${match.matchField}" th:id="matchField" name="matchField"></td>
+							
+						</tr>
+						<tr>
+							<th>등급</th>
+							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" th:id="memberGrade" name="memberGrade"></td>
+							
+							<th>직업</th>
+							<td th:text="${match.matchJob}" th:value="${match.matchJob}" th:id="matchJob" name="matchJob"></td>
+							
+						</tr>
+						<tr>
+							<th>MBTI</th>
+							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" th:id="matchMbti" name="matchMbti"></td>
+							
+							<th>취미</th>
+							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" th:id="matchHobby" name="matchHobby"></td>
+							
+						</tr>
+						<tr>
+							<th>성별</th>
+							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="${match.memberGender}" id="memberGender" name="memberGender"></td>
+							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="${match.memberGender}" id="memberGender" name="memberGender"></td>
+							
+							<th>나이</th>
+							<td th:text="${match.matchAge}" th:value="${match.matchAge}" th:id="matchAge" name="matchAge"></td>
+							
+						</tr>
+						
+						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
+							<th colspan="2">연봉</th>
+							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" th:id="matchSalary" name="matchSalary"></td>
+							
+							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
+							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" name="matchEdu" th:id="matchEdu"></td>
+							
+						</tr>
+						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
+							<th colspan="3">근무형태</th>
+							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" name="matchWorkType" th:id="matchWorkType"></td>
+						</tr>
+						
+					</table>
+				</div>
+			</div>
+		</div>	
+	</div>
+	
+</main>
+<th:block th:include="common/footer"></th:block>
+</body>
+<script>
+	
+</script>
+</html>

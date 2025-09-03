@@ -2,7 +2,7 @@ package kr.co.iei.match.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import kr.co.iei.party.controller.PartyController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,6 +21,8 @@ import kr.co.iei.model.member.vo.Member;
 @Controller
 @RequestMapping(value="/match")
 public class MatchController {
+
+    private final PartyController partyController;
 	
 	@Autowired
 	MatchService matchService;
@@ -29,6 +31,10 @@ public class MatchController {
 	
 	@Value(value="${file.root}")
 	private String root;
+
+    MatchController(PartyController partyController) {
+        this.partyController = partyController;
+    }
 	
 	@GetMapping(value="/view")
 	public String view() {
@@ -111,17 +117,11 @@ public class MatchController {
 		model.addAttribute("list", matchList);
 		return "match/management";
 	}
-	@PostMapping(value="/findMatch")
-	@ResponseBody
-	public List findMatch(Match m) {
-		
-		if(m.getMemberGender().equals("남")) {
-			m.setMemberGender("f");
-		}else if(m.getMemberGender().equals("여")) {
-			m.setMemberGender("m");
-		}
+	@GetMapping(value="/findMatch")
+	public String findMatch(Match m, Model model) {
+		System.out.println(m);
 		List matchList = matchService.findMatch(m);
-		System.out.println(matchList);
-		return matchList;
+		model.addAttribute("list", matchList);
+		return "match/findMatch";
 	}
 }

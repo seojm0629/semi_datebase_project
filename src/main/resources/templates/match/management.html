@@ -92,61 +92,12 @@
 <body>
 <th:block th:include="common/header"></th:block>
 <main class="content">
-	<div id="modal" class="modal">
-		<div class="tb">
-				<a><span class="material-icons-outlined" id="modal-close">close</span></a>
-			<div class="inner" style="max-width:800px;">
-				<div class="page-title">파트너 리스트</div>
-				<div class="partner-photo-box">
-				</div>
-				<div class="modal-table-wrap">
-					<table class="modal-table">
-						<tr>
-							<th>이름</th>
-							<td id="partnerName"></td>
-							<th>지역</th>
-							<td id="partnerField"></td>
-						</tr>
-						<tr>
-							<th>등급</th>
-							<td id="partnerGrade"></td>
-							<th>직업</th>
-							<td id="partnerJob"></td>
-						</tr>
-						<tr>
-							<th>신청일</th>
-							<td id="partnerMbti"></td>
-							<th>취미</th>
-							<td id="partnerHobby"></td>
-						</tr>
-						<tr>
-							<th>성별</th>
-							<td id="partnerGender"></td>
-							<th>나이</th>
-							<td id="partnerAge"></td>
-							
-						</tr>
-						
-						<tr>
-							<th colspan="2">연봉</th>
-							<td id="partnerSalary"></td>
-							<th>학력</th>
-							<td id="partnerEdu"></td>
-						</tr>
-						<tr>
-							<th colspan="3">근무형태</th>
-							<td id="partnerWorkType"></td>
-						</tr>
-					</table>
-					</div>	
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="content-wrap">
 		<div class="page-title">매칭 관리</div>
 		<div class="list-wrap" >
+		
 			<div class="list-box" th:each="match : ${list}">
+				<a href="/match/findMatch">
 				<div class="photo-box">
 					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
@@ -155,98 +106,157 @@
 						
 						<tr>
 							<th>이름</th>
-							<td th:text="${match.memberName}" th:value="${match.memberName}" th:id="memberName"></td>
+							<td th:text="${match.memberName}" th:value="${match.memberName}" name="memberName"></td>
 							<th>지역</th>
-							<td th:text="${match.matchField}" th:value="${match.matchField}" th:id="matchField"></td>
+							<td th:text="${match.matchField}" th:value="${match.matchField}" name="matchField"></td>
 						</tr>
 						<tr>
 							<th>등급</th>
-							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" th:id="memberGrade"></td>
+							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" name="memberGrade"></td>
 							<th>직업</th>
-							<td th:text="${match.matchJob}" th:value="${match.matchJob}" th:id="matchJob"></td>
+							<td th:text="${match.matchJob}" th:value="${match.matchJob}" name="matchJob"></td>
 						</tr>
 						<tr>
 							<th>MBTI</th>
-							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" th:id="matchMbti"></td>
+							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" name="matchMbti"></td>
 							<th>취미</th>
-							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" th:id="matchHobby"></td>
+							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" name="matchHobby"></td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" id="memberGender"></td>
-							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" id="memberGender"></td>
+							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" name="memberGender"></td>
+							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" name="memberGender"></td>
 							<th>나이</th>
-							<td th:text="${match.matchAge}" th:value="${match.matchAge}" th:id="matchAge"></td>
+							<td th:text="${match.matchAge}" th:value="${match.matchAge}" id="matchAge"></td>
 							
 						</tr>
 						
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="2">연봉</th>
-							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" th:id="matchSalary"></td>
+							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" name="matchSalary"></td>
 							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
-							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" th:id="matchEdu"></td>
+							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" name="matchEdu"></td>
 						</tr>
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="3">근무형태</th>
-							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" th:id="matchWorkType"></td>
+							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" name="matchWorkType"></td>
 						</tr>
 						
 					</table>
 				</div>
 			</div>
+			</a>
 		</div>	
 	</div>
 	
 </main>
-<script>
-	$(".list-box").on("click", function(){
-		const memberName = $(this).find("#memberName").text();
-		const matchField = $(this).find("#matchField").text();
-		const memberGender = $(this).find("#memberGender").text();
-		const matchAge = $(this).find("#matchAge").text();
-		const memberGrade = $(this).find("#memberGrade").text();
-		const matchJob = $(this).find("#matchJob").text();
-		const matchSalary = $(this).find("#matchSalary").text();
-		const matchWorkType = $(this).find("#matchWorkType").text();
-		const matchEdu = $(this).find("#matchEdu").text();
-		const matchHobby = $(this).find("#matchHobby").text();
-		const matchMbti = $(this).find("#matchMbti").text();
-		const matchPhoto = $(this).find("#matchPhoto").text();
-		console.log(matchPhoto);
-		
-		$("#modal").fadeIn();
-		
-		$.ajax({
-			url : "/match/findMatch",
-			type : "post",
-			data : {
-					memberName : memberName,
-					matchField : matchField,
-					memberGender : memberGender,
-					matchAge : matchAge,
-					memberGrade : memberGrade,
-					matchJob	: matchJob,
-					matchSalary : matchSalary,
-					matchWorkType : matchWorkType,
-					matchEdu : matchEdu,
-					matchHobby : matchHobby,
-					matchMbti : matchMbti,
-					
-				},
-			dataType : "JSON",
-			success : function(data){
-				console.log("성공");
-				console.log(data);
-			}
-		});
-	});
-	
-	$("#modal-close").on("click", function(e){
-		e.preventDefault();
-		const modal = $(this).parents("#modal");
-		modal.fadeOut();
-	});
-</script>
 <th:block th:include="common/footer"></th:block>
 </body>
+<script>
+$(".list-box").on("click", function(){
+
+	const memberName = $(this).find("[name=memberName]").text();
+
+	const matchField = $(this).find("[name=matchField]").text();
+
+	const memberGrade = $(this).find("[name=memberGrade]").text();
+
+	const matchJob = $(this).find("[name=matchJob]").text();
+
+	const matchMbti = $(this).find("[name=matchMbti]").text();
+
+	const matchHobby = $(this).find("[name=matchHobby]").text();
+
+	const memberGender = $(this).find("[name=memberGender]").text();
+
+	const matchAge = $(this).find("[name=matchAge]").text();
+
+	const matchSalary = $(this).find("[name=matchSalary]").text();
+
+	const matchEdu = $(this).find("[name=matchEdu]").text();
+
+	const matchWorkType = $(this).find("[name=matchWorkType]").text();
+
+
+	
+	console.log(memberName);
+	console.log(matchField);
+	const form = document.createElement("form");
+	form.setAttribute("method", "get");
+	form.setAttribute("action", "/match/findMatch");
+	
+	
+	
+	const input1 = document.createElement("input");
+	input1.setAttribute("type", "hidden");
+	input1.setAttribute("name", "memberName");
+	input1.setAttribute("value", memberName );
+	
+	const input2 = document.createElement("input");
+	input2.setAttribute("type", "hidden");
+	input2.setAttribute("name", "matchField");
+	input2.setAttribute("value", matchField );
+	
+	const input3 = document.createElement("input");
+	input3.setAttribute("type", "hidden");
+	input3.setAttribute("name", "memberGrade");
+	input3.setAttribute("value", memberGrade );
+	form.appendChild(input1);
+	form.appendChild(input2);
+	form.appendChild(input3);
+	
+	const input4 = document.createElement("input");
+	input4.setAttribute("type", "hidden");
+	input4.setAttribute("name", "matchJob");
+	input4.setAttribute("value", matchJob);
+	
+	
+	const input5 = document.createElement("input");
+	input5.setAttribute("type", "hidden");
+	input5.setAttribute("name", "matchMbti");
+	input5.setAttribute("value", matchMbti );
+	
+	const input6 = document.createElement("input");
+	input6.setAttribute("type", "hidden");
+	input6.setAttribute("name", "matchHobby");
+	input6.setAttribute("value", matchHobby );
+	
+	const input7 = document.createElement("input");
+	input7.setAttribute("type", "hidden");
+	input7.setAttribute("name", "memberGender");
+	input7.setAttribute("value", memberGender );
+	
+	form.appendChild(input4);
+	form.appendChild(input5);
+	form.appendChild(input6);
+	form.appendChild(input7);
+	const input8 = document.createElement("input");
+	input8.setAttribute("type", "hidden");
+	input8.setAttribute("name", "matchAge");
+	input8.setAttribute("value", matchAge);
+	
+	
+	const input9 = document.createElement("input");
+	input9.setAttribute("type", "hidden");
+	input9.setAttribute("name", "matchSalary");
+	input9.setAttribute("value", matchSalary );
+	
+	const input10 = document.createElement("input");
+	input10.setAttribute("type", "hidden");
+	input10.setAttribute("name", "matchEdu");
+	input10.setAttribute("value", matchEdu );
+	
+	const input11 = document.createElement("input");
+	input11.setAttribute("type", "hidden");
+	input11.setAttribute("name", "matchWorkType");
+	input11.setAttribute("value", matchWorkType );
+	
+	form.appendChild(input8);
+	form.appendChild(input9);
+	form.appendChild(input10);
+	form.appendChild(input11);
+	document.body.appendChild(form);
+	form.submit();
+});	
+</script>
 </html>

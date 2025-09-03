@@ -96,7 +96,7 @@
 		<div class="tb">
 				<a><span class="material-icons-outlined" id="modal-close">close</span></a>
 			<div class="inner" style="max-width:800px;">
-				<div class="page-title">이성 리스트</div>
+				<div class="page-title">파트너 리스트</div>
 				<div class="partner-photo-box">
 				</div>
 				<div class="modal-table-wrap">
@@ -148,7 +148,7 @@
 		<div class="list-wrap" >
 			<div class="list-box" th:each="match : ${list}">
 				<div class="photo-box">
-					<img th:src="'/member/memberImg/'+${match.memberImgPath}">
+					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
 				<div class="table-section">
 					<table class="match-table">
@@ -184,11 +184,11 @@
 							<th colspan="2">연봉</th>
 							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" th:id="matchSalary"></td>
 							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
-							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" th:id="memberGender"></td>
+							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" th:id="matchEdu"></td>
 						</tr>
-						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" id="matchWorkType">
+						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="3">근무형태</th>
-							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}"></td>
+							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" th:id="matchWorkType"></td>
 						</tr>
 						
 					</table>
@@ -200,18 +200,19 @@
 </main>
 <script>
 	$(".list-box").on("click", function(){
-		const memberName = $("#memberName").val();
-		const matchField = $("#matchField").val();
-		const memberGender = $("#memberGender").val();
-		const matchAge = $("#matchAge").val();
-		const memberGrade = $("#memberGrade").val();
-		const matchJob = $("#matchJob").val();
-		const matchSalary = $("#matchSalary").val();
-		const matchWorkType = $("#matchWorkType").val();
-		const matchEdu = $("#matchEdu").val();
-		const matchHobby = $("#matchHobby").val();
-		const matchMbti = $("#matchMbti").val();
-		console.log(memberName);
+		const memberName = $(this).find("#memberName").text();
+		const matchField = $(this).find("#matchField").text();
+		const memberGender = $(this).find("#memberGender").text();
+		const matchAge = $(this).find("#matchAge").text();
+		const memberGrade = $(this).find("#memberGrade").text();
+		const matchJob = $(this).find("#matchJob").text();
+		const matchSalary = $(this).find("#matchSalary").text();
+		const matchWorkType = $(this).find("#matchWorkType").text();
+		const matchEdu = $(this).find("#matchEdu").text();
+		const matchHobby = $(this).find("#matchHobby").text();
+		const matchMbti = $(this).find("#matchMbti").text();
+		const matchPhoto = $(this).find("#matchPhoto").text();
+		console.log(matchPhoto);
 		
 		$("#modal").fadeIn();
 		
@@ -229,11 +230,12 @@
 					matchWorkType : matchWorkType,
 					matchEdu : matchEdu,
 					matchHobby : matchHobby,
-					matchMbti : matchMbti
+					matchMbti : matchMbti,
+					
 				},
 			dataType : "JSON",
 			success : function(data){
-				console.log(성공);
+				console.log("성공");
 				console.log(data);
 			}
 		});

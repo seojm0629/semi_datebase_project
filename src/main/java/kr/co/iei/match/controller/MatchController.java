@@ -80,6 +80,8 @@ public class MatchController {
 				
 				return "common/msg";
 			}else{
+				myMatchingCount = myMatchingCount+2;
+				int rollbackCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
 				model.addAttribute("title", "신청 실패");
 				model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
 				model.addAttribute("icon", "error");
@@ -112,10 +114,10 @@ public class MatchController {
 	@PostMapping(value="/findMatch")
 	@ResponseBody
 	public List findMatch(Match m) {
-		System.out.println(m);
-		if(m.getMemberGender() == "m") {
+		
+		if(m.getMemberGender().equals("남")) {
 			m.setMemberGender("f");
-		}else if(m.getMemberGender() == "f") {
+		}else if(m.getMemberGender().equals("여")) {
 			m.setMemberGender("m");
 		}
 		List matchList = matchService.findMatch(m);

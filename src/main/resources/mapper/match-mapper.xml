@@ -25,7 +25,7 @@
 				member_id, 
 				m.member_grade, 
 				match_date, 
-				match_pass, 
+				match_status, 
 				match_field, 
 				match_age, 
 				match_job, 
@@ -45,28 +45,35 @@
 				member_id, 
 				m.member_grade, 
 				match_date, 
-				match_pass, 
+				match_status, 
 				match_field, 
 				match_age, 
 				match_job, 
 				match_mbti,
-				match_hobby,
-				match_edu,
-				match_salary,
-				match_work_type,
+				mmi.member_hobby as match_hooby,
+				mmi.member_edu as match_edu,
+				mmi.member_salary as match_salary,
+				mmi.member_work_type as match_work_type,
 				m.member_gender,
 				m.member_name,
 				m.member_img_path 
-			from match_mypage p join member m using(member_id)
-			where member_grade = #{memberGrade} and 
-					match_field = #{matchField} and
-					match_age = #{matchAge} and
-					match_job = #{matchJob} and
-					match_mbti = #{matchMbti} and
-					match_hobby = #{matchHobby} and
-					match_edu = #{matchEdu} and
-					match_salary = #{matchSalary} and
-					match_work_type = #{matchWorkType} and
-					member_gender = #{memberGender} and
+			from match_mypage p 
+			left join member m using(member_id)
+			 left join member_more_info mmi using(member_no)
+			where m.member_grade = #{memberGrade} 
+					and member_addr like '%'||#{matchField}||'%' 
+					and SUBSTR(to_char(SYSDATE , 'YYYY') - SUBSTR(m.birth_date, 1,4), 1 ,1) = SUBSTR(#{matchAge}, 1, 1) 
+					and member_job = #{matchJob} 
+					and member_mbti = #{matchMbti} 
+					and member_hobby = #{matchHobby} 
+					and m.member_gender = #{memberGender}
+					and match_status = '대기중'
+				<if test="memberGrade == 'gold' || memberGrade == 'platinum'">	
+					 and mmi.member_edu = #{matchEdu}
+				</if>
+				<if test="memberGrade == 'platinum'"> 	
+					 and mmi.member_work_type = #{matchWorkType}
+					 and mmi.member_salary = #{matchSalary}
+				</if>	 
 	</select>
 </mapper>

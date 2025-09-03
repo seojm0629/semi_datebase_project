@@ -198,25 +198,40 @@
 			}
 		});
 		
+		const idCheck = 0;
 		$("#memberId").on("change", function(){
-			
 			const memberId = $("#memberId").val();
-			$.ajax({
-				url : "/member/idCheck",
-				type : "get",
-				data : {memberId : memberId},
-				success : function(result){
-					console.log(result);
-					if(result === 0){
-						$(".input-msg").text("사용가능한 아이디입니다.");
-						$(".input-msg").css("color", "#25bd53");
-						
-					} else if(result === 1){
-						$(".input-msg").text("이미 사용중인 아이디입니다.");
-						$(".input-msg").css("color", "var(--warning)");
+			
+			const pwRange = /^.{6,15}$/;
+			const pwRangea = /[a-z]/;
+			const pwRangeNum = /[0-9]/;
+			
+			const result1 = pwRange.test(memberId);
+			const result2 = pwRangea.test(memberId);
+			const result3 = pwRangeNum.test(memberId);
+			
+			if(result1&&result2&&result3){
+					$.ajax({
+					url : "/member/idCheck",
+					type : "get",
+					data : {memberId : memberId},
+					success : function(result){
+						console.log(result);
+						if(result === 0){
+							$(".input-msg").text("사용가능한 아이디입니다.");
+							$(".input-msg").css("color", "#25bd53");
+							idCheck = 1;
+						} else if(result === 1){
+							$(".input-msg").text("이미 사용중인 아이디입니다.");
+							$(".input-msg").css("color", "var(--warning)");
+						}
 					}
-				}
-			});
+				});
+			}else{
+				$(".input-msg").text("아이디 양식이 틀립니다.");
+				$(".input-msg").css("color", "var(--warning)");
+			}
+			
 		});
 		
 		$("#memberPwRe").on("keyup", function(){
@@ -284,6 +299,33 @@
 				}
 			},1000);
 		};
+		
+		const pwCheck = 0;
+		$("#memberPw").on("keyup", function(){
+		    
+		    const pwRange = /^.{8,20}$/;
+		    const pwRangeA = /[A-Z]/;
+		    const pwRangea = /[a-z]/;
+		    const pwRangeNum = /[0-9]/;
+		    const pwRangeO = /[!@#$%]/;
+		    const inputPw = $("#memberPw").val();
+		    const result1 = pwRange.test(inputPw);
+		    const result2 = pwRangeA.test(inputPw);
+		    const result3 = pwRangea.test(inputPw);
+		    const result4 = pwRangeNum.test(inputPw);
+		    const result5 = pwRangeO.test(inputPw);
+
+		    if(result1&&result2&&result3&&result4&&result5){
+		        $(".pwRule").text("사용가능한 비밀번호입니다.");
+		        $(".pwRule").css("color","#25bd53");
+		        $(".pwRule").css("font-sixe", "20px");
+		        pwCheck = 1;
+		    }else{
+		        $(".pwRule").text("사용 불가능한 비밀번호입니다.");
+		        $(".pwRule").css("color","var(--warning)");
+		        $(".pwRule").css("font-size", "20px");
+		    }
+		});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<th:block th:include="common/footer"></th:block>

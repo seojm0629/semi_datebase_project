@@ -49,8 +49,7 @@ public class WebConfig implements WebMvcConfigurer{
 		//그 외 작성은 밑에서 해주세요.
 
         registry.addResourceHandler("/party/thumb/**")
-        .addResourceLocations("file:///C:/Temp/upload/");
-		
+        .addResourceLocations("file:///"+root+"/upload/party/");
 
 		registry
 			.addResourceHandler("/member/memberImg/**")

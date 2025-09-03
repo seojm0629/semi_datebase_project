@@ -39,7 +39,8 @@
 			</div>
 			<div class="joinFrm-input">
 				<span>전화번호<sup>*</sup></span>
-				<input type="text" name="memberPhone" id="memberPhone" placeholder="-포함 입력">
+				<input type="text" name="memberPhone" id="memberPhone" placeholder="ex) 010-0000-0000">
+				<p class="input-msg Phone"></p>
 			</div>
 			<div class="joinFrm-input">
 				<span>주소<sup>*</sup></span>
@@ -65,6 +66,7 @@
                     <input type="text" name="codeCheck" id="codeCheck">
                     <button type="button" id="sendcode">코드받기</button>
                     <button type="button" id="checkBtn">인증하기</button>
+                    <span class="mailCheck-result"></span>
                     <span class="timeCheck"></span>
             </div>
 			<div class="joinFrm-input">
@@ -198,7 +200,7 @@
 			}
 		});
 		
-		const idCheck = 0;
+		let idCheck = false;
 		$("#memberId").on("change", function(){
 			const memberId = $("#memberId").val();
 			
@@ -220,16 +222,18 @@
 						if(result === 0){
 							$(".input-msg").text("사용가능한 아이디입니다.");
 							$(".input-msg").css("color", "#25bd53");
-							idCheck = 1;
+							idCheck = true;
 						} else if(result === 1){
 							$(".input-msg").text("이미 사용중인 아이디입니다.");
 							$(".input-msg").css("color", "var(--warning)");
+							idCheck = false;
 						}
 					}
 				});
 			}else{
-				$(".input-msg").text("아이디 양식이 틀립니다.");
+				$(".input-msg").text("6-15자 사이 소문자, 숫자 포함.");
 				$(".input-msg").css("color", "var(--warning)");
+				idCheck = false;
 			}
 			
 		});
@@ -269,7 +273,23 @@
 			});
 		});
 		
-		
+		let mailCheck = false;
+		let intervalId = null;
+		$("#checkBtn").on("click", function(){
+			const inputCode = $("#codeCheck").val();
+			if(mailCode === inputCode){
+				$(".mailCheck-result").text("인증완료");
+				$(".mailCheck-result").css("color","#25bd53");
+				window.clearInterval(intervalId);
+				mailCode = null;
+				$("#time-zone").empty();
+				mailCheck = true;
+			}else{
+				$(".mailCheck-result").text("인증실패");
+				$(".mailCheck-result").css("color","var(--warning)");
+				mailCheck=false;
+			}
+		});
 		
 		function timeCheck(){
 			$(".timeCheck").html("<span id='min' style='color : #E5BA73'>3</span> : <span id='sec' style='color : #E5BA73'>00</span>");
@@ -300,7 +320,7 @@
 			},1000);
 		};
 		
-		const pwCheck = 0;
+		let pwCheck = false;
 		$("#memberPw").on("keyup", function(){
 		    
 		    const pwRange = /^.{8,20}$/;
@@ -318,16 +338,30 @@
 		    if(result1&&result2&&result3&&result4&&result5){
 		        $(".pwRule").text("사용가능한 비밀번호입니다.");
 		        $(".pwRule").css("color","#25bd53");
-		        $(".pwRule").css("font-sixe", "20px");
-		        pwCheck = 1;
+		        pwCheck = true;
 		    }else{
 		        $(".pwRule").text("사용 불가능한 비밀번호입니다.");
 		        $(".pwRule").css("color","var(--warning)");
-		        $(".pwRule").css("font-size", "20px");
+		        pwCheck = false;
 		    }
 		});
+		
+		let phoneCheck = false;
+		$("#memberPhone").on("change", function(){
+			const phCheck = /^0\d{1,2}-\d{3,4}-\d{4}$/;
+			const phoneValue = $("#memberPhone").val();
+			const result = phCheck.test(phoneValue);
+			if(result){
+				phoneCheck = true;
+				$(".Phone").empty();
+			}else{
+				$(".Phone").text("-를 포함하여 입력해주세요");
+				$(".Phone").css("color", "var(--warning)");
+				phoneCheck = false;
+			}
+		});
 	</script>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

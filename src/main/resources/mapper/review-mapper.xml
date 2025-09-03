@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.iei.review.model.dao.ReviewDao">
 	<insert id="insertReview">
-		insert into review_party values(review_party_seq.nextval, #{reviewPartyWriter}, #{reviewPartyTitle}, #{reviewPartyContent}, #{reviewPartyImg}, #{reviewPartyJob})
+		insert into review_party values(review_party_seq.nextval, #{reviewPartyWriter}, #{reviewPartyTitle}, #{reviewPartyContent}, #{reviewPartyImg}, #{reviewPartyJob}, #{reviewPartyManager})
 	</insert>
 	<insert id="insertReviewBlind">
-		insert into review_blind values(review_blind_seq.nextval, #{reviewBlindWriter}, #{reviewBlindTitle}, #{reviewBlindContent}, #{reviewBlindImg}, #{reviewBlindJob})
+		insert into review_blind values(review_blind_seq.nextval, #{reviewBlindWriter}, #{reviewBlindTitle}, #{reviewBlindContent}, #{reviewBlindImg}, #{reviewBlindJob}, #{reviewBlindManager})
 	</insert>
 	
   <select id="selectPartyTotalCount">

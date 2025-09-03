@@ -97,7 +97,6 @@
 		<div class="list-wrap" >
 		
 			<div class="list-box" th:each="match : ${list}">
-				<a href="/match/findMatch">
 				<div class="photo-box">
 					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
@@ -106,26 +105,26 @@
 						
 						<tr>
 							<th>이름</th>
-							<td th:text="${match.memberName}" th:value="${match.memberName}" name="memberName"></td>
+							<td th:text="${match.memberName}" th:value="${match.memberName}" id="memberName"></td>
 							<th>지역</th>
-							<td th:text="${match.matchField}" th:value="${match.matchField}" name="matchField"></td>
+							<td th:text="${match.matchField}" th:value="${match.matchField}" id="matchField"></td>
 						</tr>
 						<tr>
 							<th>등급</th>
-							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" name="memberGrade"></td>
+							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" id="memberGrade"></td>
 							<th>직업</th>
-							<td th:text="${match.matchJob}" th:value="${match.matchJob}" name="matchJob"></td>
+							<td th:text="${match.matchJob}" th:value="${match.matchJob}" id="matchJob"></td>
 						</tr>
 						<tr>
 							<th>MBTI</th>
-							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" name="matchMbti"></td>
+							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" id="matchMbti"></td>
 							<th>취미</th>
-							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" name="matchHobby"></td>
+							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" id="matchHobby"></td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" name="memberGender"></td>
-							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" name="memberGender"></td>
+							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" id="memberGender"></td>
+							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" id="memberGender"></td>
 							<th>나이</th>
 							<td th:text="${match.matchAge}" th:value="${match.matchAge}" id="matchAge"></td>
 							
@@ -133,13 +132,13 @@
 						
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="2">연봉</th>
-							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" name="matchSalary"></td>
+							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" id="matchSalary"></td>
 							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
-							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" name="matchEdu"></td>
+							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" id="matchEdu"></td>
 						</tr>
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="3">근무형태</th>
-							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" name="matchWorkType"></td>
+							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" id="matchWorkType"></td>
 						</tr>
 						
 					</table>
@@ -155,27 +154,27 @@
 <script>
 $(".list-box").on("click", function(){
 
-	const memberName = $(this).find("[name=memberName]").text();
+	const memberName = $(this).find("#memberName").text();
 
-	const matchField = $(this).find("[name=matchField]").text();
+	const matchField = $(this).find("#matchField").text();
 
-	const memberGrade = $(this).find("[name=memberGrade]").text();
+	const memberGrade = $(this).find("#memberGrade").text();
 
-	const matchJob = $(this).find("[name=matchJob]").text();
+	const matchJob = $(this).find("#matchJob").text();
 
-	const matchMbti = $(this).find("[name=matchMbti]").text();
+	const matchMbti = $(this).find("#matchMbti").text();
 
-	const matchHobby = $(this).find("[name=matchHobby]").text();
+	const matchHobby = $(this).find("#matchHobby").text();
 
-	const memberGender = $(this).find("[name=memberGender]").text();
+	const memberGender = $(this).find("#memberGender").text();
 
-	const matchAge = $(this).find("[name=matchAge]").text();
+	const matchAge = $(this).find("#matchAge").text();
 
-	const matchSalary = $(this).find("[name=matchSalary]").text();
+	const matchSalary = $(this).find("#matchSalary").text();
 
-	const matchEdu = $(this).find("[name=matchEdu]").text();
+	const matchEdu = $(this).find("#matchEdu").text();
 
-	const matchWorkType = $(this).find("[name=matchWorkType]").text();
+	const matchWorkType = $(this).find("#matchWorkType").text();
 
 
 	
@@ -190,7 +189,7 @@ $(".list-box").on("click", function(){
 	const input1 = document.createElement("input");
 	input1.setAttribute("type", "hidden");
 	input1.setAttribute("name", "memberName");
-	input1.setAttribute("value", memberName );
+	input1.setAttribute("value", $(this).find("#memberName").text() );
 	
 	const input2 = document.createElement("input");
 	input2.setAttribute("type", "hidden");

@@ -94,7 +94,7 @@
 	<div class="content-wrap">
 		<div class="page-title">파트너 리스트</div>
 		<div class="list-wrap" >
-			<div class="list-box" th:each="match : ${list}">
+			<div class="list-box" th:each="match : ${matchList}">
 				<div class="photo-box">
 					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
@@ -104,25 +104,25 @@
 						<tr>
 							<th>이름</th>
 							
-							<input type="hidden" name="memberName" th:value="${match.memberName}">
+							<input type="hidden" id="memberName" th:value="${match.memberName}">
 							<th>지역</th>
-							<td th:text="${match.matchField}" th:value="${match.matchField}" th:id="matchField" name="matchField"></td>
+							<td th:text="${match.matchField}" th:value="${match.matchField}" id="matchField" ></td>
 							
 						</tr>
 						<tr>
 							<th>등급</th>
-							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" th:id="memberGrade" name="memberGrade"></td>
+							<td th:text="${match.memberGrade}" th:value="${match.memberGrade}" id="memberGrade" ></td>
 							
 							<th>직업</th>
-							<td th:text="${match.matchJob}" th:value="${match.matchJob}" th:id="matchJob" name="matchJob"></td>
+							<td th:text="${match.matchJob}" th:value="${match.matchJob}" id="matchJob" ></td>
 							
 						</tr>
 						<tr>
 							<th>MBTI</th>
-							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" th:id="matchMbti" name="matchMbti"></td>
+							<td th:text="${match.matchMbti}" th:value="${match.matchMbti}" th:id="matchMbti" ></td>
 							
 							<th>취미</th>
-							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" th:id="matchHobby" name="matchHobby"></td>
+							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" th:id="matchHobby" ></td>
 							
 						</tr>
 						<tr>
@@ -131,13 +131,13 @@
 							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="${match.memberGender}" id="memberGender" name="memberGender"></td>
 							
 							<th>나이</th>
-							<td th:text="${match.matchAge}" th:value="${match.matchAge}" th:id="matchAge" name="matchAge"></td>
+							<td th:text="${match.matchAge}" th:value="${match.matchAge}" th:id="matchAge" ></td>
 							
 						</tr>
 						
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="2">연봉</th>
-							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" th:id="matchSalary" name="matchSalary"></td>
+							<td th:text="${match.matchSalary}" th:value="${match.matchSalary}" th:id="matchSalary" ></td>
 							
 							<th th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}">학력</th>
 							<td th:if="${match.memberGrade == 'gold' || match.memberGrade == 'platinum'}" th:value="${match.matchEdu}" th:text="${match.matchEdu}" name="matchEdu" th:id="matchEdu"></td>
@@ -145,7 +145,7 @@
 						</tr>
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="3">근무형태</th>
-							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" name="matchWorkType" th:id="matchWorkType"></td>
+							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}"  th:id="matchWorkType"></td>
 						</tr>
 						
 					</table>

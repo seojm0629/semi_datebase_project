@@ -58,8 +58,8 @@
 				m.member_name,
 				m.member_img_path 
 			from match_mypage p 
-			left join member m using(member_id)
-			 left join member_more_info mmi using(member_no)
+			join member m using(member_id)
+			join member_more_info mmi using(member_no)
 			where m.member_grade = #{memberGrade} 
 					and member_addr like '%'||#{matchField}||'%' 
 					and SUBSTR(to_char(SYSDATE , 'YYYY') - SUBSTR(m.birth_date, 1,4), 1 ,1) = SUBSTR(#{matchAge}, 1, 1) 

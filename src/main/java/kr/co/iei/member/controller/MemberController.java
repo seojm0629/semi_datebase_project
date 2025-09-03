@@ -111,7 +111,9 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "/joinManager")
-	public String joinManager(Member m, Model model) {
+	public String joinManager(Member m, Model model, String memberEmailF, String domainTxt) {
+		String email = memberEmailF+"@"+domainTxt;
+		m.setMemberEmail(email);
 		int result = memberService.joinManager(m);
 		if(result == 1) {
 			model.addAttribute("title", "생성 완료");
@@ -240,5 +242,10 @@ public class MemberController {
 			model.addAttribute("loc", "/member/masterPage");
 			return "/common/msg";
 		}
+	}
+	
+	@GetMapping(value = "/buyPage")
+	public String buyPage() {
+		return "/member/buyPageView";
 	}
 }//controller

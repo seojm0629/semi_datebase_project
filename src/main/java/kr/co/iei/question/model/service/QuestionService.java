@@ -268,7 +268,13 @@ public class QuestionService {
 		int result = questionDao.deleteQuestion(questionNo);
 		return delFileList;
 	}
-
+	
+	public List<Question> selectAllMember(String questionWriter){
+		HashMap<String, Object> param = new HashMap<String, Object>(); 	
+		param.put("questionWriter", questionWriter);
+		List list = questionDao.selectAllWriter(param);
+		return list;
+	}
 	
 
 	

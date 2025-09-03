@@ -23,6 +23,23 @@
     font-size: 20px;
     margin-right: 30px;
 }
+/*---------manager-input-content p--------*/
+.input-msg{
+    font-size: 11px;
+    color: #acacac;
+}
+.idCheckResult{
+    margin-left: 60px;
+}
+.pwCheckResult{
+    margin-left: 180px;
+}
+.pwReCheckResult{
+    margin-left: 20px;
+}
+.phoneCheckResult{
+    margin-left: 70px;
+}
 /*-----------manager-input-content sup----------*/
 .manager-input-content sup{
     color: #FF6868;
@@ -71,4 +88,31 @@
 }
 .yesorno-btn>#managercreat:hover{
     background-color: #EAC88F;
+}
+/*-------------emailBox-----------*/
+.manager-input-content{
+    overflow: hidden;
+}
+.manager-input-content>.Email{
+    margin-left: 30px;
+}
+.manager-input-content>#memberEmailF{
+    width: 120px;
+    margin: 0px;
+}
+.manager-input-content>.mail{
+    width: 15px;
+    margin: 0px;
+}
+.manager-input-content>#domainTxt{
+    width: 120px;
+    margin: 0px;
+}
+.list{
+    width: 600px;
+    float: right;
+}
+#domain-list{
+    margin-left: 45px;
+    width: 120px;
 }

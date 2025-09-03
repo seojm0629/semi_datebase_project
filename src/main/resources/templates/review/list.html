@@ -68,7 +68,6 @@
     width: 200px;
     height: 100px;
     line-height: 100px;
-    border: 1px solid black;
     border-radius: 15px;
     background-color: #E5BA73;
     cursor: pointer;
@@ -176,8 +175,15 @@
 	color: #fff;
 	border: none;
 }
-
-
+.write-btn-wrapper{
+	float: right;
+	width: 120px;
+	height: 55px;
+	line-height: 55px;
+}
+.write-btn-wrapper>a{
+	display: block;
+}
 </style>
 </head>
 <body>
@@ -196,13 +202,13 @@
             </div>
 
             <div class="review-board">
-                <div>게시판 수</div>
+                <div>게시판 수  </div>
                	<div class="board-count">
 	                <div th:text=${partyTotalCount}></div>
 	                <div th:text=${blindTotalCount}></div>
                 </div>
-                <div th:if="${session.member != null}">
-	          		<a href="/review/writeChoiceFrm" class="write-btn">작성하기</a>
+                <div class="write-btn-wrapper">
+	          		<a th:if="${session.member != null}" href="/review/writeChoiceFrm" class="write-btn">작성하기</a>
 	       	 	</div>
             </div>
             

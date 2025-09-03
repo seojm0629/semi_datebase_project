@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <style>
-@font-face {
+	@font-face {
     font-family: main2;
     src: url(../CSS/font/PyeongChang-Regular.ttf);
 }
@@ -169,11 +168,12 @@
 }
 
 </style>
+</head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main>
 		<div class="content-wrap">
-		<form action="/question/search" method="get">
+		<form action="/question/searchFrm" method="get">
             <div class="content-header">
                 <div class="content-name">문의사항</div>
                 <div class="content-search">
@@ -214,8 +214,5 @@
         </div>
 	</main>
 	<th:block th:include="common/footer"></th:block>
-	<script>
-		
-	</script>
 </body>
 </html>

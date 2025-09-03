@@ -55,6 +55,10 @@
 .updatePlus-input-content>#memberSalary:focus{
     border-bottom: 2px solid #C58940;
 }
+/*-----updatePlus-input-content>salaryCheck------*/
+.updatePlus-input-content>.salaryCheck{
+    font-size: 16px;
+}
 /*----------------------------updatePlus-button----------------------------*/
 .updatePlus-button{
     margin-top: 60px;

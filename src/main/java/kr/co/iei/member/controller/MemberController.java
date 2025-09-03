@@ -243,4 +243,9 @@ public class MemberController {
 			return "/common/msg";
 		}
 	}
+	
+	@GetMapping(value = "/buyPage")
+	public String buyPage() {
+		return "/member/buyPageView";
+	}
 }//controller

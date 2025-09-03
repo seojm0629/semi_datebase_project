@@ -15,29 +15,45 @@
 	            <div class="creat-manager-content">
 	                <form action="/member/joinManager" method="post">
 	                    <div class="manager-input-content">
-	                        <span>이름<sup>*</sup> : </span>
-	                        <input type="text" name="memberName">
-	                    </div>
-	                    <div class="manager-input-content">
-	                        <span>아이디<sup>*</sup> : </span>
-	                        <input type="text" name="memberId">
-	                    </div>
-	                    <div class="manager-input-content">
-	                        <span>비밀번호<sup>*</sup> : </span>
-	                        <input type="text" name="memberPw">
-	                    </div>
-	                    <div class="manager-input-content">
-	                        <span>비밀번호 확인<sup>*</sup> : </span>
-	                        <input type="text" name="memberPwRe">
-	                    </div>
-	                    <div class="manager-input-content">
-	                        <span>전화번호<sup>*</sup> : </span>
-	                        <input type="text" name="memberPhone">
-	                    </div>
-	                    <div class="manager-input-content">
-	                        <span>Email<sup>*</sup> : </span>
-	                        <input type="text" name="memberEmail">
-	                    </div>
+                        <span>이름<sup>*</sup> : </span>
+                        <input type="text" name="memberName" id="memberName">
+                    </div>
+                    <div class="manager-input-content">
+                        <span>아이디<sup>*</sup> : </span>
+                        <input type="text" name="memberId" id="memberId">
+                        <p class="input-msg idCheckResult">6-15자 사이 소문자, 숫자 포함</p>
+                    </div>
+                    <div class="manager-input-content">
+                        <span>비밀번호<sup>*</sup> : </span>
+                        <input type="password" name="memberPw" id="memberPw">
+                        <p class="input-msg pwCheckResult">알파벳 8글자 이상 20글자 이하, 특수문자 포함(!,@,#,$,%)</p>
+                    </div>
+                    <div class="manager-input-content">
+                        <span>비밀번호 확인<sup>*</sup> : </span>
+                        <input type="password" name="memberPwRe" id="memberPwRe">
+                        <p class="input-msg pwReCheckResult">비밀번호가 다릅니다</p>
+                    </div>
+                    <div class="manager-input-content">
+                        <span>전화번호<sup>*</sup> : </span>
+                        <input type="text" name="memberPhone" id="memberPhone">
+                        <p class="input-msg phoneCheckResult">-을 포함하여 다시 입력해주세요</p>
+                    </div>
+                    <div class="manager-input-content">
+                        <span class="Email">Email<sup>*</sup> : </span>
+                        <input type="text" name="memberEmailF" id="memberEmailF">
+                        <span class="mail">@</span>
+                        <input class="box" id="domainTxt" type="text" name="domainTxt">
+                        <div class="list">
+                            <select class="box" id="domain-list" name="domain-list">
+                                <option value="type">직접 입력</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="google.com">google.com</option>
+                                <option value="hanmail.net">hanmail.net</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="kakao.com">kakao.com</option>
+                            </select>
+                        </div>
+                    </div>
 	                    <div class="yesorno-btn">
 	                        <button type="button" id="managercancel">취소</button>
 	                        <button type="submit" id="managercreat">생성</button>
@@ -50,6 +66,121 @@
 	    	$("#managercancel").on("click", function(){
 	    		location.href=("/member/masterPage");
 	    	});
+	    	
+	    	$("#domain-list").on("change", function(){
+				const list =  $("#domain-list").val();
+				console.log(list);
+				if(list !== "type"){
+					$("#domainTxt").attr("value", list);
+					$("#domainTxt").attr("readonly", true);
+				}else{
+					$("#domainTxt").attr("value", "");
+					$("#domainTxt").attr("readonly", false);
+				}
+			});
+	    	
+	    	let idCheck = false;
+			$("#memberId").on("change", function(){
+				const memberId = $("#memberId").val();
+				
+				const pwRange = /^.{6,15}$/;
+				const pwRangea = /[a-z]/;
+				const pwRangeNum = /[0-9]/;
+				
+				const result1 = pwRange.test(memberId);
+				const result2 = pwRangea.test(memberId);
+				const result3 = pwRangeNum.test(memberId);
+				
+				if(result1&&result2&&result3){
+						$.ajax({
+						url : "/member/idCheck",
+						type : "get",
+						data : {memberId : memberId},
+						success : function(result){
+							console.log(result);
+							if(result === 0){
+								$(".idCheckResult").css("color", "#25bd53");
+								idCheck = true;
+							} else if(result === 1){
+								$(".idCheckResult").text("이미 사용중인 아이디입니다.");
+								$(".idCheckResult").css("color", "var(--warning)");
+								idCheck = false;
+							}
+						}
+					});
+				}else{
+					$(".idCheckResult").text("6-15자 사이 소문자, 숫자 포함.");
+					$(".idCheckResult").css("color", "var(--warning)");
+					idCheck = false;
+				}
+				
+			});
+			
+			let pwReCheck = false;
+			$("#memberPwRe").on("keyup", function(){
+				const inputPw = $("#memberPw").val();
+				const inputPwRe = $("#memberPwRe").val();
+				if(inputPw === inputPwRe){
+					$(".pwReCheckResult").text("비밀번호가 같습니다.");
+					$(".pwReCheckResult").css("color", "#25bd53");
+					pwReCheck = true;
+				}else{
+					$(".pwReCheckResult").text("비밀번호를 확인해주세요.");
+					$(".pwReCheckResult").css("color", "var(--warning)");
+					pwReCheck = false;
+				}
+			});
+			
+			let pwCheck = false;
+			$("#memberPw").on("keyup", function(){
+			    
+			    const pwRange = /^.{8,20}$/;
+			    const pwRangeA = /[A-Z]/;
+			    const pwRangea = /[a-z]/;
+			    const pwRangeNum = /[0-9]/;
+			    const pwRangeO = /[!@#$%]/;
+			    const inputPw = $("#memberPw").val();
+			    const result1 = pwRange.test(inputPw);
+			    const result2 = pwRangeA.test(inputPw);
+			    const result3 = pwRangea.test(inputPw);
+			    const result4 = pwRangeNum.test(inputPw);
+			    const result5 = pwRangeO.test(inputPw);
+
+			    if(result1&&result2&&result3&&result4&&result5){
+			        $(".pwCheckResult").css("color","#25bd53");
+			        pwCheck = true;
+			    }else{
+			        $(".pwCheckResult").css("color","var(--warning)");
+			        pwCheck = false;
+			    }
+			});
+			
+			let phoneCheck = false;
+			$("#memberPhone").on("change", function(){
+				const phCheck = /^010-\d{4}-\d{4}$/;
+				const phoneValue = $("#memberPhone").val();
+				const result = phCheck.test(phoneValue);
+				if(result){
+					phoneCheck = true;
+					$(".phoneCheckResult").empty();
+				}else{
+					$(".phoneCheckResult").text("-를 포함하여 다시 입력해주세요");
+					$(".phoneCheckResult").css("color", "var(--warning)");
+					phoneCheck = false;
+				}
+			});
+			
+			$("#managercreat").on("click", function(e){
+				
+				const memberId = $("#memberName").val();
+				const email = $("#memberEmailF").val();
+				const domain = $("#domainTxt").val();
+				
+				if(memberId==""||email==""||domain==""||!idCheck||!pwReCheck||!pwCheck||!phoneCheck){
+					alert("필수 항목을 확인해주세요");
+					e.preventDefault();
+				}
+			});
 	    </script>
 	<th:block th:include="common/footer"></th:block>
 </body>

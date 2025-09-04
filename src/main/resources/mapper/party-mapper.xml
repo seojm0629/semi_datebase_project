@@ -78,7 +78,7 @@
 	<select id="getPartyById" parameterType="int"
 		resultType="kr.co.iei.party.model.vo.Party">
 		SELECT party_no, party_title, party_date, party_place, party_price,
-		party_thumb, party_type
+		party_thumb, party_type, party_content, party_male, party_female
 		FROM party
 		WHERE party_no = #{partyNo}
 	</select>

@@ -23,9 +23,6 @@ public class PartyController {
 	@Autowired
 	private PartyService partyService;
 
-	// -------------------------------
-	// 전체 파티 목록 페이지
-	// -------------------------------
 	@GetMapping
 	public String partyPage(Model model) {
 		List<Party> parties = partyService.getAllParties();
@@ -33,17 +30,9 @@ public class PartyController {
 		return "party/party";
 	}
 
-	// -------------------------------
-	// 관리자/사용자/소개 페이지
-	// -------------------------------
 	@GetMapping("/admin")
 	public String partyAdmin() {
 		return "party/partyadmin";
-	}
-
-	@GetMapping("/user")
-	public String partyUser() {
-		return "party/partyuser";
 	}
 
 	@GetMapping("/intro")
@@ -51,11 +40,8 @@ public class PartyController {
 		return "party/intro";
 	}
 
-	// -------------------------------
-	// 파티 등록
-	// -------------------------------
 	@GetMapping("/new")
-	public String writeForm() {
+	public String partyFrm() {
 		return "party/partyFrm";
 	}
 
@@ -63,19 +49,16 @@ public class PartyController {
 	public String createParty(Party party, @RequestParam("partyThumbFile") MultipartFile file) {
 		if (!file.isEmpty()) {
 			try {
-				String rootPath = "C:/Temp/upload/";
+				String rootPath = "C:/Temp/upload/party/";
 				String fileName = file.getOriginalFilename();
 				File saveFile = new File(rootPath, fileName);
 				saveFile.getParentFile().mkdirs();
 				file.transferTo(saveFile);
-
-				// DB에는 파일명만 저장
 				party.setPartyThumb(fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-
 		partyService.insertParty(party);
 		return "redirect:/party";
 	}
@@ -86,4 +69,13 @@ public class PartyController {
 		return partyService.getPartyByType(type);
 	}
 
+	@GetMapping("/user")
+	public String partyUser(@RequestParam("partyNo") int partyNo, Model model) {
+		Party party = partyService.getPartyByNo(partyNo);
+
+		model.addAttribute("party", party);
+
+		// partyuser.html로 연결
+		return "party/partyuser";
+	}
 }

@@ -17,7 +17,7 @@
 				<div>비어 파티 🍺</div>
 			</div>
 
-			<!-- 탭별 콘텐츠 -->
+		
 			<div class="tab-content">
 				<!-- 와인 파티 -->
 				<div class="party-tab active" data-party="wine">
@@ -25,8 +25,7 @@
 						<div class="arrow left">&lt;</div>
 						<th:block th:each="party,iterStat : ${parties}"
 							th:if="${party.partyType.toLowerCase() == 'wine'}">
-							<img
-								th:src="@{/member/memberImg/{thumb}(thumb=${party.partyThumb})}"
+							<img th:src="@{/partyImg/{thumb}(thumb=${party.partyThumb})}"
 								th:data-date="${party.partyDate}"
 								th:data-place="${party.partyPlace}"
 								th:data-price="${party.partyPrice}"
@@ -55,10 +54,8 @@
 						<div class="arrow left">&lt;</div>
 						<th:block th:each="party,iterStat : ${parties}"
 							th:if="${party.partyType.toLowerCase() == 'beer'}">
-							<img
-								th:src="@{/member/memberImg/{thumb}(thumb=${party.partyThumb})}"
+							<img th:src="@{/partyImg/{thumb}(thumb=${party.partyThumb})}"
 								th:data-date="${party.partyDate}"
-								th:data-time="${party.partyTime}"
 								th:data-place="${party.partyPlace}"
 								th:data-price="${party.partyPrice}"
 								th:classappend="${iterStat.index == 0} ? 'active' : ''"

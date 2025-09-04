@@ -1,9 +1,14 @@
 package kr.co.iei.match.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import kr.co.iei.party.controller.PartyController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,11 +22,20 @@ import kr.co.iei.model.member.vo.Member;
 @Controller
 @RequestMapping(value="/match")
 public class MatchController {
+
+    private final PartyController partyController;
 	
 	@Autowired
 	MatchService matchService;
 	@Autowired
 	MemberService memberService;
+	
+	@Value(value="${file.root}")
+	private String root;
+
+    MatchController(PartyController partyController) {
+        this.partyController = partyController;
+    }
 	
 	@GetMapping(value="/view")
 	public String view() {
@@ -73,6 +87,8 @@ public class MatchController {
 				
 				return "common/msg";
 			}else{
+				myMatchingCount = myMatchingCount+2;
+				int rollbackCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
 				model.addAttribute("title", "신청 실패");
 				model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
 				model.addAttribute("icon", "error");
@@ -87,5 +103,32 @@ public class MatchController {
 		model.addAttribute("loc", "match/matchWrite");
 		
 		return "common/msg";
+	}
+	
+	@GetMapping(value="/management")
+	public String management(Model model) {
+		List matchList = matchService.selectMatchList();
+		/*
+		for(int i =0; i<matchList.size(); i++) {
+			Match m = (Match)matchList.get(i);
+			String memberImg = root+"/member/image/"+m.getMemberImgPath();
+			m.setMemberImgPath(memberImg);
+		}
+		*/
+		model.addAttribute("list", matchList);
+		return "match/management";
+	}
+	@GetMapping(value="/findMatch")
+	public String findMatch(Match m, Model model) {
+		System.out.println(m);
+		if(m.getMemberGender().equals("남")) {
+			m.setMemberGender("f");
+		}else if(m.getMemberGender().equals("여")) {
+			m.setMemberGender("m");
+		}
+		List matchList = matchService.findMatch(m);
+		System.out.println(matchList);
+		model.addAttribute("matchList", matchList);
+		return "match/findMatch";
 	}
 }

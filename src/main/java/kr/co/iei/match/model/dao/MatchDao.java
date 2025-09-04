@@ -1,5 +1,7 @@
 package kr.co.iei.match.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.match.model.vo.Grade;
@@ -14,5 +16,9 @@ public interface MatchDao {
 	int insertPayData(pay p);
 
 	int matchEnroll(Match m);
+
+	List selectMatchList();
+
+	List findMatch(Match m);
 	
 }

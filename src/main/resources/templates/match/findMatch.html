@@ -83,16 +83,17 @@
 	<div class="content-wrap">
 		<div class="page-title">파트너 리스트</div>
 		<div class="list-wrap" >
+			<div id="matchNo1" th:text="${matchNo1}" style="display:none;"></div>
 			<div class="partner-box" th:each="match : ${matchList}">
 				<div class="photo-box">
 					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
 				<div class="table-section">
+					<div id="matchNo2" th:text="${match.matchNo}" style="display:none;"></div>
 					<table class="match-table">
-						
 						<tr>
 							<th>이름</th>
-							
+							<td th:text="${match.memberName}" th:value="${match.memberName}" id="matchName" ></td>
 							<input type="hidden" id="memberName" th:value="${match.memberName}">
 							<th>지역</th>
 							<td th:text="${match.matchField}" th:value="${match.matchField}" id="matchField" ></td>
@@ -137,7 +138,9 @@
 							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}"  th:id="matchWorkType"></td>
 						</tr>
 					</table>
-					<input type="hidden" name="matchNo2" th:text="${match.matchNo}">
+					
+					
+					
 				</div>
 			</div>
 		</div>	
@@ -170,10 +173,28 @@ $(".partner-box").on("click", function(){
 		}
 	}).then(function(isConfirm){
 		if(isConfirm){
-			const form = document.createElement("form");
-			form.setAttribute("method", "get");
-			form.setAttribute("action", "/match/matchSuccess");
 			
+			const matchNo1 = $("#matchNo1").text();
+			const matchNo2 = $("#matchNo2").text();
+			console.log(matchNo1)
+			const form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute("action", "/match/matchSuccess");
+			const input1 = document.createElement("input");
+			input1.setAttribute("type", "hidden");
+			input1.setAttribute("name", "matchNo1");
+			input1.setAttribute("value", matchNo1 );
+			
+			const input2 = document.createElement("input");
+			input2.setAttribute("type", "hidden");
+			input2.setAttribute("name", "matchNo2");
+			input2.setAttribute("value", matchNo2 );
+			
+			form.appendChild(input1);
+			form.appendChild(input2);
+			
+			document.body.appendChild(form);
+			form.submit();
 
 		}
 	})

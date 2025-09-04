@@ -1,6 +1,7 @@
 package kr.co.iei.match.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import kr.co.iei.party.controller.PartyController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class MatchController {
 	public String matchEnroll(Match m, int myMatchingCount, Model model) {
 			int result = matchService.matchEnroll(m);
 			if(result == 1) {
-				model.addAttribute("title", "신청 성공");
+				model.addAttribute("title", "결제 성공");
 				model.addAttribute("text", "신청해주셔서 감사합니다. 좋은 인연을 만들어드리겠습니다.");
 				model.addAttribute("icon", "success");
 				model.addAttribute("loc", "/");
@@ -106,25 +107,58 @@ public class MatchController {
 			m.setMemberImgPath(memberImg);
 		}
 		*/
+		System.out.println(matchList);
 		model.addAttribute("list", matchList);
 		return "match/management";
 	}
 	@GetMapping(value="/findMatch")
-	public String findMatch(Match m, Model model, int matchNo1) {
-		System.out.println(m);
+	public String findMatch(Match m, Model model) {
+		
+		int matchNo1 = m.getMatchNo();
 		if(m.getMemberGender().equals("남")) {
 			m.setMemberGender("f");
 		}else if(m.getMemberGender().equals("여")) {
 			m.setMemberGender("m");
 		}
+		
 		List matchList = matchService.findMatch(m);
-		System.out.println(matchList);
+		
 		model.addAttribute("matchList", matchList);
-		return "match/findMatch?matchNo1="+matchNo1;
+		model.addAttribute("matchNo1", matchNo1);
+		return "match/findMatch";
 	}
 	
-	@GetMapping(value="/matchSuccess")
-	public String matchSuccess() {
+	@PostMapping(value="/matchSuccess")
+	public String matchSuccess(String matchNo1 , String matchNo2, Model model) {
+		int newMatchNo1 = Integer.parseInt(matchNo1);
+		int newMatchNo2 = Integer.parseInt(matchNo2);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("matchNo1", newMatchNo1);
+		param.put("matchNo2", newMatchNo2);
+		int result = matchService.matchComplete(param); 
+		if(result == 1) {
+			int updateStatus = matchService.updateStatus(param);
+			if(updateStatus == 2) {
+				model.addAttribute("title", "매칭 성공");
+				model.addAttribute("text", "매칭 리스트에 등록되었습니다.");
+				model.addAttribute("icon", "success");
+				model.addAttribute("loc", "/match/management");
+				return "common/msg";
+			} else {
+				model.addAttribute("title", "매칭 실패");
+				model.addAttribute("text", "오류 발생");
+				model.addAttribute("icon", "warning");
+				model.addAttribute("loc", "/match/management");
+				return "common/msg";
+			}
+		}else{
+			model.addAttribute("title", "신청 실패");
+			model.addAttribute("text", "존재하지 않는 신청자 입니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "match/management");
+			
+			return "common/msg";
+		}
 		
 	}
 }

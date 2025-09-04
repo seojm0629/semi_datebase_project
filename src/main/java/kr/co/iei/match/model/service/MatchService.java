@@ -1,5 +1,6 @@
 package kr.co.iei.match.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,17 @@ public class MatchService {
 			
 			List findMatchList = matchDao.findMatch(m);
 		return findMatchList;
+	}
+	@Transactional
+	public int matchComplete(HashMap<String, Object> param) {
+			int result = matchDao.matchComplete(param);
+			
+		return result;
+	}
+
+	public int updateStatus(HashMap<String, Object> param) {
+			int updateStatus = matchDao.updateStatus(param);
+		return updateStatus;
 	}
 	
 }

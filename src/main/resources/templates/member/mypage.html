@@ -53,10 +53,10 @@
                         </div>
                         <div class="profile-content2">
                             <ul>
-                                <li th:text="'전화번호 : '+${session.member.memberPhone}"></li>
-                                <li th:text="'주소 : '+${session.member.memberAddr}"></li>
-                                <li th:text="'직업 : '+${session.member.memberJob}"></li>
-                                <li th:text="'MBTI : '+${session.member.memberMBTI}"></li>
+                                <li th:text="'전화번호 : '+${m.memberPhone}"></li>
+                                <li th:text="'주소 : '+${m.memberAddr}"></li>
+                                <li th:text="'직업 : '+${m.memberJob}"></li>
+                                <li th:text="'MBTI : '+${m.memberMBTI}"></li>
                             </ul>
                         </div>
                     </div>
@@ -129,9 +129,9 @@
                                     <span>제목</span>
                                     <span>날짜</span>
                                 </div>
-                                <div class="qna-line-content">
-                                    <span>제목</span>
-                                    <span>날짜</span>
+                                <div class="qna-line-content" th:each="quest : ${q}">
+                                    <span th:text="${quest.questionTitle}"></span>
+                                    <span th:text="${quest.regDate}"></span>
                                 </div>
                             </div>
                         </div>

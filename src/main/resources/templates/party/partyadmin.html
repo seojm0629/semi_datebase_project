@@ -16,7 +16,6 @@ body {
 	margin: 0 auto;
 }
 
-/* 제목 */
 .page-title {
 	text-align: center;
 	font-size: 28px;
@@ -25,7 +24,6 @@ body {
 	color: #A66E33;
 }
 
-/* 탭 */
 .tab {
 	display: flex;
 	justify-content: center;
@@ -38,18 +36,17 @@ body {
 .tab-btn {
 	font-size: 20px;
 	font-weight: bold;
-	border-bottom: 2px solid #b58b39;
-	color: #b58b39;
+	border-bottom: 2px solid transparent;
+	color: #2B2B2B;
 	padding-bottom: 5px;
 	cursor: pointer;
 }
 
 .tab-btn.active {
 	color: #A66E33;
-	border-bottom: 3px solid #A66E33;
+	border-bottom: 1px solid #A66E33;
 }
 
-/* 파티 테이블 */
 .party-box {
 	border: 2px solid #ddd;
 	padding: 20px;
@@ -78,7 +75,6 @@ td {
 	background: #fff;
 }
 
-/* 버튼 */
 .btn-write {
 	display: block;
 	width: 200px;
@@ -97,24 +93,19 @@ td {
 }
 </style>
 
-<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
 
-	<!-- 헤더 include -->
 	<th:block th:include="common/header"></th:block>
 
 	<h1 class="page-title">파티 관리</h1>
 
-	<!-- 탭 -->
 	<div class="tab">
-		<span class="tab-btn active" data-type="와인">와인 파티 🍷</span> <span
-			class="tab-btn" data-type="비어">비어 파티 🍺</span>
+		<span class="tab-btn active" data-type="wine">와인 파티 🍷</span> <span
+			class="tab-btn" data-type="beer">비어 파티 🍺</span>
 	</div>
 
-	<!-- 파티 리스트 -->
 	<div class="party-box">
 		<table>
 			<thead>
@@ -125,64 +116,62 @@ td {
 				</tr>
 			</thead>
 			<tbody id="party-table-body">
-				<!-- AJAX로 불러온 데이터가 들어옴 -->
 			</tbody>
 		</table>
 	</div>
 
+	<
 	<button class="btn-write">파티 게시글 작성</button>
-
-	<!-- footer include -->
-	<th:block th:include="common/footer"></th:block>
 
 	<script>
 $(document).ready(function(){
 
     function loadParty(type){
-    	$.ajax({
-    	    url: '/party/admin/list',
-    	    type: 'GET',
-    	    data: { type: '비어' },
-    	    success: function(list){
-    	        let tbody = $("#party-table-body");
-    	        tbody.empty();
-    	        
-    	        if(list.length === 0){
-    	            tbody.append('<tr><td colspan="3">등록된 파티가 없습니다.</td></tr>');
-    	        } else {
-    	            list.forEach(function(p){
-    	                tbody.append(
-    	                    `<tr>
-    	                        <td>${p.partyDate}</td>
-    	                        <td>${p.partyPlace}</td>
-    	                        <td>남 ${p.partyMale}명 / 여 ${p.partyFemale}명</td>
-    	                    </tr>`
-    	                );
-    	            });
-    	        }
-    	    },
-    	    error: function(xhr, status, error){
-    	        console.error("AJAX Error:", xhr.status, error);
-    	        $("#party-table-body").html('<tr><td colspan="3">데이터를 불러오는데 실패했습니다.</td></tr>');
-    	    }
-    	});
-
+        $.ajax({
+            url: '/party/admin/list',
+            type: 'GET',
+            data: { type: type },
+            success: function(list){
+                let tbody = $("#party-table-body");
+                tbody.empty();
+                
+                if(list.length === 0){
+                    tbody.append('<tr><td colspan="3">등록된 파티가 없습니다.</td></tr>');
+                } else {
+                    list.forEach(function(p){
+                        tbody.append(
+                            `<tr>
+                                <td>${p.partyDate}</td>
+                                <td>${p.partyPlace}</td>
+                                <td>남 ${p.partyMale}명 / 여 ${p.partyFemale}명</td>
+                            </tr>`
+                        );
+                    });
+                }
+            },
+            error: function(xhr, status, error){
+                console.error("AJAX Error:", xhr.status, error);
+                $("#party-table-body").html('<tr><td colspan="3">데이터를 불러오는데 실패했습니다.</td></tr>');
+            }
+        });
     }
 
-   
-    loadParty('와인');
+    loadParty('wine');
 
-  
     $(".tab-btn").click(function(){
         $(".tab-btn").removeClass("active"); 
         $(this).addClass("active");          
         let type = $(this).data("type");
         loadParty(type);
     });
+
+    $(".btn-write").click(function(){
+        window.location.href = "/party/new";
+    });
+
 });
-
-
 </script>
 
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

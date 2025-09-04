@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.iei.match.model.service.MatchService;
 import kr.co.iei.match.model.vo.Grade;
@@ -71,7 +72,9 @@ public class MatchController {
 	}
 	
 	@GetMapping(value="/matchWrite")
-	public String matchWrite() {
+	public String matchWrite(@SessionAttribute(required=false) Member member , Model model) {
+		Member m = memberService.selectOneMember(member.getMemberId());
+		model.addAttribute("myMatchingCount", m.getMyMatchingCount());
 		return "match/matchWrite";
 	}
 	

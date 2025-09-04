@@ -129,9 +129,9 @@
                                     <span>제목</span>
                                     <span>날짜</span>
                                 </div>
-                                <div class="qna-line-content">
-                                    <span>제목</span>
-                                    <span>날짜</span>
+                                <div class="qna-line-content" th:each="quest : ${q}">
+                                    <span th:text="${quest.questionTitle}"></span>
+                                    <span th:text="${quest.regDate}"></span>
                                 </div>
                             </div>
                         </div>

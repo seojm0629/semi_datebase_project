@@ -3,11 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="sytlesheet" href="../css/buyPageView.css">
+<link rel="stylesheet" href="../css/buyPageView.css">
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-		
+		<div class="buyPage-all-wrap">
+	        <div class="buyPage-wrap">
+	            <div class="buyPage-header">
+	                <h1>결재내역 페이지</h1>
+	            </div>
+	            <div class="buyPage-content">
+	                <div class="buyPage-top">
+	                    <span class="payNo">번호</span>
+	                        <span class="payName">상품명</span>
+	                        <span class="payPrice">가격</span>
+	                        <span class="payState">상태</span>
+	                        <span class="payDate">결재날짜</span>
+	                </div>
+	                <div class="scrollDiv">
+	                    <div class="buyPage-inner-content" th:each="payList : ${pay}">
+							<span class="in-payNo" th:text="${payList.payNo}"></span>
+							<span class="in-payName" th:text="${payList.payName}"></span>
+							<span class="in-payPrice" th:text="${payList.payPrice}"></span>
+							<span class="in-payState" th:text="${payList.payState}"></span>
+							<span class="in-payDate" th:text="${payList.payDate}"></span>
+						</div>
+	                </div>
+	            </div>
+	            <button type="button" id="back-mypage">뒤로가기</button>
+	        </div>
+	    </div>
+	    <script>
+	    	$("#back-mypage").on("click", function(){
+	    		location.href=("/member/mypage");
+	    	});
+	    </script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

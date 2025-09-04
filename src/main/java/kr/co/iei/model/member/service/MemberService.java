@@ -1,16 +1,22 @@
 package kr.co.iei.model.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.model.member.dao.MemberDao;
 import kr.co.iei.model.member.vo.Member;
+import kr.co.iei.pay.model.dao.payDao;
 import kr.co.iei.pay.model.vo.pay;
 import kr.co.iei.model.member.vo.MemberMoreInfo;
 
 @Service
 public class MemberService {
+	
+	@Autowired
+	private payDao payDao;
 	
 	@Autowired
 	private MemberDao memberDao;
@@ -86,5 +92,11 @@ public class MemberService {
 	public int managerUpdate(Member m) {
 		int result = memberDao.managerUpdate(m);
 		return result;
+	}
+
+
+	public List<pay> selectMemberPayList(String memberId) {
+		List<pay> pay = payDao.selectMemberPayList(memberId);
+		return pay;
 	}
 }

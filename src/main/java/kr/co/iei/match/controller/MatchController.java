@@ -123,8 +123,10 @@ public class MatchController {
 		return "match/findMatch?matchNo1="+matchNo1;
 	}
 	
+	/*
 	@GetMapping(value="/matchSuccess")
 	public String matchSuccess() {
 		
 	}
+	*/
 }

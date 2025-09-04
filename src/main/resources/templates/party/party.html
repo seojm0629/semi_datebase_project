@@ -10,16 +10,11 @@
 	<main class="content">
 		<div class="container">
 			<div class="title">파티 소개</div>
-
-			<!-- 탭 -->
 			<div class="tabs">
 				<div class="active">와인 파티 🍷</div>
 				<div>비어 파티 🍺</div>
 			</div>
-
-		
 			<div class="tab-content">
-				<!-- 와인 파티 -->
 				<div class="party-tab active" data-party="wine">
 					<div class="party-img">
 						<div class="arrow left">&lt;</div>
@@ -29,12 +24,12 @@
 								th:data-date="${party.partyDate}"
 								th:data-place="${party.partyPlace}"
 								th:data-price="${party.partyPrice}"
+								th:data-partyno="${party.partyNo}"
 								th:classappend="${iterStat.index == 0} ? 'active' : ''"
 								th:alt="${party.partyTitle}">
 						</th:block>
 						<div class="arrow right">&gt;</div>
 					</div>
-
 					<div class="info">
 						<div class="info-row">
 							<span>일시</span> <span id="wine-date"></span>
@@ -47,8 +42,6 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- 비어 파티 -->
 				<div class="party-tab" data-party="beer">
 					<div class="party-img">
 						<div class="arrow left">&lt;</div>
@@ -58,12 +51,12 @@
 								th:data-date="${party.partyDate}"
 								th:data-place="${party.partyPlace}"
 								th:data-price="${party.partyPrice}"
+								th:data-partyno="${party.partyNo}"
 								th:classappend="${iterStat.index == 0} ? 'active' : ''"
 								th:alt="${party.partyTitle}">
 						</th:block>
 						<div class="arrow right">&gt;</div>
 					</div>
-
 					<div class="info">
 						<div class="info-row">
 							<span>일시</span> <span id="beer-date"></span>
@@ -79,64 +72,57 @@
 			</div>
 		</div>
 	</main>
-
 	<th:block th:include="common/footer"></th:block>
-
 	<script>
-	const tabs = document.querySelectorAll(".tabs div");
-	const partyTabs = document.querySelectorAll(".party-tab");
-
-	tabs.forEach((tab, i) => {
-		tab.addEventListener("click", () => {
-			tabs.forEach(t => t.classList.remove("active"));
-			partyTabs.forEach(pt => pt.classList.remove("active"));
-			tab.classList.add("active");
-			partyTabs[i].classList.add("active");
-		});
-	});
-
-	partyTabs.forEach(tab => {
-		const imgs = tab.querySelectorAll("img");
-		const left = tab.querySelector(".arrow.left");
-		const right = tab.querySelector(".arrow.right");
-		let cur = 0;
-
-		function showImg(index) {
-			if(imgs.length === 0) return;
-			imgs.forEach(img => img.classList.remove("active"));
-			const img = imgs[index];
-			img.classList.add("active");
-
-			const type = tab.dataset.party;
-
-			// 날짜 YYYY-MM-DD HH:MM
-			const dateObj = new Date(img.dataset.date);
-			const year = dateObj.getFullYear();
-			const month = (dateObj.getMonth()+1).toString().padStart(2,'0');
-			const day = dateObj.getDate().toString().padStart(2,'0');
-			const hours = dateObj.getHours().toString().padStart(2,'0');
-			const minutes = dateObj.getMinutes().toString().padStart(2,'0');
-			tab.querySelector(`#${type}-date`).textContent = `${year}-${month}-${day} ${hours}:${minutes}`;
-
-			tab.querySelector(`#${type}-place`).textContent = img.dataset.place;
-
-			const price = Number(img.dataset.price).toLocaleString();
-			tab.querySelector(`#${type}-price`).textContent = price + "원";
-		}
-
-		if(left && right){
-			left.addEventListener("click", () => {
-				cur = (cur - 1 + imgs.length) % imgs.length;
-				showImg(cur);
-			});
-			right.addEventListener("click", () => {
-				cur = (cur + 1) % imgs.length;
-				showImg(cur);
-			});
-		}
-
-		showImg(cur);
-	});
-	</script>
+const tabs = document.querySelectorAll(".tabs div");
+const partyTabs = document.querySelectorAll(".party-tab");
+tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        partyTabs.forEach(pt => pt.classList.remove("active"));
+        tab.classList.add("active");
+        partyTabs[i].classList.add("active");
+    });
+});
+partyTabs.forEach(tab => {
+    const imgs = tab.querySelectorAll("img");
+    const left = tab.querySelector(".arrow.left");
+    const right = tab.querySelector(".arrow.right");
+    let cur = 0;
+    function showImg(index) {
+        if(imgs.length === 0) return;
+        imgs.forEach(img => img.classList.remove("active"));
+        const img = imgs[index];
+        img.classList.add("active");
+        const type = tab.dataset.party;
+        const dateObj = new Date(img.dataset.date);
+        const year = dateObj.getFullYear();
+        const month = (dateObj.getMonth()+1).toString().padStart(2,'0');
+        const day = dateObj.getDate().toString().padStart(2,'0');
+        const hours = dateObj.getHours().toString().padStart(2,'0');
+        const minutes = dateObj.getMinutes().toString().padStart(2,'0');
+        tab.querySelector(`#${type}-date`).textContent = `${year}-${month}-${day} ${hours}:${minutes}`;
+        tab.querySelector(`#${type}-place`).textContent = img.dataset.place;
+        const price = Number(img.dataset.price).toLocaleString();
+        tab.querySelector(`#${type}-price`).textContent = price + "원";
+        img.style.cursor = 'pointer';
+        img.addEventListener("click", () => {
+            const partyNo = img.dataset.partyno;
+            window.location.href = '/party/user?partyNo=' + partyNo;
+        });
+    }
+    if(left && right){
+        left.addEventListener("click", () => {
+            cur = (cur - 1 + imgs.length) % imgs.length;
+            showImg(cur);
+        });
+        right.addEventListener("click", () => {
+            cur = (cur + 1) % imgs.length;
+            showImg(cur);
+        });
+    }
+    showImg(cur);
+});
+</script>
 </body>
 </html>

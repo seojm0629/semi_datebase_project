@@ -45,6 +45,13 @@ public class PartyController {
 		return "party/partyFrm";
 	}
 
+	@GetMapping("/user")
+	public String partyuser(@RequestParam("partyNo") int partyNo, Model model) {
+		Party party = partyService.getPartyById(partyNo);
+		model.addAttribute("party", party);
+		return "party/partyuser";
+	}
+
 	@PostMapping("/new")
 	public String createParty(Party party, @RequestParam("partyThumbFile") MultipartFile file) {
 		if (!file.isEmpty()) {
@@ -69,13 +76,4 @@ public class PartyController {
 		return partyService.getPartyByType(type);
 	}
 
-	@GetMapping("/user")
-	public String partyUser(@RequestParam("partyNo") int partyNo, Model model) {
-		Party party = partyService.getPartyByNo(partyNo);
-
-		model.addAttribute("party", party);
-
-		// partyuser.html로 연결
-		return "party/partyuser";
-	}
 }

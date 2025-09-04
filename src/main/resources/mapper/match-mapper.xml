@@ -60,6 +60,7 @@
 			from match_mypage p 
 			join member m using(member_id)
 			join member_more_info mmi using(member_no)
+			
 			where m.member_grade = #{memberGrade} 
 					and member_addr like '%'||#{matchField}||'%' 
 					and SUBSTR(to_char(SYSDATE , 'YYYY') - SUBSTR(m.birth_date, 1,4), 1 ,1) = SUBSTR(#{matchAge}, 1, 1) 
@@ -68,6 +69,7 @@
 					and member_hobby = #{matchHobby} 
 					and m.member_gender = #{memberGender}
 					and match_status = '대기중'
+					
 				<if test="memberGrade == 'gold' || memberGrade == 'platinum'">	
 					 and mmi.member_edu = #{matchEdu}
 				</if>
@@ -76,4 +78,12 @@
 					 and mmi.member_salary = #{matchSalary}
 				</if>	 
 	</select>
+	
+	<insert id="matchComplete">
+		insert into match_admin values(match_admin_seq.nextval, default, default, default, SYSDATE , #{matchNo1}, #{matchNo2})
+	</insert>
+	
+	<update id="updateStatus">
+		update match_mypage set match_status = '매칭중' where match_no in (#{matchNo1}, #{matchNo2}) 
+	</update>
 </mapper>

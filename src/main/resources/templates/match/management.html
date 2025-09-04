@@ -8,10 +8,12 @@
 	.content{
 		text-align : center;
 		padding-bottom : 60px;
+		
 	}
 	.content-wrap{
 		width : 1200px;
 		margin: 0 auto;
+		text-align : right;
 		
 		
 	}
@@ -86,7 +88,12 @@
 	.tb{
 		text-align : right;
 	}
-	
+	#matchingList{
+		border : none;
+		justify-content:right;
+		width : 15%;
+		padding : 5px 0;
+	}
 </style>
 </head>
 <body>
@@ -94,15 +101,15 @@
 <main class="content">
 	<div class="content-wrap">
 		<div class="page-title">매칭 관리</div>
+		<button type="button" class="main-btn" id="matchingList">매칭 현황</button>
 		<div class="list-wrap" >
-		
 			<div class="list-box" th:each="match : ${list}">
 				<div class="photo-box">
 					<img th:src="'/member/memberImg/'+${match.memberImgPath}" id="matchPhoto">
 				</div>
 				<div class="table-section">
+					<div id="matchNo1" th:text="${match.matchNo}" style="display : none;"></div>
 					<table class="match-table">
-						
 						<tr>
 							<th>이름</th>
 							<td th:text="${match.memberName}" th:value="${match.memberName}" id="memberName"></td>
@@ -139,12 +146,13 @@
 						<tr th:if="${match.memberGrade == 'platinum'}" class="grade" >
 							<th colspan="3">근무형태</th>
 							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}" id="matchWorkType"></td>
+							 
+							
 						</tr>
 						
 					</table>
 				</div>
 			</div>
-			</a>
 		</div>	
 	</div>
 	
@@ -152,6 +160,7 @@
 <th:block th:include="common/footer"></th:block>
 </body>
 <script>
+
 $(".list-box").on("click", function(){
 
 	const memberName = $(this).find("#memberName").text();
@@ -178,7 +187,28 @@ $(".list-box").on("click", function(){
 
 	const memberImgPath = $(this).find("#matchPhoto").attr("src");
 	
-	
+	const matchNo = $(this).find("#matchNo1").text();
+	swal({
+		title : "매칭 진행",
+		text : "이 회원이 신청한 조건에 맞는 파트너를 검색하시겠습니까?",
+		icon : "info",
+		buttons : {
+			cancel : {
+				text : "취소",
+				value : false,
+				visible : true,
+				className : "btn-cancel",
+				closeModal : true
+			},
+			confirm : {
+				text : "매칭",
+				value : true,
+				visible : true,
+				className : "btn-confrim",
+				closeModal : true
+			}
+		}
+	}).then(function(isConfirm){
 	const form = document.createElement("form");
 	form.setAttribute("method", "get");
 	form.setAttribute("action", "/match/findMatch");
@@ -249,13 +279,25 @@ $(".list-box").on("click", function(){
 	input11.setAttribute("name", "matchWorkType");
 	input11.setAttribute("value", matchWorkType );
 	
+	const input12 = document.createElement("input");
+	input12.setAttribute("type", "hidden");
+	input12.setAttribute("name", "matchNo");
+	input12.setAttribute("value", matchNo );
+	
 	
 	form.appendChild(input8);
 	form.appendChild(input9);
 	form.appendChild(input10);
 	form.appendChild(input11);
+	form.appendChild(input12);
+	
 	document.body.appendChild(form);
 	form.submit();
-});	
+	})
+});
+
+$("#matchingList").on("click", function(){
+	location.href("match/)
+});
 </script>
 </html>

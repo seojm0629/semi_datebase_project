@@ -23,8 +23,8 @@
                     <th:block th:if="${session.member.memberGrade == null}">
                     	<h2>내 등급 : 없음</h2>
                     </th:block>
-                    <h3 th:text="'남은 만남권 : '+${session.member.myMatchingCount}+'회'"></h3>
-                    <h3 th:text="'남은 패스권 : '+${session.member.myPassCount}+'회'"></h3>
+                    <h3 th:text="'남은 만남권 : '+${m.myMatchingCount}+'회'"></h3>
+                    <h3 th:text="'남은 패스권 : '+${m.myPassCount}+'회'"></h3>
                     <div class="user-button">
                         <button type="button" id="buy-membership"><a href="/match/matchWrite">매칭신청</a></button>
                         <button type="button" id="buy-list">결제내역</button>

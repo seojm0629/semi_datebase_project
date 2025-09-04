@@ -1,5 +1,6 @@
 package kr.co.iei.match.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,9 @@ public interface MatchDao {
 	List selectMatchList();
 
 	List findMatch(Match m);
+
+	int matchComplete(HashMap<String, Object> param);
+
+	int updateStatus(HashMap<String, Object> param);
 	
 }

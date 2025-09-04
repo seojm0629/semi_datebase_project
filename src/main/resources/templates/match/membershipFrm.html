@@ -293,7 +293,7 @@ button[type=submit]{
 		
 		$.ajax({
 			url : "/match/calcPrice",
-			type : "get",
+			type : "post",
 			data : { memberGrade : memberGrade, memberAge : memberAge, matchCount : matchCount , memberGender : memberGender, memberId : memberId },
 			dataType : "json",
 			success : function(g){

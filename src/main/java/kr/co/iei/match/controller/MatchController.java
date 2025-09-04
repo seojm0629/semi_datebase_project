@@ -1,6 +1,7 @@
 package kr.co.iei.match.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import kr.co.iei.party.controller.PartyController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.iei.match.model.service.MatchService;
 import kr.co.iei.match.model.vo.Grade;
@@ -70,39 +72,32 @@ public class MatchController {
 	}
 	
 	@GetMapping(value="/matchWrite")
-	public String matchWrite() {
-		return "/match/matchWrite";
+	public String matchWrite(@SessionAttribute(required=false) Member member , Model model) {
+		Member m = memberService.selectOneMember(member.getMemberId());
+		model.addAttribute("myMatchingCount", m.getMyMatchingCount());
+		return "match/matchWrite";
 	}
 	
 	@GetMapping(value="/enroll")
 	public String matchEnroll(Match m, int myMatchingCount, Model model) {
-		int useCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
-		if(useCount == 1 ) {
-				int result = matchService.matchEnroll(m);
+			int result = matchService.matchEnroll(m);
 			if(result == 1) {
-				model.addAttribute("title", "신청 성공");
+				model.addAttribute("title", "신청 완료");
 				model.addAttribute("text", "신청해주셔서 감사합니다. 좋은 인연을 만들어드리겠습니다.");
 				model.addAttribute("icon", "success");
 				model.addAttribute("loc", "/");
 				
 				return "common/msg";
 			}else{
-				myMatchingCount = myMatchingCount+2;
-				int rollbackCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
 				model.addAttribute("title", "신청 실패");
 				model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
 				model.addAttribute("icon", "error");
-				model.addAttribute("loc", "match/matchWrite");
+				model.addAttribute("loc", "/match/matchWrite");
 				
 				return "common/msg";
 			}
-		}
-		model.addAttribute("title", "신청 실패");
-		model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
-		model.addAttribute("icon", "error");
-		model.addAttribute("loc", "match/matchWrite");
 		
-		return "common/msg";
+		
 	}
 	
 	@GetMapping(value="/management")
@@ -115,20 +110,59 @@ public class MatchController {
 			m.setMemberImgPath(memberImg);
 		}
 		*/
+		System.out.println(matchList);
 		model.addAttribute("list", matchList);
 		return "match/management";
 	}
 	@GetMapping(value="/findMatch")
 	public String findMatch(Match m, Model model) {
-		System.out.println(m);
+		
+		int matchNo1 = m.getMatchNo();
 		if(m.getMemberGender().equals("남")) {
 			m.setMemberGender("f");
 		}else if(m.getMemberGender().equals("여")) {
 			m.setMemberGender("m");
 		}
+		
 		List matchList = matchService.findMatch(m);
-		System.out.println(matchList);
+		
 		model.addAttribute("matchList", matchList);
+		model.addAttribute("matchNo1", matchNo1);
 		return "match/findMatch";
 	}
+	
+	@PostMapping(value="/matchSuccess")
+	public String matchSuccess(String matchNo1 , String matchNo2, Model model) {
+		int newMatchNo1 = Integer.parseInt(matchNo1);
+		int newMatchNo2 = Integer.parseInt(matchNo2);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("matchNo1", newMatchNo1);
+		param.put("matchNo2", newMatchNo2);
+		int result = matchService.matchComplete(param); 
+		if(result == 1) {
+			int updateStatus = matchService.updateStatus(param);
+			if(updateStatus == 2) {
+				model.addAttribute("title", "매칭 성공");
+				model.addAttribute("text", "매칭 리스트에 등록되었습니다.");
+				model.addAttribute("icon", "success");
+				model.addAttribute("loc", "/match/management");
+				return "common/msg";
+			} else {
+				model.addAttribute("title", "매칭 실패");
+				model.addAttribute("text", "오류 발생");
+				model.addAttribute("icon", "warning");
+				model.addAttribute("loc", "/match/management");
+				return "common/msg";
+			}
+		}else{
+			model.addAttribute("title", "신청 실패");
+			model.addAttribute("text", "존재하지 않는 신청자 입니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "match/management");
+			
+			return "common/msg";
+		}
+		
+	}
+	
 }

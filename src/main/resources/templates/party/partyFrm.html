@@ -121,16 +121,16 @@ button[type="submit"]:hover {
 	display: flex;
 	gap: 10px;
 	margin-top: 5px;
-	align-items: center; /* 세로 가운데 정렬 */
+	align-items: center;
 }
 
 .addr-row input {
-	flex: 1; /* 남는 공간 다 차지 */
+	flex: 1;
 }
 
 .addr-row button {
 	padding: 8px 12px;
-	white-space: nowrap; /* 버튼 글자가 줄바꿈 안 되게 */
+	white-space: nowrap;
 	border: none;
 	border-radius: 5px;
 	background-color: #C58940;
@@ -164,14 +164,15 @@ button[type="submit"]:hover {
 
 			<label>장소:</label>
 			<div class="addr-row">
-				<input type="text" id="partyPlace" name="partyPlace"
-					placeholder="주소를 입력하세요" readonly required>
+				<input type="text" id="partyPlace" placeholder="주소를 입력하세요" readonly
+					required>
 				<button type="button" onclick="execDaumPostcode()">주소 검색</button>
 			</div>
-			<input type="text" id="partyPlaceDetail" name="partyPlaceDetail"
-				placeholder="상세 주소를 입력하세요" required> <label>날짜:</label> <input
-				type="date" name="partyDate" required> <label>시간:</label> <select
-				name="partyTime" required>
+			<input type="text" id="partyPlaceDetail" placeholder="상세 주소를 입력하세요"
+				required> <input type="hidden" name="partyPlace"
+				id="partyPlaceHidden"> <label>날짜:</label> <input type="date"
+				id="partyDateInput" required> <label>시간:</label> <select
+				id="partyTimeInput" required>
 				<option value="">시간 선택</option>
 				<option value="19:00">19:00</option>
 				<option value="19:30">19:30</option>
@@ -182,18 +183,20 @@ button[type="submit"]:hover {
 				<option value="22:00">22:00</option>
 				<option value="22:30">22:30</option>
 				<option value="23:00">23:00</option>
-			</select>
+			</select> <input type="hidden" name="partyDate" id="partyDateTime">
 
 			<div class="gender-row">
 				<div class="gender-col">
-					<label for="male">남자 인원</label> <input type="number" id="male"
-						name="male" min="1" max="30" placeholder="남자 인원 (최대 30명)" required>
+					<label for="partyMale">남자 인원</label> <input type="number"
+						id="partyMale" name="partyMale" min="1" max="30"
+						placeholder="남자 인원 (최대 30명)" required>
 				</div>
 				<div class="gender-col">
-					<label for="female">여자 인원</label> <input type="number" id="female"
-						name="female" min="1" max="30" placeholder="여자 인원 (최대 30명)"
-						required>
+					<label for="partyFemale">여자 인원</label> <input type="number"
+						id="partyFemale" name="partyFemale" min="1" max="30"
+						placeholder="여자 인원 (최대 30명)" required>
 				</div>
+
 			</div>
 
 			<label for="partyPrice">가격</label> <input type="text" id="partyPrice"
@@ -203,53 +206,75 @@ button[type="submit"]:hover {
 		</div>
 	</form>
 
-
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		function execDaumPostcode() {
 			new daum.Postcode({
-				oncomplete: function(data) {
-					
-					document.getElementById("partyPlace").value = data.address;
-					
-					document.getElementById("partyPlaceDetail").focus();
+				oncomplete : function(data) {
+					document.querySelector('#partyPlace').value = data.address;
+					document.querySelector('#partyPlaceDetail').focus();
 				}
 			}).open();
 		}
 
-		// 이미지 미리보기
-		const imageBox = document.getElementById('imageBox');
-		const fileInput = document.getElementById('partyThumb');
-		imageBox.addEventListener('click', () => { fileInput.click(); });
-		fileInput.addEventListener('change', () => {
-			if(fileInput.files && fileInput.files[0]){
-				const reader = new FileReader();
-				reader.onload = (e) => {
-					imageBox.style.backgroundImage = `url(${e.target.result})`;
+		var imageBox = document.querySelector('#imageBox');
+		var fileInput = document.querySelector('#partyThumb');
+
+		imageBox.addEventListener('click', function() {
+			fileInput.click();
+		});
+
+		fileInput.addEventListener('change', function() {
+			if (fileInput.files && fileInput.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					imageBox.style.backgroundImage = 'url(' + e.target.result
+							+ ')';
 					imageBox.style.backgroundSize = 'cover';
 					imageBox.style.backgroundPosition = 'center';
 					imageBox.textContent = '';
-				}
+				};
 				reader.readAsDataURL(fileInput.files[0]);
 			}
 		});
 
-		// 가격 입력 , 자동 포맷팅
-		const priceInput = document.getElementById("partyPrice");
-		priceInput.addEventListener("input", (e) => {
-			let value = e.target.value.replace(/,/g, "");
-			if (!isNaN(value) && value !== "") {
+		var priceInput = document.querySelector('#partyPrice');
+		priceInput.addEventListener('input', function(e) {
+			var value = e.target.value.replace(/,/g, '');
+			if (!isNaN(value) && value !== '') {
 				e.target.value = parseInt(value, 10).toLocaleString();
 			}
 		});
 
-		// submit 전 , 제거해서 숫자만 넘기기
-		const partyForm = document.getElementById("partyForm");
-		partyForm.addEventListener("submit", (e) => {
-			const priceField = document.getElementById("partyPrice");
-			priceField.value = priceField.value.replace(/,/g, "");
-		});
+		document
+				.querySelector('#partyForm')
+				.addEventListener(
+						'submit',
+						function(e) {
+							var address = document.querySelector('#partyPlace').value;
+							var detail = document
+									.querySelector('#partyPlaceDetail').value;
+							document.querySelector('#partyPlaceHidden').value = address
+									+ ' ' + detail;
+
+							var date = document
+									.querySelector('#partyDateInput').value;
+							var time = document
+									.querySelector('#partyTimeInput').value;
+							if (!date || !time) {
+								alert('날짜와 시간을 모두 선택해주세요.');
+								e.preventDefault();
+								return;
+							}
+							document.querySelector('#partyDateTime').value = date
+									+ ' ' + time;
+
+							var priceField = document
+									.querySelector('#partyPrice');
+							priceField.value = priceField.value.replace(/,/g,
+									'');
+						});
 	</script>
 
 	<th:block th:include="common/footer"></th:block>

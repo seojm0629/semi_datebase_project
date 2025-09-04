@@ -15,4 +15,6 @@ public interface PartyDao {
 
 	List<Party> getPartyByType(String type);
 
+	Party getPartyByNo(int partyNo);
+
 }

@@ -10,6 +10,7 @@ import kr.co.iei.model.member.dao.MemberDao;
 import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.pay.model.dao.payDao;
 import kr.co.iei.pay.model.vo.pay;
+import kr.co.iei.question.model.vo.Question;
 import kr.co.iei.model.member.vo.MemberMoreInfo;
 
 @Service
@@ -20,6 +21,8 @@ public class MemberService {
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	
 
 	@Transactional
 	public int insertMember(Member m) {
@@ -99,4 +102,5 @@ public class MemberService {
 		List<pay> pay = payDao.selectMemberPayList(memberId);
 		return pay;
 	}
+	
 }

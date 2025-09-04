@@ -303,6 +303,67 @@
     overflow-y: scroll;
    	width: 306px
 }
+/*------------------------my-mitting-list--------------------------------*/
+.plus-content{
+    width: 600px;
+}
+.my-mitting-list{
+    box-sizing: border-box;
+    width: 300px;
+    float: left;
+    margin-left: 10px;
+}
+.my-mitting-list>.my-qna-mitting-header{
+    font-size: 20px;
+}
+.my-mitting-list>.my-qna-mitting-content{
+    border: 2px solid #C58940;
+    height: 200px;
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+.my-qna-mitting-content>.mitting-content-header{
+    width: 90%;
+    border-bottom: 1px solid #2B2B2B;
+    margin: 0 auto;
+}
+.my-qna-mitting-content>.mitting-content-header>span{
+    display: inline-block;
+}
+#header-a{
+    width: 100px;
+    text-align: center;
+}
+#header-s{
+    width: 50px;
+    text-align: center;
+}
+#header-d{
+    width: 100px;
+    text-align: center;
+}
+/*----------------------------------------------*/
+.my-qna-mitting-content>.mitting-inner-content{
+    width: 90%;
+    border-bottom: 1px solid #2B2B2B;
+    margin: 0 auto;
+}
+.my-qna-mitting-content>.mitting-inner-content>span{
+    display: inline-block;
+}
+#inner-a{
+    width: 100px;
+    text-align: center;
+}
+#inner-s{
+    width: 50px;
+    text-align: center;
+}
+#inner-d{
+    width: 100px;
+    text-align: center;
+}
+/*-----------------------------------*/
 .my-mitting-list>.my-qna-mitting-content::-webkit-scrollbar {
     width: 6px;
 }

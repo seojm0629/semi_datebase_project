@@ -1,8 +1,11 @@
 package kr.co.iei.match.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import kr.co.iei.match.model.dao.MatchDao;
 import kr.co.iei.match.model.vo.Grade;
@@ -33,7 +36,7 @@ public class MatchService {
 	@Transactional
 	public int insertMatch(Match m) {
 		int result = matchDao.matchEnroll(m);
-		return 0;
+		return result;
 	}
 	
 	@Transactional
@@ -51,6 +54,18 @@ public class MatchService {
 			System.out.println(m);
 			int result = matchDao.matchEnroll(m);
 		return result;
+	}
+	
+	public List selectMatchList() {
+			List matchList = matchDao.selectMatchList();
+			
+		return matchList;
+	}
+
+	public List findMatch(Match m) {
+			
+			List findMatchList = matchDao.findMatch(m);
+		return findMatchList;
 	}
 	
 }

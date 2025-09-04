@@ -68,7 +68,6 @@
     width: 200px;
     height: 100px;
     line-height: 100px;
-    border: 1px solid black;
     border-radius: 15px;
     background-color: #E5BA73;
     cursor: pointer;
@@ -85,32 +84,18 @@
 	font-weight: 900;
 	color: #C58940;
 }
-.review-board>div:nth-child(2){
+.review-board>div:last-child{
 	float: left;
 	line-height: 50px;
 	padding-left: 8px;
 	font-size: 18px;
 }
-.review-board>div:nth-child(2)>div{
+.review-board>div:last-child>div{
 	font-size: 23px;
 	font-weight: 900;
 	color: #C58940;
 }
-.review-board>div:last-child{
-	float: right;
-	width: 120px;
-	height: 55px;
-	line-height: 55px;
-	border-radius: 8px;
-	text-align: center;
-	background-color: #E5BA73;
-}
-.review-board>div:last-child>a{
-	font-family: main2;
-	font-size: 22px;
-	font-weight: 800;
-	color: #fff;
-}
+
 
 
 .party-blind>div{
@@ -176,7 +161,31 @@
 	color: #fff;
 	border: none;
 }
-
+.content-write>div{
+	float: right;
+	width: 120px;
+	height: 55px;
+	line-height: 55px;
+	background-color: #E5BA73;
+	border-radius: 8px;
+}
+.content-write>div>a{
+	font-family: mainB2;
+	font-weight: 700;
+	font-size: 20px;
+	color: #fff;
+	text-align: center;
+}
+.write-btn-wrapper{
+	float: right;
+	width: 120px;
+	height: 55px;
+	line-height: 55px;
+}
+.write-btn-wrapper>a{
+	display: block;
+	
+}
 
 </style>
 </head>
@@ -195,15 +204,18 @@
                 <div class="blind">소개팅 후기</div>
             </div>
 
+			<div class="content-write">
+                <div class="write-btn-wrapper" th:if="${session.member != null}">
+	          		<a href="/review/writeChoiceFrm">작성하기</a>
+	       	 	</div>
+            </div>
+
             <div class="review-board">
-                <div>게시판 수</div>
+                <div>게시판 수  </div>
                	<div class="board-count">
 	                <div th:text=${partyTotalCount}></div>
 	                <div th:text=${blindTotalCount}></div>
                 </div>
-                <div th:if="${session.member != null}">
-	          		<a href="/review/writeChoiceFrm" class="write-btn">작성하기</a>
-	       	 	</div>
             </div>
             
 

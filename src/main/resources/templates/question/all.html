@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<form action="/question/allMember" method="get">
+			<div>
+				<input type="text" name="questionWriter" id="questionWriter">
+				<input type="submit" value="조회">
+			</div>
+			<table class="tbl">
+				<tr>
+					<th>문의 번호</th>
+					<th>문의 제목</th>
+					<th>문의 작성자</th>
+					<th>문의 내용</th>
+					<th>문의 작성일자</th>
+				</tr>
+				<tr th:each="list : ${memberList}">
+					<td th:text="${list.questionNo}"></td>
+					<td th:text="${list.questionTitle}"></td>
+					<td th:text="${list.questionWriter}"></td>
+					<td th:text="${list.questionContent}"></td>
+					<td th:text="${list.regDate}"></td>
+				</tr>
+			</table>
+		</form>	
+	</div>
+</body>
+</html>

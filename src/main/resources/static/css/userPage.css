@@ -68,7 +68,9 @@
     height: 30px;
     background-color: #E5BA73;
     border-radius: 5px;
-    color: #fff;
+}
+.user-button>#buy-membership>a{
+	color: #FFF;
 }
 .user-button>#buy-list{
     border: none;

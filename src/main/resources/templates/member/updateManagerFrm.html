@@ -29,7 +29,8 @@
 	                    </div>
 	                    <div class="joinFrm-input">
 	                        <span>전화번호<sup>*</sup> : </span>
-	                        <input type="text" name="memberPhone" id="memberPhone" placeholder="-포함 입력">
+	                        <input type="text" name="memberPhone" id="memberPhone" placeholder="ex) 010-0000-0000">
+	                        <p class="phone-msg"></p>
 	                    </div>
 	                    <div class="joinFrm-input">
 	                        <span>이메일<sup>*</sup> : </span>
@@ -60,15 +61,18 @@
 	    			location.href=("/member/masterPage");
 	 	    	});
 	    	
+	    	let pwReCheck = false;
 	    	$("#memberPwRe").on("keyup", function(){
 				const inputPw = $("#memberPw").val();
 				const inputPwRe = $("#memberPwRe").val();
 				if(inputPw === inputPwRe){
 					$(".manager-input-msg").text("비밀번호가 같습니다.");
 					$(".manager-input-msg").css("color", "#25bd53");
+					pwReCheck = true;
 				}else{
 					$(".manager-input-msg").text("비밀번호를 확인해주세요.");
 					$(".manager-input-msg").css("color", "var(--warning)");
+					pwReCheck = false;
 				}
 	    	});
 	    	
@@ -83,6 +87,56 @@
 					$("#domainTxt").attr("readonly", false);
 				}
 			});
+	    	
+	    	let phoneCheck = false;
+	    	$("#memberPhone").on("change", function(){
+	    		const phCheck = /^010-\d{4}-\d{4}$/;
+	    		const phoneValue = $("#memberPhone").val();
+	    		const result = phCheck.test(phoneValue);
+	    		if(result){
+	    			phoneCheck = true;
+	    			$(".phone-msg").empty();
+	    		}else{
+	    			$(".phone-msg").text("-를 포함하여 다시 입력해주세요");
+	    			$(".phone-msg").css("color", "var(--warning)");
+	    			phoneCheck = false;
+	    		}
+	    	});
+	    	
+	    	let pwCheck = false;
+	    	$("#memberPw").on("keyup", function(){
+	    	    
+	    	    const pwRange = /^.{8,20}$/;
+	    	    const pwRangeA = /[A-Z]/;
+	    	    const pwRangea = /[a-z]/;
+	    	    const pwRangeNum = /[0-9]/;
+	    	    const pwRangeO = /[!@#$%]/;
+	    	    const inputPw = $("#memberPw").val();
+	    	    const result1 = pwRange.test(inputPw);
+	    	    const result2 = pwRangeA.test(inputPw);
+	    	    const result3 = pwRangea.test(inputPw);
+	    	    const result4 = pwRangeNum.test(inputPw);
+	    	    const result5 = pwRangeO.test(inputPw);
+
+	    	    if(result1&&result2&&result3&&result4&&result5){
+	    	        $(".pwRule").css("color","#25bd53");
+	    	        pwCheck = true;
+	    	    }else{
+	    	        $(".pwRule").css("color","var(--warning)");
+	    	        pwCheck = false;
+	    	    }
+	    	});
+	    	
+	    	$("#manager-update-cuccess").on("click", function(e){
+	    		
+	    		const emailF = $("#memberEmailF").val();
+	    		const domain = $("#domainTxt").val();
+	    		
+	    		if(emailF==""||domain==""||!pwReCheck||!phoneCheck||!pwCheck){
+	    			alert("필수 항목을 확인해주세요");
+	    			e.preventDefault();
+	    		}
+	    	});
 	    </script>
 	<th:block th:include="common/footer"></th:block>
 </body>

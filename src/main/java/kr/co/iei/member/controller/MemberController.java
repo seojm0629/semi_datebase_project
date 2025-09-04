@@ -1,5 +1,7 @@
 package kr.co.iei.member.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.model.member.vo.MemberMoreInfo;
+import kr.co.iei.pay.model.vo.pay;
 //import kr.co.iei.util.FileUtil;
 import kr.co.iei.util.FileUtil;
 
@@ -111,7 +114,9 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "/joinManager")
-	public String joinManager(Member m, Model model) {
+	public String joinManager(Member m, Model model, String memberEmailF, String domainTxt) {
+		String email = memberEmailF+"@"+domainTxt;
+		m.setMemberEmail(email);
 		int result = memberService.joinManager(m);
 		if(result == 1) {
 			model.addAttribute("title", "생성 완료");
@@ -240,5 +245,13 @@ public class MemberController {
 			model.addAttribute("loc", "/member/masterPage");
 			return "/common/msg";
 		}
+	}
+	
+	@GetMapping(value = "/buyPage")
+	public String buyPage(@SessionAttribute Member member, Model model) {
+		String memberId = member.getMemberId();
+		List<pay> pay = memberService.selectMemberPayList(memberId);
+		model.addAttribute("pay", pay);
+		return "/member/buyPageView";
 	}
 }//controller

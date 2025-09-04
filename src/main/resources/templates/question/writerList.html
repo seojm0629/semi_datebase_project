@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <style>
-@font-face {
+	@font-face {
     font-family: main2;
     src: url(../CSS/font/PyeongChang-Regular.ttf);
 }
@@ -69,7 +68,6 @@
     position: relative;
     padding-right: 10px;
     box-sizing: border-box;
-    margin-bottom: 40px;
 }
 
 /* content-header>content-write*/
@@ -77,10 +75,23 @@
     width: 900px;
     margin: 0 auto;
     text-align: center;
-    overflow: hidden;
 }
+.content-write-box>a{ 
+    font-weight: 900;
+    color: #Ffffff;
+    font-size: 18px;
 
-
+    
+}
+.content-write-box{
+	width: 75px;
+	height: 45px;
+	line-height: 45px;
+	border-radius: 6px;
+	background-color: var(--color4);
+	color: #Ffffff;
+	
+}
 
 /* content-header>content-list*/
 .content-wrap>.content-list{
@@ -155,39 +166,14 @@
 .page-check>span{
     line-height: 22px;
 }
-.content-write>div{
-	float: left;
-	width: 90px;
-	height: 55px;
-	line-height: 55px;
-	background-color: #E5BA73;
-	border-radius: 8px;
-}
-.content-write>div>a{
-	font-family: mainB2;
-	font-weight: 700;
-	font-size: 20px;
-	color: #fff;
-}
-.write-btn-wrapper{
-	float: left;
-	width: 90px;
-	height: 55px;
-	line-height: 55px;
-}
-.write-btn-wrapper>a{
-	display: block;
-	
-}
-
-
 
 </style>
+</head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main>
 		<div class="content-wrap">
-		<form action="/question/search" method="get">
+		<form action="/question/searchFrm" method="get">
             <div class="content-header">
                 <div class="content-name">문의사항</div>
                 <div class="content-search">
@@ -198,7 +184,7 @@
             </div>
        </form>
             <div class="content-write">
-            	<div class="write-btn-wrapper" th:if="${session.member != null}">
+            	<div class="content-write-box">
                 	<a th:href="@{/question/writeFrm}">글쓰기</a>
                 </div>
             </div>
@@ -228,8 +214,5 @@
         </div>
 	</main>
 	<th:block th:include="common/footer"></th:block>
-	<script>
-		
-	</script>
 </body>
 </html>

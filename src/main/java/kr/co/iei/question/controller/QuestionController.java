@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,6 +47,14 @@ public class QuestionController {
 		return "question/list";
 	}
 	
+	@GetMapping(value="/search")
+	public String searchWriter(int reqPage, String search, Model model) {	//page작업을 위한 reqPage, 작성자를 조회하기 위한 search, 전송을 위한 model
+		//1. reqPage와 search를 Service에 전달
+		QuestionListData qld = questionService.selectWriterList(reqPage, search); 
+		model.addAttribute("pageNavi", qld.getPageNavi());
+		model.addAttribute("list", qld.getList());
+		return  "question/list";
+	}
 	@GetMapping(value="/writeFrm")
 	public String writeFrm() {
 		return "question/writeFrm";
@@ -78,12 +87,6 @@ public class QuestionController {
 		return "common/msg";
 	}
 	
-	@GetMapping(value="/search")
-	public String searchWriter(String search, Model model) {
-		List writeList = questionService.selectWriter(search);
-		model.addAttribute("list", writeList);
-		return  "question/list";
-	}
 	
 	@GetMapping(value="/detail")
 	public String questionDetail(int questionNo, @SessionAttribute(required = false) Member member, Model model) {
@@ -173,6 +176,28 @@ public class QuestionController {
 		int result = questionService.deleteQuestionComment(qc.getQuestionCommentNo());
 		return "redirect:/question/detail?questionNo="+qc.getQuestionRef();
 	}
+	
+	@PostMapping(value="/editorImage", produces="plain/text;charset=utf-8")
+	@ResponseBody
+	public String ediotrImageUpload(MultipartFile upfile) {
+		String savepath = root + "/question/editor/";
+		String filepath = fileUtil.upload(savepath, upfile);
+		return filepath;
+	}
+	
+	//작성자 확인용(보윤 확인용)
+	@GetMapping(value="/all")
+	public String selectAllMember() {
+		return "question/all";		
+	}
+	
+	@GetMapping(value="/allMember")
+	public String selectAllWriter(String questionWriter, Model model) {
+		List memberList = questionService.selectAllMember(questionWriter);
+		model.addAttribute("memberList", memberList);
+		return "question/all";
+	}
+	
 }
 
 

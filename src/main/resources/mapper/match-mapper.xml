@@ -20,4 +20,60 @@
 		select * from dual		
 	</insert>
 	
+	<select id="selectMatchList" resultType="match">
+		select match_no, 
+				member_id, 
+				m.member_grade, 
+				match_date, 
+				match_status, 
+				match_field, 
+				match_age, 
+				match_job, 
+				match_mbti,
+				match_hobby,
+				match_edu,
+				match_salary,
+				match_work_type,
+				m.member_gender,
+				m.member_name,
+				m.member_img_path
+			from match_mypage p join member m using(member_id)
+	</select>
+	
+	<select id="findMatch" resultType="match">
+		select match_no, 
+				member_id, 
+				m.member_grade, 
+				match_date, 
+				match_status, 
+				match_field, 
+				match_age, 
+				match_job, 
+				match_mbti,
+				mmi.member_hobby as match_hooby,
+				mmi.member_edu as match_edu,
+				mmi.member_salary as match_salary,
+				mmi.member_work_type as match_work_type,
+				m.member_gender,
+				m.member_name,
+				m.member_img_path 
+			from match_mypage p 
+			join member m using(member_id)
+			join member_more_info mmi using(member_no)
+			where m.member_grade = #{memberGrade} 
+					and member_addr like '%'||#{matchField}||'%' 
+					and SUBSTR(to_char(SYSDATE , 'YYYY') - SUBSTR(m.birth_date, 1,4), 1 ,1) = SUBSTR(#{matchAge}, 1, 1) 
+					and member_job = #{matchJob} 
+					and member_mbti = #{matchMbti} 
+					and member_hobby = #{matchHobby} 
+					and m.member_gender = #{memberGender}
+					and match_status = '대기중'
+				<if test="memberGrade == 'gold' || memberGrade == 'platinum'">	
+					 and mmi.member_edu = #{matchEdu}
+				</if>
+				<if test="memberGrade == 'platinum'"> 	
+					 and mmi.member_work_type = #{matchWorkType}
+					 and mmi.member_salary = #{matchSalary}
+				</if>	 
+	</select>
 </mapper>

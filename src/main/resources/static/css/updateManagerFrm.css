@@ -51,6 +51,9 @@
 .manager-input-msg{
     font-size: 11px;
 }
+.phone-msg{
+    font-size: 11px;
+}
 /*-----------joinFrm-input>input------------*/
 .joinFrm-input>input{
     width: 250px;

@@ -26,4 +26,7 @@ public class Match {
 	private	String	matchEdu;
 	private int		matchSalary;
 	private String matchWorkType;
+	private String memberGender;
+	private String memberName;
+	private String memberImgPath;
 }

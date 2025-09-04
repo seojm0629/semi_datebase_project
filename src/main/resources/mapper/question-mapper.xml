@@ -17,8 +17,23 @@
   	select count(*) from question
   </select>
   
+  <select id="selectWriterTotalCount">
+  	select count(*) from question where question_writer like '%'||#{search}||'%'-- 
+  </select>
+  
   <select id="searchWriter" resultType="question">
-  	select * from question where question_writer like '%'||#{search}||'%'
+  	<!-- select * from question where question_writer like '%'||#{search}||'%'-->
+  	select * 
+    from (
+        select rownum AS rnum, q.*
+        from (
+            select question_no, question_title, question_writer, reg_date
+            from question
+            where question_writer like '%'||#{search}||'%'
+            order by question_no desc
+        ) q
+    )
+    WHERE rnum BETWEEN #{start} AND #{end}
   </select>
   
   <select id="getQuestionNo" resultType="int">
@@ -101,6 +116,20 @@
   <delete id="deleteQuestion">
   	delete from question where question_no = #{questionNo}
   </delete>
+  
+  <select id="selectAllWriter" resultType="question">
+  	select * 
+    from (
+        select rownum AS rnum, q.*
+        from (
+            select question_no, question_title, question_writer, reg_date
+            from question
+            where question_writer like '%'||#{questionWriter}||'%'
+            order by question_no desc
+        ) q
+    )
+    
+  </select>
 </mapper>
 
 

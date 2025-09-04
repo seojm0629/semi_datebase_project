@@ -21,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
 		 * registry .addResourceHandler("사용자측에서 입력하는 경로");
 		 * .addResourceLocations("실제 서버경로");
 		 */
+
 		// spring boot 기본 설정(addResourceHandlers를 구현하지 않으면 기본적으로 설정되어있는 세팅)
 		// addResourceHandlers를 직접구현하면 기본세팅도 사라지므로 기본세팅 추가
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/templates/", "classpath:/static/");
@@ -28,6 +29,34 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/photo/image/**").addResourceLocations("file:///" + root + "/question/");
 		registry.addResourceHandler("/photo/image/**").addResourceLocations("file:///" + root + "/review_party/");
 		registry.addResourceHandler("/photo/image/**").addResourceLocations("file:///" + root + "/review_blind/");
+
+		//spring boot 기본 설정(addResourceHandlers를 구현하지 않으면 기본적으로 설정되어있는 세팅)
+		//addResourceHandlers를 직접구현하면 기본세팅도 사라지므로 기본세팅 추가
+		registry
+			.addResourceHandler("/**")
+			.addResourceLocations("classpath:/templates/", "classpath:/static/");
+		//question, review 경로
+		registry
+			.addResourceHandler("/photo/image/**")
+			.addResourceLocations("file:///"+root+"/question/");
+		registry
+			.addResourceHandler("/photo/image/**")
+			.addResourceLocations("file:///"+root+"/review_party/");
+		registry
+			.addResourceHandler("/photo/image/**")
+			.addResourceLocations("file:///"+root+"/review_blind/");
+			
+		registry
+			.addResourceHandler("/question/editor/**")
+			.addResourceLocations("file:///" + root + "/question/editor/");
+		registry
+			.addResourceHandler("/review/editor/**")
+			.addResourceLocations("file:///" + root + "/review_party/editor/");
+		registry
+			.addResourceHandler("/review/editor/**")
+			.addResourceLocations("file:///" + root + "/review_blind/editor/");
+		//그 외 작성은 밑에서 해주세요.
+
 
 		registry.addResourceHandler("/photo/editor/**").addResourceLocations("file:///" + root + "/question/editor/");
 		registry.addResourceHandler("/photo/editor/**").addResourceLocations("file:///" + root + "/review/editor/");

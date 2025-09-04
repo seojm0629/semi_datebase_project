@@ -18,6 +18,8 @@ import kr.co.iei.model.member.service.MemberService;
 import kr.co.iei.model.member.vo.Member;
 import kr.co.iei.model.member.vo.MemberMoreInfo;
 import kr.co.iei.pay.model.vo.pay;
+import kr.co.iei.question.model.service.QuestionService;
+import kr.co.iei.question.model.vo.Question;
 //import kr.co.iei.util.FileUtil;
 import kr.co.iei.util.FileUtil;
 
@@ -27,6 +29,9 @@ public class MemberController {
 	
 	@Value(value = "${file.root}")
 	private String root;
+	
+	@Autowired
+	private QuestionService questionService;
 	
 	@Autowired
 	private FileUtil fileUtil;
@@ -94,17 +99,23 @@ public class MemberController {
 	
 	@GetMapping(value = "/mypage")
 	public String mypage(@SessionAttribute Member member, Model model) {
-		System.out.println(member);
+		//System.out.println(member);
 		int memberNo = member.getMemberNo();
-		System.out.println(memberNo);
+		//System.out.println(memberNo);
 		MemberMoreInfo memberMoreInfo = memberService.searchMemberMoreINfo(memberNo);
-		System.out.println(memberMoreInfo);
+		Member m = memberService.selectOneMember(member.getMemberId());
+		List<Question> q = questionService.selectAllMember(member.getMemberId());
+		//System.out.println(memberMoreInfo);
+		model.addAttribute("q", q);
 		model.addAttribute("memberMoreInfo", memberMoreInfo);
+		model.addAttribute("m", m);
 		return "/member/mypage";
 	}
 	
 	@GetMapping(value = "/masterPage")
-	public String masterPage() {
+	public String masterPage(@SessionAttribute Member member, Model model) {
+		Member m = memberService.selectOneMember(member.getMemberId());
+		model.addAttribute("m", m);
 		return "/member/masterPage";
 	}
 	

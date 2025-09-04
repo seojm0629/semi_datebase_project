@@ -26,8 +26,8 @@ public class PartyService {
 		return partyDao.getPartyByType(type);
 	}
 
-	public Party getPartyByNo(int partyNo) {
-		// TODO Auto-generated method stub
-		return partyDao.getPartyByNo(partyNo);
+	public Party getPartyById(int partyNo) {
+		return partyDao.getPartyById(partyNo);
 	}
+
 }

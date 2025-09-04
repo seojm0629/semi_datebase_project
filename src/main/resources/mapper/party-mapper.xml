@@ -65,15 +65,23 @@
 		#{partyType},
 		#{partyTitle},
 		#{partyContent},
-		#{partyPlace}, 
+		#{partyPlace},
 		#{partyThumb},
-		TO_DATE(#{partyDate}, 'YYYY-MM-DD HH24:MI'),
+		TO_DATE(#{partyDate}, 'YYYY-MM-DD
+		HH24:MI'),
 		#{partyMale},
 		#{partyFemale},
 		#{partyPrice}
 		)
 	</insert>
 
+	<select id="getPartyById" parameterType="int"
+		resultType="kr.co.iei.party.model.vo.Party">
+		SELECT party_no, party_title, party_date, party_place, party_price,
+		party_thumb, party_type
+		FROM party
+		WHERE party_no = #{partyNo}
+	</select>
 
 
 

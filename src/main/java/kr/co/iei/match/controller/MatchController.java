@@ -71,7 +71,7 @@ public class MatchController {
 	
 	@GetMapping(value="/matchWrite")
 	public String matchWrite() {
-		return "/match/matchWrite";
+		return "match/matchWrite";
 	}
 	
 	@GetMapping(value="/enroll")
@@ -88,7 +88,7 @@ public class MatchController {
 				model.addAttribute("title", "신청 실패");
 				model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
 				model.addAttribute("icon", "error");
-				model.addAttribute("loc", "match/matchWrite");
+				model.addAttribute("loc", "/match/matchWrite");
 				
 				return "common/msg";
 			}

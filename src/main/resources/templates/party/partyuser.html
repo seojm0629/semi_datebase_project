@@ -113,22 +113,24 @@
 					<div class="title-box">
 						<div class="details-box">
 							<div>
-								<strong>제목 :</strong> <span th:text="${party.partyTitle}">파티
-									제목</span>
+								<strong>제목 :</strong> <span id="partyTitle"
+									th:text="${party.partyTitle}">파티 제목</span>
 							</div>
 							<div>
 								<strong>날짜 :</strong> <span th:text="${party.partyDate}">날짜</span>
 							</div>
 							<div>
-								<strong>가격 :</strong> <span th:text="${party.partyPrice} + '원'">가격</span>
+								<strong>가격 :</strong> <span id="partyPrice"
+									th:text="${party.partyPrice}">가격</span>
 							</div>
 							<div>
 								<strong>주소 :</strong> <span th:text="${party.partyPlace}">주소</span>
 							</div>
 							<div>
-								<strong>인원 :</strong> 남 <span th:text="${party.partyMale}">0</span>명
-								/ 여 <span th:text="${party.partyFemale}">0</span>명
+								<strong>인원 :</strong> 남 <span th:text="${maleCount}">0</span>명 /
+								여 <span th:text="${femaleCount}">0</span>명
 							</div>
+
 						</div>
 					</div>
 					<div class="content-box" th:text="${party.partyContent}">파티
@@ -138,6 +140,36 @@
 			</div>
 		</div>
 	</main>
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script>
+		const totalPrice = Number(document.querySelector('#partyPrice').innerText);
+		const partyTitle = document.querySelector('#partyTitle').innerText;
+
+		document
+				.querySelector('.payment-btn')
+				.addEventListener(
+						'click',
+						function() {
+							IMP.init("imp58065218");
+							IMP
+									.request_pay(
+											{
+												channelKey : "channel-key-b62d8413-93ed-4f94-b7ff-a102e4030953",
+												pay_method : "card",
+												merchant_uid : "order_no_0001",
+												name : partyTitle,
+												amount : totalPrice,
+												buyer_email : "test@portone.io",
+												buyer_name : "구매자이름",
+												buyer_tel : "010-1234-5678",
+												buyer_addr : "서울특별시 강남구 삼성동",
+												buyer_postcode : "123-456"
+											}, function(rsp) {
+												console.log(rsp);
+											});
+						});
+	</script>
+
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

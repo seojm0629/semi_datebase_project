@@ -77,10 +77,29 @@
 
 	<select id="getPartyById" parameterType="int"
 		resultType="kr.co.iei.party.model.vo.Party">
-		SELECT party_no, party_title, party_date, party_place, party_price,
-		party_thumb, party_type, party_content, party_male, party_female
+		SELECT party_no, party_title, party_date, party_place,
+		party_price,
+		party_thumb, party_type, party_content, party_male,
+		party_female
 		FROM party
 		WHERE party_no = #{partyNo}
+	</select>
+
+	<select id="selectPartyByNo" resultType="Party"
+		parameterType="int">
+		SELECT *
+		FROM party
+		WHERE party_no = #{partyNo}
+	</select>
+
+	<select id="selectPartyMemberCount" resultType="map"
+		parameterType="int">
+		SELECT
+		SUM(CASE WHEN m.member_gender='m' THEN 1 ELSE 0 END) AS male_count,
+		SUM(CASE WHEN m.member_gender='f' THEN 1 ELSE 0 END) AS female_count
+		FROM party_member pm
+		JOIN member m ON pm.member_id = m.member_id
+		WHERE pm.party_no = #{partyNo}
 	</select>
 
 

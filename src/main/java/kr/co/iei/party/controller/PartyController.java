@@ -2,6 +2,7 @@ package kr.co.iei.party.controller;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,9 +47,26 @@ public class PartyController {
 	}
 
 	@GetMapping("/user")
-	public String partyuser(@RequestParam("partyNo") int partyNo, Model model) {
-		Party party = partyService.getPartyById(partyNo);
+	public String partyUser(@RequestParam("partyNo") int partyNo, Model model) {
+		Party party = partyService.getPartyByNo(partyNo);
+		Map<String, Object> count = partyService.getPartyMemberCount(partyNo);
+
+		int maleCount = 0;
+		int femaleCount = 0;
+
+		if (count != null) {
+			if (count.get("male_count") != null) {
+				maleCount = ((Number) count.get("male_count")).intValue();
+			}
+			if (count.get("female_count") != null) {
+				femaleCount = ((Number) count.get("female_count")).intValue();
+			}
+		}
+
 		model.addAttribute("party", party);
+		model.addAttribute("maleCount", maleCount);
+		model.addAttribute("femaleCount", femaleCount);
+
 		return "party/partyuser";
 	}
 
@@ -75,5 +93,4 @@ public class PartyController {
 	public List<Party> getPartyList(@RequestParam("type") String type) {
 		return partyService.getPartyByType(type);
 	}
-
 }

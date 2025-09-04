@@ -136,8 +136,8 @@
 							<th colspan="3">근무형태</th>
 							<td th:text="${match.matchWorkType}" th:value="${match.matchWorkType}"  th:id="matchWorkType"></td>
 						</tr>
-						
 					</table>
+					<input type="hidden" name="matchNo2" th:text="${match.matchNo}">
 				</div>
 			</div>
 		</div>	
@@ -170,7 +170,11 @@ $(".partner-box").on("click", function(){
 		}
 	}).then(function(isConfirm){
 		if(isConfirm){
-			location.href = "/match/matchSuccess";
+			const form = document.createElement("form");
+			form.setAttribute("method", "get");
+			form.setAttribute("action", "/match/matchSuccess");
+			
+
 		}
 	})
 });

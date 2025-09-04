@@ -76,9 +76,7 @@ public class MatchController {
 	
 	@GetMapping(value="/enroll")
 	public String matchEnroll(Match m, int myMatchingCount, Model model) {
-		int useCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
-		if(useCount == 1 ) {
-				int result = matchService.matchEnroll(m);
+			int result = matchService.matchEnroll(m);
 			if(result == 1) {
 				model.addAttribute("title", "신청 성공");
 				model.addAttribute("text", "신청해주셔서 감사합니다. 좋은 인연을 만들어드리겠습니다.");
@@ -87,8 +85,6 @@ public class MatchController {
 				
 				return "common/msg";
 			}else{
-				myMatchingCount = myMatchingCount+2;
-				int rollbackCount = matchService.useMatchCount(m.getMemberId(), myMatchingCount);
 				model.addAttribute("title", "신청 실패");
 				model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
 				model.addAttribute("icon", "error");
@@ -96,13 +92,8 @@ public class MatchController {
 				
 				return "common/msg";
 			}
-		}
-		model.addAttribute("title", "신청 실패");
-		model.addAttribute("text", "신청에 실패했습니다. 다시 시도해주세요.");
-		model.addAttribute("icon", "error");
-		model.addAttribute("loc", "match/matchWrite");
 		
-		return "common/msg";
+		
 	}
 	
 	@GetMapping(value="/management")
@@ -119,7 +110,7 @@ public class MatchController {
 		return "match/management";
 	}
 	@GetMapping(value="/findMatch")
-	public String findMatch(Match m, Model model) {
+	public String findMatch(Match m, Model model, int matchNo1) {
 		System.out.println(m);
 		if(m.getMemberGender().equals("남")) {
 			m.setMemberGender("f");
@@ -129,6 +120,11 @@ public class MatchController {
 		List matchList = matchService.findMatch(m);
 		System.out.println(matchList);
 		model.addAttribute("matchList", matchList);
-		return "match/findMatch";
+		return "match/findMatch?matchNo1="+matchNo1;
+	}
+	
+	@GetMapping(value="/matchSuccess")
+	public String matchSuccess() {
+		
 	}
 }

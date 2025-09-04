@@ -148,7 +148,10 @@ input[name=memberGender]:checked+label{
     background-color: #E5BA73;
     color: #fff;
     border-radius: 5px;
-
+}
+#search-addr:hover{
+	cursor: pointer;
+	background-color: #EAC88F;
 }
 /*-----------------------content-margin------------------------*/
 .joinFrm-input>span{
@@ -274,4 +277,21 @@ input[name=memberGender]:checked+label{
 
 .joinFrm-content>.joinFrm-input>.input-msg{
 	font-size: 16px;
+}
+/*--------------------------------------*/
+#memberJob{
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #2B2B2B;
+    height: 30px;
+    font-size: 18px;
+    line-height: 30px;
+}
+#memberMBTI{
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #2B2B2B;
+    height: 30px;
+    font-size: 18px;
+    line-height: 30px;
 }

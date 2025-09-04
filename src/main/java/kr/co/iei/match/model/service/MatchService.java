@@ -52,7 +52,7 @@ public class MatchService {
 	
 	@Transactional
 	public int matchEnroll(Match m) {
-			System.out.println(m);
+			
 			int result = matchDao.matchEnroll(m);
 		return result;
 	}

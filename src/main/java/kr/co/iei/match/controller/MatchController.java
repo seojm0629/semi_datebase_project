@@ -82,7 +82,7 @@ public class MatchController {
 	public String matchEnroll(Match m, int myMatchingCount, Model model) {
 			int result = matchService.matchEnroll(m);
 			if(result == 1) {
-				model.addAttribute("title", "결제 성공");
+				model.addAttribute("title", "신청 완료");
 				model.addAttribute("text", "신청해주셔서 감사합니다. 좋은 인연을 만들어드리겠습니다.");
 				model.addAttribute("icon", "success");
 				model.addAttribute("loc", "/");

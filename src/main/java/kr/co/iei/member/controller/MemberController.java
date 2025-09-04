@@ -94,17 +94,21 @@ public class MemberController {
 	
 	@GetMapping(value = "/mypage")
 	public String mypage(@SessionAttribute Member member, Model model) {
-		System.out.println(member);
+		//System.out.println(member);
 		int memberNo = member.getMemberNo();
-		System.out.println(memberNo);
+		//System.out.println(memberNo);
 		MemberMoreInfo memberMoreInfo = memberService.searchMemberMoreINfo(memberNo);
-		System.out.println(memberMoreInfo);
+		Member m = memberService.selectOneMember(member.getMemberId());
+		//System.out.println(memberMoreInfo);
 		model.addAttribute("memberMoreInfo", memberMoreInfo);
+		model.addAttribute("m", m);
 		return "/member/mypage";
 	}
 	
 	@GetMapping(value = "/masterPage")
-	public String masterPage() {
+	public String masterPage(@SessionAttribute Member member, Model model) {
+		Member m = memberService.selectOneMember(member.getMemberId());
+		model.addAttribute("m", m);
 		return "/member/masterPage";
 	}
 	

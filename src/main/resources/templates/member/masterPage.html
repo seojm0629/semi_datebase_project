@@ -23,13 +23,13 @@
                         <div class="master-profile-content-in1">
                             <ul>
                                 <li id="profileId" th:text="'아이디 : '+${session.member.memberId}"></li>
-                                <li id="profileEmail" th:text="'email : '+${session.member.memberEmail}"></li>
+                                <li id="profileEmail" th:text="'email : '+${m.memberEmail}"></li>
                             </ul>
                         </div>
                         <div class="master-profile-content-in2">
                             <ul>
-                                <li id="profilePw" th:text="'비밀번호 : '+${session.member.memberPw}"></li>
-                                <li id="profilePhone" th:text="'전화번호 : '+${session.member.memberPhone}"></li>
+                                <li id="profilePw" th:text="'비밀번호 : '+${m.memberPw}"></li>
+                                <li id="profilePhone" th:text="'전화번호 : '+${m.memberPhone}"></li>
                             </ul>
                         </div>
                     </div>
@@ -57,13 +57,16 @@
             	<th:block th:if="${session.member.memberLevel==1}">
                 	<button class="Management Management-btn">직원관리</button>
                 </th:block>
-                <button class="Management Management-qna">문의관리</button>
+                <!-- <button class="Management Management-qna">문의관리</button> -->
                 <button class="Management Management-party">파티관리</button>
                 <a href="/match/management"><button class="Management Management-matching">매칭관리</button></a>
             </div>
         </div>
     </div>
     <script>
+    	
+    	
+    
     	$(".Management-btn").on("click", function(){
     		location.href=("/member/creatManager");
     	});

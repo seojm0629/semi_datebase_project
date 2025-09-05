@@ -86,4 +86,20 @@
 	<update id="updateStatus">
 		update match_mypage set match_status = '매칭중' where match_no in (#{matchNo1}, #{matchNo2}) 
 	</update>
+	
+	<select id="matchingList" resultType="matchAdmin">
+		select admin_no,
+			status,
+			match_date, 
+			member_pass_1, 
+			member_pass_2, 
+			m1.member_name as member_name_1, 
+			m2.member_name as member_name_2 
+			from match_admin
+			join match_mypage mp1 on(match_no_1 = mp1.match_no)
+			join match_mypage mp2 on(match_no_2 = mp2.match_no)
+			join member m1 on(mp1.member_id = m1.member_id)
+			join member m2 on(mp2.member_id = m2.member_id)
+
+	</select>
 </mapper>

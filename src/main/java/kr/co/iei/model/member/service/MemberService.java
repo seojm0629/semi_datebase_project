@@ -102,5 +102,8 @@ public class MemberService {
 		List<pay> pay = payDao.selectMemberPayList(memberId);
 		return pay;
 	}
+
+
+	
 	
 }

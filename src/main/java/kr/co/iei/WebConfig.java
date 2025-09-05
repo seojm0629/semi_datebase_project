@@ -44,4 +44,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 		registry.addResourceHandler("/member/memberImg/**").addResourceLocations("file:///" + root + "/selfPhoto/");
 	}
+	
+	
 }

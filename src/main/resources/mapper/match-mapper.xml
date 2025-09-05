@@ -52,7 +52,6 @@
 				match_mbti,
 				mmi.member_hobby as match_hooby,
 				mmi.member_edu as match_edu,
-				mmi.member_salary as match_salary,
 				mmi.member_work_type as match_work_type,
 				m.member_gender,
 				m.member_name,

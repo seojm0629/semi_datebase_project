@@ -231,7 +231,7 @@
 							</div>
 							<div class="matchWrite-input" th:if="${session.member.memberGrade == 'platinum'}">
 								<span>연봉</span>
-								<input type="text" name="matchSalary" placeholder="4000"><span>만원</span>
+								<input type="text" name="matchSalary" placeholder="4000" th:if="${session.member.memberGrade == 'silver' || session.member.memberGrade == 'gold'}" th:text="0"><span>만원</span>
 							</div>
 							<div class="matchWrite-input" th:if="${session.member.memberGrade == 'platinum'}">
 								<span>근무형태</span>

@@ -290,13 +290,13 @@ button[type=submit]{
 	
 	$(".match-list").nextAll().on("click", function(){
 		const list = $(this).siblings();
+		list.removeClass("selected");
 		list.find("input[name='matchCount']").removeAttr("name");
 		if(!$(this).hasClass("open")){
 			$(this).show();
 			$(this).find("#hide-arrow").show();
 			list.hide();
 			$(".match-count-header").hide();
-			$(this).css("border-top-color", "#2b2b2b" );
 			$(this).addClass("open");
 			$(this).addClass("selected");
 			$(this).children("input").attr("disabled", false);

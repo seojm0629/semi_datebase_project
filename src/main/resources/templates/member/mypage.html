@@ -18,7 +18,7 @@
                 </div>
                 <div class="user-grade-zone">
                 	<th:block th:if="${session.member.memberGrade != null}">
-                    	<h2 th:text="'내 등급 : '+${session.member.memberGrade}"></h2>
+                    	<h2 th:text="'내 등급 : '+${m.memberGrade}"></h2>
                     </th:block>
                     <th:block th:if="${session.member.memberGrade == null}">
                     	<h2>내 등급 : 없음</h2>

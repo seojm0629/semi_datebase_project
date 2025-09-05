@@ -50,7 +50,7 @@
 				match_age, 
 				match_job, 
 				match_mbti,
-				mmi.member_hobby as match_hooby,
+				mmi.member_hobby as match_hobby,
 				mmi.member_edu as match_edu,
 				mmi.member_work_type as match_work_type,
 				m.member_gender,

@@ -119,7 +119,7 @@ public class MatchController {
 	}
 	@GetMapping(value="/findMatch")
 	public String findMatch(Match m, Model model) {
-		
+		System.out.println(m);
 		int matchNo1 = m.getMatchNo();
 		if(m.getMemberGender().equals("남")) {
 			m.setMemberGender("f");
@@ -128,7 +128,7 @@ public class MatchController {
 		}
 		
 		List matchList = matchService.findMatch(m);
-		
+		System.out.println(matchList);
 		model.addAttribute("matchList", matchList);
 		model.addAttribute("matchNo1", matchNo1);
 		return "match/findMatch";

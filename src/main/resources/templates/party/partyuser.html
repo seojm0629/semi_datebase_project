@@ -127,36 +127,60 @@
 								<strong>주소 :</strong> <span th:text="${party.partyPlace}">주소</span>
 							</div>
 							<div>
-								<strong>인원 :</strong> 남 <span th:text="${maleCount}">0</span>명 /
-								여 <span th:text="${femaleCount}">0</span>명
+								<strong>인원 :</strong> 남 <span id="maleCount"
+									th:text="${maleCount}">0</span>명 / 여 <span id="femaleCount"
+									th:text="${femaleCount}">0</span>명
 							</div>
-
 						</div>
 					</div>
 					<div class="content-box" th:text="${party.partyContent}">파티
 						내용</div>
-					<button class="payment-btn">결제하기</button>
+					<button class="payment-btn" id="paymentBtn"
+						data-party-no="${party.partyNo}"
+						data-party-male="${party.partyMale}"
+						data-party-female="${party.partyFemale}">결제하기</button>
 				</div>
 			</div>
 		</div>
 	</main>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 	<script>
-		const totalPrice = Number(document.querySelector('#partyPrice').innerText);
-		const partyTitle = document.querySelector('#partyTitle').innerText;
-
 		document
-				.querySelector('.payment-btn')
+				.querySelector('#paymentBtn')
 				.addEventListener(
 						'click',
 						function() {
+							const maleCount = Number(document
+									.querySelector('#maleCount').innerText);
+							const femaleCount = Number(document
+									.querySelector('#femaleCount').innerText);
+							const partyMale = Number(this.dataset.partyMale);
+							const partyFemale = Number(this.dataset.partyFemale);
+
+							if (maleCount >= partyMale
+									|| femaleCount >= partyFemale) {
+								alert('인원이 이미 꽉 찼습니다.');
+								return;
+							}
+
+							const totalPrice = Number(document
+									.querySelector('#partyPrice').innerText);
+							const partyTitle = document
+									.querySelector('#partyTitle').innerText;
+
 							IMP.init("imp58065218");
 							IMP
 									.request_pay(
 											{
 												channelKey : "channel-key-b62d8413-93ed-4f94-b7ff-a102e4030953",
 												pay_method : "card",
-												merchant_uid : "order_no_0001",
+												merchant_uid : "order_no_"
+														+ new Date().getTime()
+														+ "_"
+														+ Math
+																.floor(Math
+																		.random() * 1000),
+
 												name : partyTitle,
 												amount : totalPrice,
 												buyer_email : "test@portone.io",
@@ -164,12 +188,22 @@
 												buyer_tel : "010-1234-5678",
 												buyer_addr : "서울특별시 강남구 삼성동",
 												buyer_postcode : "123-456"
-											}, function(rsp) {
-												console.log(rsp);
-											});
+											},
+											function(rsp) {
+												if (rsp.success) {
+													alert('결제 성공');
+													location.href = '/party/apply?partyNo='
+															+ this.dataset.partyNo
+															+ '&memberId=로그인아이디&payNo='
+															+ rsp.imp_uid
+															+ '&gender=성별';
+												} else {
+													alert('결제 실패: '
+															+ rsp.error_msg);
+												}
+											}.bind(this));
 						});
 	</script>
-
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

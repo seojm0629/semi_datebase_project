@@ -24,7 +24,7 @@ public class Match {
 	private String	matchMbti;
 	private String	matchHobby;
 	private	String	matchEdu;
-	private int		matchSalary;
+	private Object  matchSalary;
 	private String matchWorkType;
 	private String memberGender;
 	private String memberName;

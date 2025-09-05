@@ -54,6 +54,9 @@
 		flex-wrap : wrap;
 		
 	}
+	.table-section{
+		width :45%;
+	}
 	.list-box{
 		display:flex;
 		width: 45%;
@@ -66,12 +69,18 @@
 		
 		
 	}
+	.photo-box{
+		width : 45%;
+		text-align : center;
+	
+	}
 	.photo-box>img{
-		width : 60%;
-		align-items : center;
+		width : 100%;
 		
 	}
-	
+	.category-list{
+		font-family : mainB2;
+	}
 	
 	.inner{
 		margin:0 auto;
@@ -112,6 +121,14 @@
 							<td th:text="${match.memberName}" th:value="${match.memberName}" id="memberName"></td>
 						</tr>
 						<tr>
+							<th>성별</th>
+							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" id="memberGender"></td>
+							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" id="memberGender"></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="category-list">───희망 카테고리───</td>
+						</tr>
+						<tr>
 							<th>지역</th>
 							<td th:text="${match.matchField}" th:value="${match.matchField}" id="matchField"></td>
 						</tr>
@@ -133,11 +150,7 @@
 							<th>취미</th>
 							<td th:text="${match.matchHobby}" th:value="${match.matchHobby}" id="matchHobby"></td>
 						</tr>
-						<tr>
-							<th>성별</th>
-							<td th:if="${match.memberGender == 'm'}" th:text="남" th:value="memberGender" id="memberGender"></td>
-							<td th:if="${match.memberGender == 'f'}" th:text="여" th:value="memberGender" id="memberGender"></td>
-						</tr>
+						
 						<tr>
 							<th>나이</th>
 							<td th:text="${match.matchAge}" th:value="${match.matchAge}" id="matchAge"></td>

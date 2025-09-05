@@ -17,7 +17,7 @@
 			<div class="tab-content">
 				<div class="party-tab active" data-party="wine">
 					<div class="party-img">
-						<div class="arrow left">&lt;</div>
+						<div class="arrow left" onclick="prevImg('wine')">&lt;</div>
 						<th:block th:each="party,iterStat : ${parties}"
 							th:if="${party.partyType.toLowerCase() == 'wine'}">
 							<img th:src="@{/partyImg/{thumb}(thumb=${party.partyThumb})}"
@@ -28,7 +28,7 @@
 								th:classappend="${iterStat.index == 0} ? 'active' : ''"
 								th:alt="${party.partyTitle}">
 						</th:block>
-						<div class="arrow right">&gt;</div>
+						<div class="arrow right" onclick="nextImg('wine')">&gt;</div>
 					</div>
 					<div class="info">
 						<div class="info-row">
@@ -44,7 +44,7 @@
 				</div>
 				<div class="party-tab" data-party="beer">
 					<div class="party-img">
-						<div class="arrow left">&lt;</div>
+						<div class="arrow left" onclick="prevImg('beer')">&lt;</div>
 						<th:block th:each="party,iterStat : ${parties}"
 							th:if="${party.partyType.toLowerCase() == 'beer'}">
 							<img th:src="@{/partyImg/{thumb}(thumb=${party.partyThumb})}"
@@ -55,7 +55,7 @@
 								th:classappend="${iterStat.index == 0} ? 'active' : ''"
 								th:alt="${party.partyTitle}">
 						</th:block>
-						<div class="arrow right">&gt;</div>
+						<div class="arrow right" onclick="nextImg('beer')">&gt;</div>
 					</div>
 					<div class="info">
 						<div class="info-row">
@@ -84,45 +84,46 @@ tabs.forEach((tab, i) => {
         partyTabs[i].classList.add("active");
     });
 });
-partyTabs.forEach(tab => {
+
+let currentIndex = {
+    wine: 0,
+    beer: 0
+};
+
+function showImg(type, index) {
+    const tab = document.querySelector(`.party-tab[data-party="${type}"]`);
     const imgs = tab.querySelectorAll("img");
-    const left = tab.querySelector(".arrow.left");
-    const right = tab.querySelector(".arrow.right");
-    let cur = 0;
-    function showImg(index) {
-        if(imgs.length === 0) return;
-        imgs.forEach(img => img.classList.remove("active"));
-        const img = imgs[index];
-        img.classList.add("active");
-        const type = tab.dataset.party;
-        const dateObj = new Date(img.dataset.date);
-        const year = dateObj.getFullYear();
-        const month = (dateObj.getMonth()+1).toString().padStart(2,'0');
-        const day = dateObj.getDate().toString().padStart(2,'0');
-        const hours = dateObj.getHours().toString().padStart(2,'0');
-        const minutes = dateObj.getMinutes().toString().padStart(2,'0');
-        tab.querySelector(`#${type}-date`).textContent = `${year}-${month}-${day} ${hours}:${minutes}`;
-        tab.querySelector(`#${type}-place`).textContent = img.dataset.place;
-        const price = Number(img.dataset.price).toLocaleString();
-        tab.querySelector(`#${type}-price`).textContent = price + "원";
-        img.style.cursor = 'pointer';
-        img.addEventListener("click", () => {
-            const partyNo = img.dataset.partyno;
-            window.location.href = '/party/user?partyNo=' + partyNo;
-        });
-    }
-    if(left && right){
-        left.addEventListener("click", () => {
-            cur = (cur - 1 + imgs.length) % imgs.length;
-            showImg(cur);
-        });
-        right.addEventListener("click", () => {
-            cur = (cur + 1) % imgs.length;
-            showImg(cur);
-        });
-    }
-    showImg(cur);
-});
+    if (imgs.length === 0) return;
+    imgs.forEach(img => img.classList.remove("active"));
+    const img = imgs[index];
+    img.classList.add("active");
+    tab.querySelector(`#${type}-date`).textContent = img.dataset.date;
+    tab.querySelector(`#${type}-place`).textContent = img.dataset.place;
+    tab.querySelector(`#${type}-price`).textContent = img.dataset.price + "원";
+    img.onclick = function() {
+        const partyNo = img.dataset.partyno;
+        location.href = '/party/user?partyNo=' + partyNo;
+    };
+}
+
+function prevImg(type) {
+    const tab = document.querySelector(`.party-tab[data-party="${type}"]`);
+    const imgs = tab.querySelectorAll("img");
+    if (imgs.length === 0) return;
+    currentIndex[type] = (currentIndex[type] - 1 + imgs.length) % imgs.length;
+    showImg(type, currentIndex[type]);
+}
+
+function nextImg(type) {
+    const tab = document.querySelector(`.party-tab[data-party="${type}"]`);
+    const imgs = tab.querySelectorAll("img");
+    if (imgs.length === 0) return;
+    currentIndex[type] = (currentIndex[type] + 1) % imgs.length;
+    showImg(type, currentIndex[type]);
+}
+
+showImg("wine", 0);
+showImg("beer", 0);
 </script>
 </body>
 </html>

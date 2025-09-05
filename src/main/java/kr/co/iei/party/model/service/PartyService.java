@@ -1,6 +1,7 @@
 package kr.co.iei.party.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,14 @@ public class PartyService {
 
 	public Party getPartyById(int partyNo) {
 		return partyDao.getPartyById(partyNo);
+	}
+
+	public Party getPartyByNo(int partyNo) {
+		return partyDao.selectPartyByNo(partyNo);
+	}
+
+	public Map<String, Object> getPartyMemberCount(int partyNo) {
+		return partyDao.selectPartyMemberCount(partyNo);
 	}
 
 }

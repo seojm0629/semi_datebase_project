@@ -1,6 +1,7 @@
 package kr.co.iei.party.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,5 +17,9 @@ public interface PartyDao {
 	List<Party> getPartyByType(String type);
 
 	Party getPartyById(int partyNo);
+
+	Party selectPartyByNo(int partyNo);
+
+	Map<String, Object> selectPartyMemberCount(int partyNo);
 
 }

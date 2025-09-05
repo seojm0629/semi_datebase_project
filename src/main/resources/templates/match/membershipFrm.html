@@ -31,7 +31,19 @@
 	width : 40%;
 }
 
-[class$=silver]{
+[class$=-silver]{
+	margin-top : 50px;
+	font-family : mainb2;
+	color : #2b2b2b;
+}
+
+[class$=-gold]{
+	margin-top : 50px;
+	font-family : mainb2;
+	color : #2b2b2b;
+}
+
+[class$=-platinum]{
 	margin-top : 50px;
 	font-family : mainb2;
 	color : #2b2b2b;
@@ -43,7 +55,19 @@
 	padding-bottom : 20px;
 	margin-bottom : 10px;
 }
-[class$=silver]>span:last-child{
+[class$=gold]>span:first-child{
+	font-size : 26px;
+	display : block;
+	padding-bottom : 20px;
+	margin-bottom : 10px;
+}
+[class$=platinum]>span:first-child{
+	font-size : 26px;
+	display : block;
+	padding-bottom : 20px;
+	margin-bottom : 10px;
+}
+[class$=platinum]>span:last-child{
 	font-size : 17px;
 	color : #E5BA73;
 	font-weight : 600;
@@ -161,11 +185,19 @@ button[type=submit]{
 		<div class="img-box"></div>
 		<div class="membership-box">
 		
-			<div class="membership-title-silver">
-				<input type="hidden" name="memberGrade" value="silver">
+			<div th:if="${memberGrade == 'silver'}" class="membership-title-silver">
 				<span>실버 회원권 결제</span>
-				<span>0원</span>
+				<input type="hidden" name="memberGrade" th:value="${memberGrade}">
+			</div>	
+			<div th:if="${memberGrade == 'gold'}" class="membership-title-gold">
+				<span>골드 회원권 결제</span>
+				<input type="hidden" name="memberGrade" th:value="${memberGrade}">
 			</div>
+			<div th:if="${memberGrade == 'platinum'}" class="membership-title-platinum">	
+				<span>플래티넘 회원권 결제</span>
+				<input type="hidden" name="memberGrade" th:value="${memberGrade}">
+			</div>	
+			
 			<hr>
 			<div class="input-match-count">
 				<div>

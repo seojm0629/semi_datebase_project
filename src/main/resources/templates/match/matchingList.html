@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+@charset "UTF-8";
+/*------------------------main----------------------------------*/
+
+
+.buyPage-all-wrap{
+    width: 1200px;
+    margin-bottom: 60px;
+    margin: 0 auto; 
+      
+}
+.content-wrap{
+	width : 900px;
+	margin: 0 auto; 
+}
+.buyPage-wrap{
+    margin: 0 auto; 
+    
+}
+/*----------------buyPage-header------------------*/
+.buyPage-header{
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+.buyPage-header>h1{
+    color: #E5BA73;
+}
+/*-------------buyPage-content--------------*/
+.buyPage-content{
+    width: 900px;
+    height: 600px;
+    border: 2px solid #C58940;
+    margin : 0 auto;
+    border-radius: 10px;
+}
+/*-------------.buyPage-content>.buyPage-top-------------*/
+.buyPage-top{
+    height: 45px;
+    line-height: 45px;
+    font-size: 23px;
+    font-family: mainB2;
+    text-align : center;
+    border-bottom: 1px solid #2B2B2B;
+    box-sizing : content-box;
+    
+}
+.buyPage-content>.buyPage-top>span{
+    display: inline-block;
+}
+.matchingNo{
+    width: 15%;
+}
+.matchingName1{
+    width: 15%;
+}
+.matchingPass1{
+    width: 15%;
+}
+.matchingName2{
+    width: 15%;
+}
+.matchingPass2{
+	width : 15%;
+}
+.matchingStatus{
+	width : 15%;
+}
+.matchingDate{
+    width: 15%;
+}
+/*-----------------------scrollDiv---------------------*/
+.list-div{
+    box-sizing: border-box;
+    height: 550px;
+    overflow-y: auto;
+    margin: 0 auto;
+}
+
+.list-div>.list-one{
+    width: 900px;
+    height: 40px;
+    margin: 0 auto;
+    font-size: 18px;
+    border-bottom: 1px solid #2B2B2B;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 40px;
+}
+.list-div>.list-one>span{
+    display: inline-block;
+}
+.oneMatchNo{
+    width: 15%;
+}
+.one-match-name1{
+    width: 15%;
+}
+.one-match-pass1{
+    width: 15%;
+}
+.one-match-name2{
+    width: 15%;
+}
+.one-match-pass2{
+    width: 15%;
+}
+.one-match-status{
+	width:15%;
+}
+
+.one-match-date{
+	width:15%;
+}
+/*----------------------back-mypage--------------------*/
+.btn-div{
+	margin : 0 auto;
+	text-align : center;
+	margin-bottom : 30px;
+}
+
+#back-mypage{
+    width: 250px;
+    height: 40px;
+    font-size: 22px;
+    border: none;
+    background-color: #D9D9D9;
+    margin : 0 auto;
+    color: #FFF;
+    border-radius: 7px;
+    margin-top: 30px;
+}
+#back-mypage:hover{
+    cursor: pointer;
+    color: #2B2B2B;
+}
+
+</style>
+</head>
+<body>
+<th:block th:include="common/header"></th:block>
+<div class="buyPage-all-wrap">
+	<div class="content-wrap">
+        <div class="buyPage-wrap">
+            <div class="buyPage-header">
+                <h1>매칭 리스트</h1>
+            </div>
+            <div class="buyPage-content">
+                <div class="buyPage-top">
+                    
+	                <span class="matchingName1">회원 이름</span>
+	                <span class="matchingPass1">패스 여부</span>
+	                <span class="matchingName2">회원 이름</span>
+	                <span class="matchingPass2">패스 여부</span>
+	                <span class="matchingStatus">매칭 상태</span>
+	                <span class="matchingDate">매칭 날짜</span>
+                </div>
+                <div class="list-div" th:each="matchAdmin : ${list}">
+					<div class="list-one">
+						
+						<span class="one-match-name1" th:text="${matchAdmin.memberName1}"></span>
+						<span class="one-match-pass1" th:text="${matchAdmin.memberPass1}"></span>
+						<span class="one-match-name2" th:text="${matchAdmin.memberName2}"></span>
+						<span class="one-match-name2" th:text="${matchAdmin.memberPass2}"></span>
+						<span class="one-match-status" th:text="${matchAdmin.status}"></span>
+						<span class="one-match-date" th:text="${matchAdmin.matchDate}"></span>
+					</div>                    
+                </div>
+            </div>
+           <div class="btn-div">
+            <button type="button" id="back-mypage">뒤로가기</button>
+           </div> 
+        </div>
+       </div> 
+    </div>
+<th:block th:include="common/footer"></th:block>
+</body>
+<script>
+	$("#back-mypage").on("click", function(){
+		location.href=("/match/management");
+	});
+</script>
+</html>

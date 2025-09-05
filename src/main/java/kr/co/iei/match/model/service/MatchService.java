@@ -74,10 +74,16 @@ public class MatchService {
 			
 		return result;
 	}
-
+	
+	@Transactional
 	public int updateStatus(HashMap<String, Object> param) {
 			int updateStatus = matchDao.updateStatus(param);
 		return updateStatus;
+	}
+
+	public List matchingList() {
+			List matchingList = matchDao.matchingList();
+		return matchingList;
 	}
 	
 }

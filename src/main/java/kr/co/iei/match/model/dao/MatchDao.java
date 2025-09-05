@@ -25,5 +25,7 @@ public interface MatchDao {
 	int matchComplete(HashMap<String, Object> param);
 
 	int updateStatus(HashMap<String, Object> param);
+
+	List matchingList();
 	
 }

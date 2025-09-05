@@ -45,7 +45,10 @@ public class MatchController {
 	}
 	
 	@GetMapping(value="/membershipFrm")
-	public String membershipFrm(){
+	public String membershipFrm(String memberGrade,Model model){
+		
+		model.addAttribute("memberGrade", memberGrade);
+		
 		return "/match/membershipFrm";
 	}
 	
@@ -162,7 +165,14 @@ public class MatchController {
 			
 			return "common/msg";
 		}
-		
 	}
+
 	
+	@GetMapping(value="/matchingList")
+	public String matchingList(Model model) {
+		List matchingList = matchService.matchingList();
+		System.out.println(matchingList);
+		model.addAttribute("list" , matchingList);
+		return "match/matchingList";
+	}
 }

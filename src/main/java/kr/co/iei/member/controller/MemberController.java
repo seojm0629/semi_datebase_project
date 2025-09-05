@@ -115,6 +115,7 @@ public class MemberController {
 	@GetMapping(value = "/masterPage")
 	public String masterPage(@SessionAttribute Member member, Model model) {
 		Member m = memberService.selectOneMember(member.getMemberId());
+		
 		model.addAttribute("m", m);
 		return "/member/masterPage";
 	}

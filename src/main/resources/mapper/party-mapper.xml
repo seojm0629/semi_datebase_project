@@ -5,7 +5,6 @@
 
 <mapper namespace="kr.co.iei.party.model.dao.PartyDao">
 
-	<!-- 전체 파티 조회 -->
 	<select id="getAllParties" resultType="party">
 		SELECT
 		party_no AS partyNo,
@@ -25,7 +24,6 @@
 		DESC
 	</select>
 
-	<!-- 타입별 파티 조회 -->
 	<select id="getPartyByType" parameterType="string"
 		resultType="party">
 		SELECT
@@ -43,8 +41,7 @@
 		partyPrice
 		FROM party
 		WHERE party_type = #{type}
-		ORDER BY party_date
-		DESC
+		ORDER BY party_date DESC
 	</select>
 
 	<insert id="insertParty" parameterType="party">
@@ -78,8 +75,7 @@
 	<select id="getPartyById" parameterType="int"
 		resultType="kr.co.iei.party.model.vo.Party">
 		SELECT party_no, party_title, party_date, party_place,
-		party_price,
-		party_thumb, party_type, party_content, party_male,
+		party_price, party_thumb, party_type, party_content, party_male,
 		party_female
 		FROM party
 		WHERE party_no = #{partyNo}
@@ -95,13 +91,14 @@
 	<select id="selectPartyMemberCount" resultType="map"
 		parameterType="int">
 		SELECT
-		SUM(CASE WHEN m.member_gender='m' THEN 1 ELSE 0 END) AS male_count,
-		SUM(CASE WHEN m.member_gender='f' THEN 1 ELSE 0 END) AS female_count
+		SUM(CASE WHEN m.member_gender='m' THEN 1 ELSE 0
+		END) AS male_count,
+		SUM(CASE WHEN m.member_gender='f' THEN 1 ELSE 0
+		END) AS female_count
 		FROM party_member pm
-		JOIN member m ON pm.member_id = m.member_id
+		JOIN member m ON pm.member_id
+		= m.member_id
 		WHERE pm.party_no = #{partyNo}
 	</select>
-
-
 
 </mapper>
